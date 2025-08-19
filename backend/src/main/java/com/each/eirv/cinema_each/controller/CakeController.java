@@ -1,9 +1,11 @@
 package com.each.eirv.cinema_each.controller;
 
+import com.each.eirv.cinema_each.model.Cake;
 import com.each.eirv.cinema_each.service.CakeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,7 +16,8 @@ public class CakeController {
 	private final CakeService cakeService;
 
 	@GetMapping
-	public String getCake() {
+	@ResponseBody
+	public Cake getCake() {
 		return this.cakeService.getCake();
 	}
 }
