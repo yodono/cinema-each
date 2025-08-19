@@ -1,8 +1,13 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Cake from "./components/Cake";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <>
-      <h1 className="font-bold underline">Cinema EACH</h1>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Cake />
+    </QueryClientProvider>
   );
 }
 
