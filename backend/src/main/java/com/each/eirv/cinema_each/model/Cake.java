@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class Cake {
-    String name = "Bolo de chocolate";
+    String name = "Bolo de cenoura";
 }

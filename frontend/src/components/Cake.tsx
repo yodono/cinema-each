@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 async function getCake() {
-  const res = await fetch("http://localhost:8080/cake");
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/cake`);
   return res.json();
 }
 

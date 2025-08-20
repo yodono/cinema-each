@@ -1,0 +1,36 @@
+services:
+  db:
+    image: "postgres"
+    container_name: db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+
+  backend:
+    image: "docker-spring-boot-postgres:latest"
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    container_name: frontend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8080
+      - CHOKIDAR_USEPOLLING=true
