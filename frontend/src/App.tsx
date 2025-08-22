@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Cake from "./components/Cake";
+import Cake from "./features/cake/components/Cake/Cake";
 
 const queryClient = new QueryClient();
 
