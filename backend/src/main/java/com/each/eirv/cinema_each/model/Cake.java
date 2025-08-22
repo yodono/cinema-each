@@ -1,12 +1,11 @@
 package com.each.eirv.cinema_each.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cake {
-    String name = "Bolo de cenoura";
+    private String name;
 }
