@@ -1,12 +1,20 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Cake from "./features/cake/components/Cake/Cake";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
 
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Cake />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }
