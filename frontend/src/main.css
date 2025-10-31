@@ -1,7 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: "Manrope", sans-serif;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -138,5 +143,44 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.439 0 0);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply rounded-xl border border-white/20 bg-white/10 shadow-lg;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+html:active-view-transition-type(slide-in) {
+  &::view-transition-new(main-content) {
+    animation: reveal 1600ms ease-in-out;
+  }
+  &::view-transition-old(main-content) {
+    animation: slide-out 1600ms ease-in-out;
+    z-index: 5000;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 100;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
   }
 }

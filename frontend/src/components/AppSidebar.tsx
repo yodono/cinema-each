@@ -15,12 +15,12 @@ import { Cake, Home, Ticket } from "lucide-react";
 const discoveryItems = [
   {
     title: "Início",
-    url: "/",
+    url: "/app/home",
     icon: Home,
   },
   {
     title: "Bolo",
-    url: "/cake",
+    url: "/app/cake",
     icon: Cake,
   },
 ];
@@ -28,14 +28,14 @@ const discoveryItems = [
 const libraryItems = [
   {
     title: "Clube CineAnima",
-    url: "/clube",
+    url: "/app/clube",
     icon: Ticket,
   },
 ];
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar className="glass">
       <SidebarHeader>
         <SidebarGroupLabel className="font-bold text-lg">
           CineAnima

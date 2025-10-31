@@ -27,3 +27,7 @@ Este projeto segue a arquitetura baseada em features (funcionalidades), organiza
 ├── types # Tipos TypeScript e interfaces globais compartilhadas entre diferentes partes do projeto.
 └── ...
 ```
+
+## Dependências
+
+- [Animate UI](https://animate-ui.com/): biblioteca open-source de componentes animados baseados em shadcn e tailwind.

@@ -9,12 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as CakeRouteImport } from './routes/cake'
+import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppCakeRouteImport } from './routes/app/cake'
 
-const CakeRoute = CakeRouteImport.update({
-  id: '/cake',
-  path: '/cake',
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -22,40 +23,48 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppCakeRoute = AppCakeRouteImport.update({
+  id: '/cake',
+  path: '/cake',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cake': typeof CakeRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/app/cake': typeof AppCakeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cake': typeof CakeRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/app/cake': typeof AppCakeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cake': typeof CakeRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/app/cake': typeof AppCakeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cake'
+  fullPaths: '/' | '/app' | '/app/cake'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cake'
-  id: '__root__' | '/' | '/cake'
+  to: '/' | '/app' | '/app/cake'
+  id: '__root__' | '/' | '/app' | '/app/cake'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CakeRoute: typeof CakeRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/cake': {
-      id: '/cake'
-      path: '/cake'
-      fullPath: '/cake'
-      preLoaderRoute: typeof CakeRouteImport
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -65,12 +74,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/cake': {
+      id: '/app/cake'
+      path: '/cake'
+      fullPath: '/app/cake'
+      preLoaderRoute: typeof AppCakeRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
+interface AppRouteRouteChildren {
+  AppCakeRoute: typeof AppCakeRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppCakeRoute: AppCakeRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CakeRoute: CakeRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
