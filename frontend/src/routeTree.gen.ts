@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppCakeRouteImport } from './routes/app/cake'
+import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
+import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
@@ -28,29 +30,62 @@ const AppCakeRoute = AppCakeRouteImport.update({
   path: '/cake',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
+  id: '/sessoes/pre-estreias',
+  path: '/sessoes/pre-estreias',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppEstatisticasBilheteriaRoute =
+  AppEstatisticasBilheteriaRouteImport.update({
+    id: '/estatisticas/bilheteria',
+    path: '/estatisticas/bilheteria',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/cake': typeof AppCakeRoute
+  '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/cake': typeof AppCakeRoute
+  '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/cake': typeof AppCakeRoute
+  '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/cake'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/cake'
+    | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/pre-estreias'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/app/cake'
-  id: '__root__' | '/' | '/app' | '/app/cake'
+  to:
+    | '/'
+    | '/app'
+    | '/app/cake'
+    | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/pre-estreias'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/cake'
+    | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/pre-estreias'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -81,15 +116,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCakeRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/sessoes/pre-estreias': {
+      id: '/app/sessoes/pre-estreias'
+      path: '/sessoes/pre-estreias'
+      fullPath: '/app/sessoes/pre-estreias'
+      preLoaderRoute: typeof AppSessoesPreEstreiasRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/estatisticas/bilheteria': {
+      id: '/app/estatisticas/bilheteria'
+      path: '/estatisticas/bilheteria'
+      fullPath: '/app/estatisticas/bilheteria'
+      preLoaderRoute: typeof AppEstatisticasBilheteriaRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
   AppCakeRoute: typeof AppCakeRoute
+  AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
+  AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppCakeRoute: AppCakeRoute,
+  AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
+  AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
