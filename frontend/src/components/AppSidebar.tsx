@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
 import {
-  Cake,
   Home,
   BarChart3,
   Film,
@@ -37,11 +36,6 @@ const discoveryItems = [
     title: "Início",
     url: "/app/home",
     icon: Home,
-  },
-  {
-    title: "Bolo",
-    url: "/app/cake",
-    icon: Cake,
   },
 ];
 

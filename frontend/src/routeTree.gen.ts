@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppCakeRouteImport } from './routes/app/cake'
+import { Route as AppVendasPorSessaoRouteImport } from './routes/app/vendas/por-sessao'
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 
@@ -25,9 +25,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCakeRoute = AppCakeRouteImport.update({
-  id: '/cake',
-  path: '/cake',
+const AppVendasPorSessaoRoute = AppVendasPorSessaoRouteImport.update({
+  id: '/vendas/por-sessao',
+  path: '/vendas/por-sessao',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
@@ -45,47 +45,47 @@ const AppEstatisticasBilheteriaRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/app/cake': typeof AppCakeRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/app/cake': typeof AppCakeRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/app/cake': typeof AppCakeRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/app'
-    | '/app/cake'
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-sessao'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/app'
-    | '/app/cake'
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-sessao'
   id:
     | '__root__'
     | '/'
     | '/app'
-    | '/app/cake'
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-sessao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -109,11 +109,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/cake': {
-      id: '/app/cake'
-      path: '/cake'
-      fullPath: '/app/cake'
-      preLoaderRoute: typeof AppCakeRouteImport
+    '/app/vendas/por-sessao': {
+      id: '/app/vendas/por-sessao'
+      path: '/vendas/por-sessao'
+      fullPath: '/app/vendas/por-sessao'
+      preLoaderRoute: typeof AppVendasPorSessaoRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/sessoes/pre-estreias': {
@@ -134,15 +134,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
-  AppCakeRoute: typeof AppCakeRoute
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
+  AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppCakeRoute: AppCakeRoute,
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
+  AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

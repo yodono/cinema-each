@@ -1,0 +1,107 @@
+package com.each.eirv.cinema_each.repository;
+
+import com.each.eirv.cinema_each.dto.BilheteriaDTO;
+import com.each.eirv.cinema_each.dto.SessaoDTO;
+import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
+import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Repository
+@RequiredArgsConstructor
+public class SessaoRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    // RF01 – Consultar Pré-estreias
+    public List<SessaoDTO> consultarPreEstreias(LocalDate inicio, LocalDate fim) {
+        String sql = """
+            SELECT
+                s.id_sessao,
+                f.titulo AS filme,
+                s.data,
+                s.horario,
+                sa.numero AS sala,
+                s.tipo_exibicao,
+                s.tipo_audio
+            FROM sessao s
+            JOIN filme f ON s.id_filme = f.id_filme
+            JOIN sala sa ON s.id_sala = sa.id_sala
+            WHERE s.data BETWEEN ? AND ?
+              AND s.data < f.data_estreia
+            ORDER BY s.data, s.horario;
+        """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SessaoDTO.class), inicio, fim);
+    }
+
+    // RF02 – Vendas por Sessão
+    public List<VendaSessaoDTO> consultarVendasPorSessao() {
+        String sql = """
+            SELECT
+                s.id_sessao,
+                f.titulo AS filme,
+                COUNT(i.id_produto) AS total_vendidos,
+                COUNT(*) FILTER (WHERE i.tipo = 'INTEIRA') AS inteiras_vendidas,
+                COUNT(*) FILTER (WHERE i.tipo = 'MEIA') AS meias_vendidas
+            FROM sessao s
+            JOIN filme f ON s.id_filme = f.id_filme
+            LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+            GROUP BY s.id_sessao, f.titulo
+            ORDER BY s.id_sessao;
+        """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VendaSessaoDTO.class));
+    }
+
+    // RF03 – Bilheteria e Arrecadação
+    public List<BilheteriaDTO> consultarBilheteriaPorFilme() {
+        String sql = """
+            SELECT
+                f.titulo,
+                SUM(p.preco_base) AS arrecadacao_total,
+                COUNT(i.id_produto) AS ingressos_vendidos
+            FROM filme f
+            JOIN sessao s ON f.id_filme = s.id_filme
+            JOIN ingresso i ON s.id_sessao = i.id_sessao
+            JOIN produto p ON i.id_produto = p.id_produto
+            GROUP BY f.titulo
+            ORDER BY arrecadacao_total DESC;
+        """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaDTO.class));
+    }
+
+    // RF04 – Taxa de Ocupação por Sessão
+    // RF05 – Sessões de Maior Ocupação por Sala
+    public List<TaxaOcupacaoDTO> consultarTaxaOcupacao(boolean apenasMaioresPorSala) {
+        String baseSql = """
+            SELECT
+                %s
+                s.id_sessao,
+                f.titulo,
+                sa.numero AS sala,
+                sa.capacidade,
+                COUNT(i.id_produto) AS ingressos_vendidos,
+                ROUND((COUNT(i.id_produto)::NUMERIC / sa.capacidade) * 100, 2) AS taxa_ocupacao_percentual
+            FROM sessao s
+            JOIN filme f ON s.id_filme = f.id_filme
+            JOIN sala sa ON s.id_sala = sa.id_sala
+            LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+            GROUP BY s.id_sessao, f.titulo, sa.numero, sa.capacidade
+            ORDER BY %s;
+        """;
+
+        String distinctClause = apenasMaioresPorSala ? "DISTINCT ON (sa.id_sala)\n" : "";
+        String orderByClause = apenasMaioresPorSala
+                ? "sa.id_sala, taxa_ocupacao_percentual DESC"
+                : "taxa_ocupacao_percentual DESC";
+
+        String sql = String.format(baseSql, distinctClause, orderByClause);
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TaxaOcupacaoDTO.class));
+    }
+}
+
