@@ -98,12 +98,11 @@ CREATE TABLE
 -- === FIM PRODUTO === ---
 
 -- TABELA: COMPRA (entidade fraca)
--- Depende de cliente (não incluído aqui, mas referenciado)
+-- Depende de cliente (já incluído)
 CREATE TABLE
   compra (
     id_compra SERIAL PRIMARY KEY,
-    -- TODO adicionar tabela cliente
-    -- id_produto INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
+    id_produto INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
     id_cliente INT,
     data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
@@ -122,3 +121,32 @@ CREATE TABLE
     pontos_ganhos INT DEFAULT 0,
     PRIMARY KEY (id_compra, id_produto)
   );
+
+-- TABELA: CLIENTE
+CREATE TABLE cliente (
+  id_cliente SERIAL PRIMARY KEY,
+  cpf VARCHAR(14) UNIQUE NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  data_nascimento DATE NOT NULL,
+  pontos_acumulados INT DEFAULT 0 CHECK (pontos_acumulados >= 0)
+);
+
+-- TABELA: PONTUACAO
+CREATE TABLE pontuacao (
+  id_pontuacao SERIAL PRIMARY KEY,
+  id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
+  id_compra INT REFERENCES compra (id_compra) ON DELETE SET NULL,
+  tipo VARCHAR(10) CHECK (tipo IN ('GANHO', 'USO')) NOT NULL,
+  valor INT NOT NULL,
+  data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- TABELA: RESGATE
+CREATE TABLE resgate (
+  id_resgate SERIAL PRIMARY KEY,
+  id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
+  id_produto INT NOT NULL REFERENCES produto (id_produto) ON DELETE RESTRICT,
+  pontos_utilizados INT NOT NULL CHECK (pontos_utilizados > 0),
+  data_resgate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
