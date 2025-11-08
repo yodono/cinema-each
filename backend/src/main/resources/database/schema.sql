@@ -123,7 +123,8 @@ CREATE TABLE
   );
 
 -- TABELA: CLIENTE
-CREATE TABLE cliente (
+CREATE TABLE 
+  cliente (
   id_cliente SERIAL PRIMARY KEY,
   cpf VARCHAR(14) UNIQUE NOT NULL,
   nome VARCHAR(255) NOT NULL,
@@ -133,7 +134,8 @@ CREATE TABLE cliente (
 );
 
 -- TABELA: PONTUACAO
-CREATE TABLE pontuacao (
+CREATE TABLE 
+  pontuacao (
   id_pontuacao SERIAL PRIMARY KEY,
   id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
   id_compra INT REFERENCES compra (id_compra) ON DELETE SET NULL,
@@ -143,7 +145,8 @@ CREATE TABLE pontuacao (
 );
 
 -- TABELA: RESGATE
-CREATE TABLE resgate (
+CREATE TABLE 
+  resgate (
   id_resgate SERIAL PRIMARY KEY,
   id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
   id_produto INT NOT NULL REFERENCES produto (id_produto) ON DELETE RESTRICT,
