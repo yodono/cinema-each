@@ -1,9 +1,6 @@
 package com.each.eirv.cinema_each.repository;
 
-import com.each.eirv.cinema_each.dto.BilheteriaDTO;
-import com.each.eirv.cinema_each.dto.SessaoDTO;
-import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
-import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+import com.each.eirv.cinema_each.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -102,6 +99,72 @@ public class SessaoRepository {
         String sql = String.format(baseSql, distinctClause, orderByClause);
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TaxaOcupacaoDTO.class));
+    }
+
+    // RF13 – Vendas por Dia da Semana
+    public List<VendasPorDiaDTO> consultarVendasPorDiaSemana() {
+        String sql = """
+        SELECT
+            TO_CHAR(s.data, 'Day') AS dia_semana,
+            COUNT(i.id_produto) AS ingressos_vendidos,
+            COUNT(*) FILTER (WHERE i.tipo = 'INTEIRA') AS inteiras,
+            COUNT(*) FILTER (WHERE i.tipo = 'MEIA') AS meias
+        FROM sessao s
+        LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+        GROUP BY dia_semana, EXTRACT(DOW FROM s.data)
+        ORDER BY EXTRACT(DOW FROM s.data);
+    """;
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VendasPorDiaDTO.class));
+    }
+
+    // RF16 – Horários Populares
+    // (Horários com mais ingressos vendidos)
+    public List<HorarioPopularDTO> consultarHorariosPopulares() {
+        String sql = """
+        SELECT
+            s.horario,
+            COUNT(i.id_produto) AS ingressos_vendidos
+        FROM sessao s
+        LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+        GROUP BY s.horario
+        ORDER BY ingressos_vendidos DESC;
+    """;
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(HorarioPopularDTO.class));
+    }
+
+    // RF18 – Filmes com mais sessões
+    public List<FilmeSessaoCountDTO> consultarFilmesComMaisSessoes() {
+        String sql = """
+        SELECT
+            f.titulo,
+            COUNT(s.id_sessao) AS total_sessoes
+        FROM filme f
+        JOIN sessao s ON f.id_filme = s.id_filme
+        GROUP BY f.titulo
+        ORDER BY total_sessoes DESC;
+    """;
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FilmeSessaoCountDTO.class));
+    }
+
+    // RF20 – Comparativo de Bilheteria por Sala
+    public List<BilheteriaPorSalaDTO> consultarBilheteriaPorSala() {
+        String sql = """
+        SELECT
+            sa.numero AS sala,
+            SUM(p.preco_base) AS arrecadacao_total,
+            COUNT(i.id_produto) AS ingressos_vendidos
+        FROM sala sa
+        JOIN sessao s ON sa.id_sala = s.id_sala
+        LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+        LEFT JOIN produto p ON i.id_produto = p.id_produto
+        GROUP BY sa.numero
+        ORDER BY arrecadacao_total DESC;
+    """;
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorSalaDTO.class));
     }
 }
 

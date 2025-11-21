@@ -1,9 +1,6 @@
 package com.each.eirv.cinema_each.controller;
 
-import com.each.eirv.cinema_each.dto.BilheteriaDTO;
-import com.each.eirv.cinema_each.dto.SessaoDTO;
-import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
-import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+import com.each.eirv.cinema_each.dto.*;
 import com.each.eirv.cinema_each.service.SessaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,5 +51,25 @@ public class SessaoController {
 	public ResponseEntity<List<TaxaOcupacaoDTO>> getSessoesMaisLotadas() {
 		List<TaxaOcupacaoDTO> maisLotadas = sessaoService.consultarSessoesMaisLotadas();
 		return ResponseEntity.ok(maisLotadas);
+	}
+
+	@GetMapping("/vendas-dia-semana")
+	public ResponseEntity<List<VendasPorDiaDTO>> getVendasPorDiaSemana() {
+		return ResponseEntity.ok(sessaoService.consultarVendasPorDiaSemana());
+	}
+
+	@GetMapping("/horarios-populares")
+	public ResponseEntity<List<HorarioPopularDTO>> getHorariosPopulares() {
+		return ResponseEntity.ok(sessaoService.consultarHorariosPopulares());
+	}
+
+	@GetMapping("/filmes-mais-sessoes")
+	public ResponseEntity<List<FilmeSessaoCountDTO>> getFilmesComMaisSessoes() {
+		return ResponseEntity.ok(sessaoService.consultarFilmesComMaisSessoes());
+	}
+
+	@GetMapping("/bilheteria-salas")
+	public ResponseEntity<List<BilheteriaPorSalaDTO>> getBilheteriaPorSala() {
+		return ResponseEntity.ok(sessaoService.consultarBilheteriaPorSala());
 	}
 }
