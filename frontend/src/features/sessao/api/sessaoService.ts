@@ -43,7 +43,7 @@ export async function getSessoesMaisLotadas(): Promise<OcupacaoSessao[]> {
 
 // RF13 - Vendas por Dia da Semana
 export async function getVendasPorDiaSemana(): Promise<VendasDiaSemana[]> {
-  return await get("/sessoes/vendas-por-dia");
+  return await get("/sessoes/vendas-dia-semana");
 }
 
 // RF16 - Horários Populares
@@ -58,5 +58,5 @@ export async function getFilmesMaisSessoes(): Promise<FilmeMaisSessoes[]> {
 
 // RF20 - Comparativo de Bilheteria por Sala
 export async function getBilheteriaPorSala(): Promise<BilheteriaPorSala[]> {
-  return await get("/sessoes/bilheteria-por-sala");
+  return await get("/sessoes/bilheteria-salas");
 }

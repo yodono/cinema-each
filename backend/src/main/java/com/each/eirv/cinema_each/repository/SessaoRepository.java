@@ -106,14 +106,23 @@ public class SessaoRepository {
     public List<VendasPorDiaDTO> consultarVendasPorDiaSemana() {
         String sql = """
         SELECT
-            TO_CHAR(s.data, 'Day') AS dia_semana,
+            CASE EXTRACT(DOW FROM s.data)
+              WHEN 0 THEN 'domingo'
+              WHEN 1 THEN 'segunda-feira'
+              WHEN 2 THEN 'terça-feira'
+              WHEN 3 THEN 'quarta-feira'
+              WHEN 4 THEN 'quinta-feira'
+              WHEN 5 THEN 'sexta-feira'
+              WHEN 6 THEN 'sábado'
+            END AS dia_semana,
+            EXTRACT(DOW FROM s.data) AS dow,
             COUNT(i.id_produto) AS ingressos_vendidos,
             COUNT(*) FILTER (WHERE i.tipo = 'INTEIRA') AS inteiras,
             COUNT(*) FILTER (WHERE i.tipo = 'MEIA') AS meias
         FROM sessao s
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
-        GROUP BY dia_semana, EXTRACT(DOW FROM s.data)
-        ORDER BY EXTRACT(DOW FROM s.data);
+        GROUP BY dia_semana, dow
+        ORDER BY dow;
     """;
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VendasPorDiaDTO.class));

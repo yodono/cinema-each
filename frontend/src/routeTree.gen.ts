@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppVendasPorSessaoRouteImport } from './routes/app/vendas/por-sessao'
+import { Route as AppVendasPorDiaRouteImport } from './routes/app/vendas/por-dia'
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
 import { Route as AppSessoesOcupacaoRouteImport } from './routes/app/sessoes/ocupacao'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppVendasPorSessaoRoute = AppVendasPorSessaoRouteImport.update({
   id: '/vendas/por-sessao',
   path: '/vendas/por-sessao',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppVendasPorDiaRoute = AppVendasPorDiaRouteImport.update({
+  id: '/vendas/por-dia',
+  path: '/vendas/por-dia',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRoutesByTo {
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRoutesById {
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
 export interface FileRouteTypes {
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
   id:
     | '__root__'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/app/estatisticas/bilheteria'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +140,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppVendasPorSessaoRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/vendas/por-dia': {
+      id: '/app/vendas/por-dia'
+      path: '/vendas/por-dia'
+      fullPath: '/app/vendas/por-dia'
+      preLoaderRoute: typeof AppVendasPorDiaRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/sessoes/pre-estreias': {
       id: '/app/sessoes/pre-estreias'
       path: '/sessoes/pre-estreias'
@@ -156,6 +175,7 @@ interface AppRouteRouteChildren {
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
   AppSessoesOcupacaoRoute: typeof AppSessoesOcupacaoRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
+  AppVendasPorDiaRoute: typeof AppVendasPorDiaRoute
   AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
 }
 
@@ -163,6 +183,7 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
   AppSessoesOcupacaoRoute: AppSessoesOcupacaoRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
+  AppVendasPorDiaRoute: AppVendasPorDiaRoute,
   AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
 }
 
