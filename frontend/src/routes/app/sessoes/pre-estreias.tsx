@@ -1,49 +1,74 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { useQueryPreEstreias } from "@/features/sessao/api/useSessaoQueries";
 import { createFileRoute } from "@tanstack/react-router";
+import type { DateRange } from "react-day-picker";
+import { DateRangePicker } from "@/components/DateRangePicker";
 
 export const Route = createFileRoute("/app/sessoes/pre-estreias")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isLoading } = useQueryPreEstreias({
-    inicio: "2025-11-01",
-    fim: "2025-11-30",
-  });
+  const [range, setRange] = useState<DateRange | undefined>();
+
+  const { data, isLoading } = useQueryPreEstreias(
+    {
+      inicio: range?.from?.toISOString().split("T")[0],
+      fim: range?.to?.toISOString().split("T")[0],
+    },
+    {
+      enabled: !!range,
+    }
+  );
+
+  const clear = () => {
+    setRange(undefined);
+  };
 
   return (
-    <div>
-      <h1 className="text-xl">Sessões de pré-estreia</h1>
-      <p className="mb-8">
-        Mostrando resultados entre {"2025-11-01"} e {"2025-11-10"}
-      </p>
-      <div className="flex gap-6 flex-wrap">
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold">Pré-estreias</h1>
+
+      <div className="flex gap-3">
+        <DateRangePicker range={range} onChange={setRange} />
+        <Button
+          variant={range ? "default" : "outline"}
+          onClick={() => clear()}
+          data-empty={!range}
+          className="data-[empty=true]:text-muted-foreground"
+        >
+          Limpar
+        </Button>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading &&
-          Array(10).fill(
-            <Skeleton className="h-[250px] w-[200px] rounded-xl bg-muted-foreground" />
-          )}
+          Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-[200px] w-full rounded-xl" />
+          ))}
 
         {!isLoading &&
           data?.map((sessao) => (
-            <Card className="pt-0">
-              <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-                <div className="grid flex-1 gap-1">
-                  <CardTitle>{sessao.filme}</CardTitle>
-                </div>
+            <Card key={sessao.id_sessao}>
+              <CardHeader>
+                <CardTitle>{sessao.filme}</CardTitle>
               </CardHeader>
-              <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-                {sessao.data}
-                {"\n"}
-                {sessao.horario}
-                {"\n"}
-                Sala {sessao.sala}
-                {"\n"}
-                {sessao.tipo_audio}
-                {"\n"}
-                {sessao.tipo_exibicao}
-                {"\n"}
+              <CardContent className="space-y-2">
+                <p>
+                  <b>Data:</b> {sessao.data}
+                </p>
+                <p>
+                  <b>Horário:</b> {sessao.horario}
+                </p>
+                <p>
+                  <b>Sala:</b> {sessao.sala}
+                </p>
+                <p>
+                  <b>Exibição:</b> {sessao.tipo_exibicao}
+                </p>
               </CardContent>
             </Card>
           ))}
