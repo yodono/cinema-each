@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FilmeSessaoCountDTO {
     private String titulo;
-    private Integer totalSessoes;
+    private Integer total_sessoes;
 }

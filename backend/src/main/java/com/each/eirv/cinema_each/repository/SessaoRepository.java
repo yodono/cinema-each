@@ -153,9 +153,9 @@ public class SessaoRepository {
     public List<BilheteriaPorSalaDTO> consultarBilheteriaPorSala() {
         String sql = """
         SELECT
-            sa.tipo AS tipoSala,
-            SUM(p.preco_base) AS arrecadacaoTotal,
-            COUNT(i.id_produto) AS ingressosVendidos
+            sa.tipo AS tipo_sala,
+            SUM(p.preco_base) AS arrecadacao_total,
+            COUNT(i.id_produto) AS ingressos_vendidos
         FROM sala sa
         JOIN sessao s ON sa.id_sala = s.id_sala
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao

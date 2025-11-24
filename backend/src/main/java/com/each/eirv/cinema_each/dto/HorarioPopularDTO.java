@@ -13,5 +13,5 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class HorarioPopularDTO {
     private LocalTime horario;
-    private Integer ingressosVendidos;
+    private Integer ingressos_vendidos;
 }

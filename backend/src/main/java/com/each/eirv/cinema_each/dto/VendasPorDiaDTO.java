@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VendasPorDiaDTO {
-    private String diaSemana;
-    private Integer ingressosVendidos;
+    private String dia_semana;
+    private Integer ingressos_vendidos;
     private Integer inteiras;
     private Integer meias;
 }

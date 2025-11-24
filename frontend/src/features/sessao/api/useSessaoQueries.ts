@@ -80,7 +80,6 @@ export function useQuerySessoesMaisLotadas(
   });
 }
 
-// RF13 – Vendas por Dia da Semana
 export function useQueryVendasPorDiaSemana(
   options?: QueryOptionsWithoutKey<VendasDiaSemana[], Error>
 ) {
@@ -91,7 +90,6 @@ export function useQueryVendasPorDiaSemana(
   });
 }
 
-// RF16 – Horários Populares
 export function useQueryHorariosPopulares(
   options?: QueryOptionsWithoutKey<HorarioPopular[], Error>
 ) {
@@ -102,7 +100,6 @@ export function useQueryHorariosPopulares(
   });
 }
 
-// RF18 – Filmes com Mais Sessões
 export function useQueryFilmesMaisSessoes(
   options?: QueryOptionsWithoutKey<FilmeMaisSessoes[], Error>
 ) {
@@ -113,7 +110,6 @@ export function useQueryFilmesMaisSessoes(
   });
 }
 
-// RF20 – Bilheteria por Sala
 export function useQueryBilheteriaPorSala(
   options?: QueryOptionsWithoutKey<BilheteriaPorSala[], Error>
 ) {
