@@ -149,19 +149,19 @@ public class SessaoRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FilmeSessaoCountDTO.class));
     }
 
-    // RF20 – Comparativo de Bilheteria por Sala
+    // RF20 – Comparativo de Bilheteria por Tipo de Sala (VIP, Comum, IMAX)
     public List<BilheteriaPorSalaDTO> consultarBilheteriaPorSala() {
         String sql = """
         SELECT
-            sa.numero AS sala,
-            SUM(p.preco_base) AS arrecadacao_total,
-            COUNT(i.id_produto) AS ingressos_vendidos
+            sa.tipo AS tipoSala,
+            SUM(p.preco_base) AS arrecadacaoTotal,
+            COUNT(i.id_produto) AS ingressosVendidos
         FROM sala sa
         JOIN sessao s ON sa.id_sala = s.id_sala
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
         LEFT JOIN produto p ON i.id_produto = p.id_produto
-        GROUP BY sa.numero
-        ORDER BY arrecadacao_total DESC;
+        GROUP BY sa.tipo
+        ORDER BY arrecadacaoTotal DESC;
     """;
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorSalaDTO.class));

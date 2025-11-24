@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BilheteriaPorSalaDTO {
-    private Integer sala;
+    private String tipoSala;         // VIP, COMUM, IMAX
     private Double arrecadacaoTotal;
     private Integer ingressosVendidos;
 }
