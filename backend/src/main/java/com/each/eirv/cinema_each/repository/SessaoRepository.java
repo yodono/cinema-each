@@ -87,16 +87,17 @@ public class SessaoRepository {
             JOIN filme f ON s.id_filme = f.id_filme
             JOIN sala sa ON s.id_sala = sa.id_sala
             LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
-            GROUP BY s.id_sessao, f.titulo, sa.numero, sa.capacidade
+            GROUP BY %s s.id_sessao, f.titulo, sa.numero, sa.capacidade
             ORDER BY %s;
         """;
 
         String distinctClause = apenasMaioresPorSala ? "DISTINCT ON (sa.id_sala)\n" : "";
+        String groupByClause = apenasMaioresPorSala ? "sa.id_sala," : "";
         String orderByClause = apenasMaioresPorSala
                 ? "sa.id_sala, taxa_ocupacao_percentual DESC"
                 : "taxa_ocupacao_percentual DESC";
 
-        String sql = String.format(baseSql, distinctClause, orderByClause);
+        String sql = String.format(baseSql, distinctClause, groupByClause, orderByClause);
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TaxaOcupacaoDTO.class));
     }
@@ -161,7 +162,7 @@ public class SessaoRepository {
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
         LEFT JOIN produto p ON i.id_produto = p.id_produto
         GROUP BY sa.tipo
-        ORDER BY arrecadacaoTotal DESC;
+        ORDER BY arrecadacao_total DESC;
     """;
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorSalaDTO.class));
