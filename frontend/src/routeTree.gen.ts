@@ -15,6 +15,7 @@ import { Route as AppVendasPorSessaoRouteImport } from './routes/app/vendas/por-
 import { Route as AppVendasPorDiaRouteImport } from './routes/app/vendas/por-dia'
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
 import { Route as AppSessoesOcupacaoRouteImport } from './routes/app/sessoes/ocupacao'
+import { Route as AppEstatisticasSessoesRouteImport } from './routes/app/estatisticas/sessoes'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -47,6 +48,11 @@ const AppSessoesOcupacaoRoute = AppSessoesOcupacaoRouteImport.update({
   path: '/sessoes/ocupacao',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppEstatisticasSessoesRoute = AppEstatisticasSessoesRouteImport.update({
+  id: '/estatisticas/sessoes',
+  path: '/estatisticas/sessoes',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppEstatisticasBilheteriaRoute =
   AppEstatisticasBilheteriaRouteImport.update({
     id: '/estatisticas/bilheteria',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
@@ -161,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSessoesOcupacaoRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/estatisticas/sessoes': {
+      id: '/app/estatisticas/sessoes'
+      path: '/estatisticas/sessoes'
+      fullPath: '/app/estatisticas/sessoes'
+      preLoaderRoute: typeof AppEstatisticasSessoesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/estatisticas/bilheteria': {
       id: '/app/estatisticas/bilheteria'
       path: '/estatisticas/bilheteria'
@@ -173,6 +192,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
+  AppEstatisticasSessoesRoute: typeof AppEstatisticasSessoesRoute
   AppSessoesOcupacaoRoute: typeof AppSessoesOcupacaoRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
   AppVendasPorDiaRoute: typeof AppVendasPorDiaRoute
@@ -181,6 +201,7 @@ interface AppRouteRouteChildren {
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
+  AppEstatisticasSessoesRoute: AppEstatisticasSessoesRoute,
   AppSessoesOcupacaoRoute: AppSessoesOcupacaoRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
   AppVendasPorDiaRoute: AppVendasPorDiaRoute,
