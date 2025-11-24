@@ -31,3 +31,24 @@ export interface OcupacaoSessao {
   ingressosVendidos: number;
   taxaOcupacao: number;
 }
+
+export interface VendasDiaSemana {
+  dia_semana: string;
+  total_vendidos: number;
+}
+
+export interface HorarioPopular {
+  horario: string;
+  ingressos_vendidos: number;
+}
+
+export interface FilmeMaisSessoes {
+  titulo: string;
+  total_sessoes: number;
+}
+
+export interface BilheteriaPorSala {
+  sala: number;
+  arrecadacao_total: number;
+  ingressos_vendidos: number;
+}
