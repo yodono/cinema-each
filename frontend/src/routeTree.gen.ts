@@ -13,6 +13,7 @@ import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppVendasPorSessaoRouteImport } from './routes/app/vendas/por-sessao'
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
+import { Route as AppSessoesOcupacaoRouteImport } from './routes/app/sessoes/ocupacao'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -35,6 +36,11 @@ const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
   path: '/sessoes/pre-estreias',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppSessoesOcupacaoRoute = AppSessoesOcupacaoRouteImport.update({
+  id: '/sessoes/ocupacao',
+  path: '/sessoes/ocupacao',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppEstatisticasBilheteriaRoute =
   AppEstatisticasBilheteriaRouteImport.update({
     id: '/estatisticas/bilheteria',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
 }
@@ -70,6 +79,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-sessao'
   fileRoutesByTo: FileRoutesByTo
@@ -77,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-sessao'
   id:
@@ -84,6 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-sessao'
   fileRoutesById: FileRoutesById
@@ -123,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSessoesPreEstreiasRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/sessoes/ocupacao': {
+      id: '/app/sessoes/ocupacao'
+      path: '/sessoes/ocupacao'
+      fullPath: '/app/sessoes/ocupacao'
+      preLoaderRoute: typeof AppSessoesOcupacaoRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/estatisticas/bilheteria': {
       id: '/app/estatisticas/bilheteria'
       path: '/estatisticas/bilheteria'
@@ -135,12 +154,14 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
+  AppSessoesOcupacaoRoute: typeof AppSessoesOcupacaoRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
   AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
+  AppSessoesOcupacaoRoute: AppSessoesOcupacaoRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
   AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
 }
