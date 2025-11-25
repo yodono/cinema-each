@@ -102,7 +102,7 @@ CREATE TABLE
 CREATE TABLE
   compra (
     id_compra SERIAL PRIMARY KEY,
-    id_produto INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
+    id_produto INT REFERENCES cliente (id_cliente) ON DELETE CASCADE,
     -- id_cliente INT,
     data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
