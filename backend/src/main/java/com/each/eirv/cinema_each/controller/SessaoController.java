@@ -1,21 +1,27 @@
 package com.each.eirv.cinema_each.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.each.eirv.cinema_each.dto.BilheteriaDTO;
 import com.each.eirv.cinema_each.dto.SessaoDTO;
 import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
 import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+
 import com.each.eirv.cinema_each.service.SessaoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/sessoes")
 @RequiredArgsConstructor
+
 public class SessaoController {
 
 	private final SessaoService sessaoService;
@@ -55,4 +61,5 @@ public class SessaoController {
 		List<TaxaOcupacaoDTO> maisLotadas = sessaoService.consultarSessoesMaisLotadas();
 		return ResponseEntity.ok(maisLotadas);
 	}
+
 }

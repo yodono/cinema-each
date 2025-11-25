@@ -1,16 +1,18 @@
 package com.each.eirv.cinema_each.repository;
 
-import com.each.eirv.cinema_each.dto.BilheteriaDTO;
-import com.each.eirv.cinema_each.dto.SessaoDTO;
-import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
-import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.each.eirv.cinema_each.dto.BilheteriaDTO;
+import com.each.eirv.cinema_each.dto.SessaoDTO;
+import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
+import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+
+import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
@@ -103,5 +105,9 @@ public class SessaoRepository {
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TaxaOcupacaoDTO.class));
     }
+
 }
+
+
+
 

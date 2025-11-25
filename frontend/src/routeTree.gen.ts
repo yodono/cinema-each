@@ -11,8 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppVendasSnacksRouteImport } from './routes/app/vendas/snacks'
 import { Route as AppVendasPorSessaoRouteImport } from './routes/app/vendas/por-sessao'
+import { Route as AppVendasFormaPagamentoRouteImport } from './routes/app/vendas/forma-pagamento'
+import { Route as AppVendasColecionaveisRouteImport } from './routes/app/vendas/colecionaveis'
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
+import { Route as AppPontosProdutosResgatadosRouteImport } from './routes/app/pontos/produtos-resgatados'
+import { Route as AppFilmesPorDiretorRouteImport } from './routes/app/filmes/por-diretor'
+import { Route as AppFilmesGeneroPorDiretorRouteImport } from './routes/app/filmes/genero-por-diretor'
+import { Route as AppFilmesEmCartazGeneroRouteImport } from './routes/app/filmes/em-cartaz-genero'
+import { Route as AppFilmesAtoresPorFilmeRouteImport } from './routes/app/filmes/atores-por-filme'
+import { Route as AppFilmesAtoresPopularesRouteImport } from './routes/app/filmes/atores-populares'
+import { Route as AppEstatisticasDuracaoMediaGeneroRouteImport } from './routes/app/estatisticas/duracao-media-genero'
+import { Route as AppEstatisticasBilheteriaPorGeneroRouteImport } from './routes/app/estatisticas/bilheteria-por-genero'
+import { Route as AppEstatisticasBilheteriaPorDiretorRouteImport } from './routes/app/estatisticas/bilheteria-por-diretor'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -25,9 +37,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppVendasSnacksRoute = AppVendasSnacksRouteImport.update({
+  id: '/vendas/snacks',
+  path: '/vendas/snacks',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppVendasPorSessaoRoute = AppVendasPorSessaoRouteImport.update({
   id: '/vendas/por-sessao',
   path: '/vendas/por-sessao',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppVendasFormaPagamentoRoute = AppVendasFormaPagamentoRouteImport.update({
+  id: '/vendas/forma-pagamento',
+  path: '/vendas/forma-pagamento',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppVendasColecionaveisRoute = AppVendasColecionaveisRouteImport.update({
+  id: '/vendas/colecionaveis',
+  path: '/vendas/colecionaveis',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
@@ -35,6 +62,57 @@ const AppSessoesPreEstreiasRoute = AppSessoesPreEstreiasRouteImport.update({
   path: '/sessoes/pre-estreias',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppPontosProdutosResgatadosRoute =
+  AppPontosProdutosResgatadosRouteImport.update({
+    id: '/pontos/produtos-resgatados',
+    path: '/pontos/produtos-resgatados',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppFilmesPorDiretorRoute = AppFilmesPorDiretorRouteImport.update({
+  id: '/filmes/por-diretor',
+  path: '/filmes/por-diretor',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppFilmesGeneroPorDiretorRoute =
+  AppFilmesGeneroPorDiretorRouteImport.update({
+    id: '/filmes/genero-por-diretor',
+    path: '/filmes/genero-por-diretor',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppFilmesEmCartazGeneroRoute = AppFilmesEmCartazGeneroRouteImport.update({
+  id: '/filmes/em-cartaz-genero',
+  path: '/filmes/em-cartaz-genero',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppFilmesAtoresPorFilmeRoute = AppFilmesAtoresPorFilmeRouteImport.update({
+  id: '/filmes/atores-por-filme',
+  path: '/filmes/atores-por-filme',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppFilmesAtoresPopularesRoute =
+  AppFilmesAtoresPopularesRouteImport.update({
+    id: '/filmes/atores-populares',
+    path: '/filmes/atores-populares',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppEstatisticasDuracaoMediaGeneroRoute =
+  AppEstatisticasDuracaoMediaGeneroRouteImport.update({
+    id: '/estatisticas/duracao-media-genero',
+    path: '/estatisticas/duracao-media-genero',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppEstatisticasBilheteriaPorGeneroRoute =
+  AppEstatisticasBilheteriaPorGeneroRouteImport.update({
+    id: '/estatisticas/bilheteria-por-genero',
+    path: '/estatisticas/bilheteria-por-genero',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppEstatisticasBilheteriaPorDiretorRoute =
+  AppEstatisticasBilheteriaPorDiretorRouteImport.update({
+    id: '/estatisticas/bilheteria-por-diretor',
+    path: '/estatisticas/bilheteria-por-diretor',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 const AppEstatisticasBilheteriaRoute =
   AppEstatisticasBilheteriaRouteImport.update({
     id: '/estatisticas/bilheteria',
@@ -46,23 +124,59 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/bilheteria-por-diretor': typeof AppEstatisticasBilheteriaPorDiretorRoute
+  '/app/estatisticas/bilheteria-por-genero': typeof AppEstatisticasBilheteriaPorGeneroRoute
+  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
+  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
+  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/em-cartaz-genero': typeof AppFilmesEmCartazGeneroRoute
+  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
+  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/pontos/produtos-resgatados': typeof AppPontosProdutosResgatadosRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/colecionaveis': typeof AppVendasColecionaveisRoute
+  '/app/vendas/forma-pagamento': typeof AppVendasFormaPagamentoRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/vendas/snacks': typeof AppVendasSnacksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/bilheteria-por-diretor': typeof AppEstatisticasBilheteriaPorDiretorRoute
+  '/app/estatisticas/bilheteria-por-genero': typeof AppEstatisticasBilheteriaPorGeneroRoute
+  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
+  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
+  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/em-cartaz-genero': typeof AppFilmesEmCartazGeneroRoute
+  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
+  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/pontos/produtos-resgatados': typeof AppPontosProdutosResgatadosRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/colecionaveis': typeof AppVendasColecionaveisRoute
+  '/app/vendas/forma-pagamento': typeof AppVendasFormaPagamentoRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/vendas/snacks': typeof AppVendasSnacksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/bilheteria-por-diretor': typeof AppEstatisticasBilheteriaPorDiretorRoute
+  '/app/estatisticas/bilheteria-por-genero': typeof AppEstatisticasBilheteriaPorGeneroRoute
+  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
+  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
+  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/em-cartaz-genero': typeof AppFilmesEmCartazGeneroRoute
+  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
+  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/pontos/produtos-resgatados': typeof AppPontosProdutosResgatadosRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
+  '/app/vendas/colecionaveis': typeof AppVendasColecionaveisRoute
+  '/app/vendas/forma-pagamento': typeof AppVendasFormaPagamentoRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/vendas/snacks': typeof AppVendasSnacksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -70,22 +184,58 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/bilheteria-por-diretor'
+    | '/app/estatisticas/bilheteria-por-genero'
+    | '/app/estatisticas/duracao-media-genero'
+    | '/app/filmes/atores-populares'
+    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/em-cartaz-genero'
+    | '/app/filmes/genero-por-diretor'
+    | '/app/filmes/por-diretor'
+    | '/app/pontos/produtos-resgatados'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/colecionaveis'
+    | '/app/vendas/forma-pagamento'
     | '/app/vendas/por-sessao'
+    | '/app/vendas/snacks'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/bilheteria-por-diretor'
+    | '/app/estatisticas/bilheteria-por-genero'
+    | '/app/estatisticas/duracao-media-genero'
+    | '/app/filmes/atores-populares'
+    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/em-cartaz-genero'
+    | '/app/filmes/genero-por-diretor'
+    | '/app/filmes/por-diretor'
+    | '/app/pontos/produtos-resgatados'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/colecionaveis'
+    | '/app/vendas/forma-pagamento'
     | '/app/vendas/por-sessao'
+    | '/app/vendas/snacks'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/bilheteria-por-diretor'
+    | '/app/estatisticas/bilheteria-por-genero'
+    | '/app/estatisticas/duracao-media-genero'
+    | '/app/filmes/atores-populares'
+    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/em-cartaz-genero'
+    | '/app/filmes/genero-por-diretor'
+    | '/app/filmes/por-diretor'
+    | '/app/pontos/produtos-resgatados'
     | '/app/sessoes/pre-estreias'
+    | '/app/vendas/colecionaveis'
+    | '/app/vendas/forma-pagamento'
     | '/app/vendas/por-sessao'
+    | '/app/vendas/snacks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -109,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/vendas/snacks': {
+      id: '/app/vendas/snacks'
+      path: '/vendas/snacks'
+      fullPath: '/app/vendas/snacks'
+      preLoaderRoute: typeof AppVendasSnacksRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/vendas/por-sessao': {
       id: '/app/vendas/por-sessao'
       path: '/vendas/por-sessao'
@@ -116,11 +273,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppVendasPorSessaoRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/vendas/forma-pagamento': {
+      id: '/app/vendas/forma-pagamento'
+      path: '/vendas/forma-pagamento'
+      fullPath: '/app/vendas/forma-pagamento'
+      preLoaderRoute: typeof AppVendasFormaPagamentoRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/vendas/colecionaveis': {
+      id: '/app/vendas/colecionaveis'
+      path: '/vendas/colecionaveis'
+      fullPath: '/app/vendas/colecionaveis'
+      preLoaderRoute: typeof AppVendasColecionaveisRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/sessoes/pre-estreias': {
       id: '/app/sessoes/pre-estreias'
       path: '/sessoes/pre-estreias'
       fullPath: '/app/sessoes/pre-estreias'
       preLoaderRoute: typeof AppSessoesPreEstreiasRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/pontos/produtos-resgatados': {
+      id: '/app/pontos/produtos-resgatados'
+      path: '/pontos/produtos-resgatados'
+      fullPath: '/app/pontos/produtos-resgatados'
+      preLoaderRoute: typeof AppPontosProdutosResgatadosRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/filmes/por-diretor': {
+      id: '/app/filmes/por-diretor'
+      path: '/filmes/por-diretor'
+      fullPath: '/app/filmes/por-diretor'
+      preLoaderRoute: typeof AppFilmesPorDiretorRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/filmes/genero-por-diretor': {
+      id: '/app/filmes/genero-por-diretor'
+      path: '/filmes/genero-por-diretor'
+      fullPath: '/app/filmes/genero-por-diretor'
+      preLoaderRoute: typeof AppFilmesGeneroPorDiretorRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/filmes/em-cartaz-genero': {
+      id: '/app/filmes/em-cartaz-genero'
+      path: '/filmes/em-cartaz-genero'
+      fullPath: '/app/filmes/em-cartaz-genero'
+      preLoaderRoute: typeof AppFilmesEmCartazGeneroRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/filmes/atores-por-filme': {
+      id: '/app/filmes/atores-por-filme'
+      path: '/filmes/atores-por-filme'
+      fullPath: '/app/filmes/atores-por-filme'
+      preLoaderRoute: typeof AppFilmesAtoresPorFilmeRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/filmes/atores-populares': {
+      id: '/app/filmes/atores-populares'
+      path: '/filmes/atores-populares'
+      fullPath: '/app/filmes/atores-populares'
+      preLoaderRoute: typeof AppFilmesAtoresPopularesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/estatisticas/duracao-media-genero': {
+      id: '/app/estatisticas/duracao-media-genero'
+      path: '/estatisticas/duracao-media-genero'
+      fullPath: '/app/estatisticas/duracao-media-genero'
+      preLoaderRoute: typeof AppEstatisticasDuracaoMediaGeneroRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/estatisticas/bilheteria-por-genero': {
+      id: '/app/estatisticas/bilheteria-por-genero'
+      path: '/estatisticas/bilheteria-por-genero'
+      fullPath: '/app/estatisticas/bilheteria-por-genero'
+      preLoaderRoute: typeof AppEstatisticasBilheteriaPorGeneroRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/estatisticas/bilheteria-por-diretor': {
+      id: '/app/estatisticas/bilheteria-por-diretor'
+      path: '/estatisticas/bilheteria-por-diretor'
+      fullPath: '/app/estatisticas/bilheteria-por-diretor'
+      preLoaderRoute: typeof AppEstatisticasBilheteriaPorDiretorRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/estatisticas/bilheteria': {
@@ -135,14 +369,41 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
+  AppEstatisticasBilheteriaPorDiretorRoute: typeof AppEstatisticasBilheteriaPorDiretorRoute
+  AppEstatisticasBilheteriaPorGeneroRoute: typeof AppEstatisticasBilheteriaPorGeneroRoute
+  AppEstatisticasDuracaoMediaGeneroRoute: typeof AppEstatisticasDuracaoMediaGeneroRoute
+  AppFilmesAtoresPopularesRoute: typeof AppFilmesAtoresPopularesRoute
+  AppFilmesAtoresPorFilmeRoute: typeof AppFilmesAtoresPorFilmeRoute
+  AppFilmesEmCartazGeneroRoute: typeof AppFilmesEmCartazGeneroRoute
+  AppFilmesGeneroPorDiretorRoute: typeof AppFilmesGeneroPorDiretorRoute
+  AppFilmesPorDiretorRoute: typeof AppFilmesPorDiretorRoute
+  AppPontosProdutosResgatadosRoute: typeof AppPontosProdutosResgatadosRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
+  AppVendasColecionaveisRoute: typeof AppVendasColecionaveisRoute
+  AppVendasFormaPagamentoRoute: typeof AppVendasFormaPagamentoRoute
   AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
+  AppVendasSnacksRoute: typeof AppVendasSnacksRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
+  AppEstatisticasBilheteriaPorDiretorRoute:
+    AppEstatisticasBilheteriaPorDiretorRoute,
+  AppEstatisticasBilheteriaPorGeneroRoute:
+    AppEstatisticasBilheteriaPorGeneroRoute,
+  AppEstatisticasDuracaoMediaGeneroRoute:
+    AppEstatisticasDuracaoMediaGeneroRoute,
+  AppFilmesAtoresPopularesRoute: AppFilmesAtoresPopularesRoute,
+  AppFilmesAtoresPorFilmeRoute: AppFilmesAtoresPorFilmeRoute,
+  AppFilmesEmCartazGeneroRoute: AppFilmesEmCartazGeneroRoute,
+  AppFilmesGeneroPorDiretorRoute: AppFilmesGeneroPorDiretorRoute,
+  AppFilmesPorDiretorRoute: AppFilmesPorDiretorRoute,
+  AppPontosProdutosResgatadosRoute: AppPontosProdutosResgatadosRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
+  AppVendasColecionaveisRoute: AppVendasColecionaveisRoute,
+  AppVendasFormaPagamentoRoute: AppVendasFormaPagamentoRoute,
   AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
+  AppVendasSnacksRoute: AppVendasSnacksRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

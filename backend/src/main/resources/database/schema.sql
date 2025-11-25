@@ -10,12 +10,14 @@ CREATE TABLE
     data_fim_cartaz DATE
   );
 
+-- TABELA: GENERO
 CREATE TABLE
   genero (
     id_genero SERIAL PRIMARY KEY,
     nome VARCHAR(100) UNIQUE NOT NULL
   );
 
+-- TABELA: FILME_GENERO
 CREATE TABLE
   filme_genero (
     id_filme INT NOT NULL REFERENCES filme(id_filme) ON DELETE CASCADE,
@@ -55,6 +57,36 @@ CREATE TABLE
     tipo_exibicao VARCHAR(20) CHECK (tipo_exibicao IN ('NORMAL', '3D', 'IMAX')) NOT NULL,
     tipo_audio VARCHAR(20) CHECK (tipo_audio IN ('DUBLADO', 'LEGENDADO')) NOT NULL,
     UNIQUE (id_sala, id_filme, data, horario)
+  );
+
+  -- TABELA: DIRETOR
+CREATE TABLE
+  diretor(
+    id_diretor SERIAL PRIMARY KEY,
+    nome VARCHAR(25) NOT NULL
+  );
+
+-- TABELA: DIRIGE_FILME
+CREATE TABLE
+  dirige_filme(
+    id_diretor INT NOT NULL REFERENCES diretor (id_diretor) ON DELETE CASCADE,
+    id_filme INT NOT NULL REFERENCES filme (id_filme) ON DELETE CASCADE,
+    PRIMARY KEY (id_filme, id_diretor)
+  )
+
+  -- TABELA: ATOR
+    CREATE TABLE
+    ator(
+      id_ator SERIAL PRIMARY KEY,
+      nome VARCHAR(25) NOT NULL
+    );
+
+-- TABELA: ATUA_EM (Relacionamento entre ator e filme: um ator pode atuar em vários filmes e um filme pode ter vários atores)
+CREATE TABLE  
+  atua_em(
+    id_filme INT REFERENCES filme (id_filme) ON DELETE CASCADE,
+    id_ator INT REFERENCES ator (id_ator) ON DELETE CASCADE,
+    PRIMARY KEY(id_filme, id_ator)
   );
 
 -- === PRODUTO === ---
@@ -102,7 +134,7 @@ CREATE TABLE
 CREATE TABLE
   compra (
     id_compra SERIAL PRIMARY KEY,
-    id_produto INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
+    id_cliente INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
     -- id_cliente INT,
     data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );

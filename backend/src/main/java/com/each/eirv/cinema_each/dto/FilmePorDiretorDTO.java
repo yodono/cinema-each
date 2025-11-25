@@ -1,0 +1,17 @@
+package com.each.eirv.cinema_each.dto;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class FilmePorDiretorDTO {
+    private String titulo;
+    private String sinopse;
+    private Integer classificacao_etaria; 
+} 

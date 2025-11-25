@@ -4,12 +4,15 @@ import com.each.eirv.cinema_each.dto.BilheteriaDTO;
 import com.each.eirv.cinema_each.dto.SessaoDTO;
 import com.each.eirv.cinema_each.dto.TaxaOcupacaoDTO;
 import com.each.eirv.cinema_each.dto.VendaSessaoDTO;
+
 import com.each.eirv.cinema_each.repository.SessaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
