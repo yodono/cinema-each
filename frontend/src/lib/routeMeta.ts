@@ -34,20 +34,10 @@ export const routeMeta: Record<
     icon: Calendar,
     group: "Sessões",
   },
-  "/app/sessoes/horarios": {
-    title: "Horários Populares",
-    icon: Calendar,
-    group: "Sessões",
-  },
 
   // ---------------------------
   // Filmes
   // ---------------------------
-  "/app/filmes/bilheteria": {
-    title: "Bilheteria e Arrecadação",
-    icon: Film,
-    group: "Filmes",
-  },
   "/app/filmes/em-cartaz": {
     title: "Em Cartaz",
     icon: Film,
@@ -131,7 +121,7 @@ export const routeMeta: Record<
   // Estatísticas e Rankings
   // ---------------------------
   "/app/estatisticas/bilheteria": {
-    title: "Comparativos de Bilheteria",
+    title: "Bilheteria E Arrecadação",
     icon: BarChart3,
     group: "Estatísticas e Rankings",
   },

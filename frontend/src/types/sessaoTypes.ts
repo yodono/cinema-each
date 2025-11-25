@@ -14,6 +14,8 @@ export interface VendaSessao {
   inteiras_vendidas: number;
   meias_vendidas: number;
   total_vendidos: number;
+  total_inteiras_geral: number;
+  total_meias_geral: number;
 }
 
 export interface BilheteriaFilme {
@@ -39,7 +41,7 @@ export interface VendasDiaSemana {
 }
 
 export interface HorarioPopular {
-  horario: string;
+  horario: number[];
   ingressos_vendidos: number;
 }
 
