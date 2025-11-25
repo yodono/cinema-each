@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VendaSessaoDTO {
-    private Integer id_sessao;
-    private String filme;
-    private Integer total_vendidos;
-    private Integer inteiras_vendidas;
-    private Integer meias_vendidas;
+public class GeneroMensalDTO {
+    private Integer ano;
+    private Integer mes;
+    private String nome_genero;
+    private Long total_ingressos;
 }

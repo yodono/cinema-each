@@ -17,6 +17,14 @@ import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/
 import { Route as AppSessoesOcupacaoRouteImport } from './routes/app/sessoes/ocupacao'
 import { Route as AppEstatisticasSessoesRouteImport } from './routes/app/estatisticas/sessoes'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
+import { Route as AppClientesSemMeiaRouteImport } from './routes/app/clientes/sem-meia'
+import { Route as AppClientesRankingRouteImport } from './routes/app/clientes/ranking'
+import { Route as AppClientesPorFilmeRouteImport } from './routes/app/clientes/por-filme'
+import { Route as AppClientesPontosRouteImport } from './routes/app/clientes/pontos'
+import { Route as AppClientesIdadeRouteImport } from './routes/app/clientes/idade'
+import { Route as AppClientesEstudantilRouteImport } from './routes/app/clientes/estudantil'
+import { Route as AppClientesIdadeMediaGenerosRouteImport } from './routes/app/clientes/idade-media/generos'
+import { Route as AppClientesIdadeMediaFilmesRouteImport } from './routes/app/clientes/idade-media/filmes'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
@@ -59,69 +67,159 @@ const AppEstatisticasBilheteriaRoute =
     path: '/estatisticas/bilheteria',
     getParentRoute: () => AppRouteRoute,
   } as any)
+const AppClientesSemMeiaRoute = AppClientesSemMeiaRouteImport.update({
+  id: '/clientes/sem-meia',
+  path: '/clientes/sem-meia',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesRankingRoute = AppClientesRankingRouteImport.update({
+  id: '/clientes/ranking',
+  path: '/clientes/ranking',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesPorFilmeRoute = AppClientesPorFilmeRouteImport.update({
+  id: '/clientes/por-filme',
+  path: '/clientes/por-filme',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesPontosRoute = AppClientesPontosRouteImport.update({
+  id: '/clientes/pontos',
+  path: '/clientes/pontos',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesIdadeRoute = AppClientesIdadeRouteImport.update({
+  id: '/clientes/idade',
+  path: '/clientes/idade',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesEstudantilRoute = AppClientesEstudantilRouteImport.update({
+  id: '/clientes/estudantil',
+  path: '/clientes/estudantil',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesIdadeMediaGenerosRoute =
+  AppClientesIdadeMediaGenerosRouteImport.update({
+    id: '/clientes/idade-media/generos',
+    path: '/clientes/idade-media/generos',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+const AppClientesIdadeMediaFilmesRoute =
+  AppClientesIdadeMediaFilmesRouteImport.update({
+    id: '/clientes/idade-media/filmes',
+    path: '/clientes/idade-media/filmes',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
+  '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
+  '/app/clientes/idade': typeof AppClientesIdadeRoute
+  '/app/clientes/pontos': typeof AppClientesPontosRoute
+  '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
+  '/app/clientes/ranking': typeof AppClientesRankingRoute
+  '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
+  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
+  '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
+  '/app/clientes/idade': typeof AppClientesIdadeRoute
+  '/app/clientes/pontos': typeof AppClientesPontosRoute
+  '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
+  '/app/clientes/ranking': typeof AppClientesRankingRoute
+  '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
+  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
+  '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
+  '/app/clientes/idade': typeof AppClientesIdadeRoute
+  '/app/clientes/pontos': typeof AppClientesPontosRoute
+  '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
+  '/app/clientes/ranking': typeof AppClientesRankingRoute
+  '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
+  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
+  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/app'
+    | '/app/clientes/estudantil'
+    | '/app/clientes/idade'
+    | '/app/clientes/pontos'
+    | '/app/clientes/por-filme'
+    | '/app/clientes/ranking'
+    | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
     | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
+    | '/app/clientes/idade-media/filmes'
+    | '/app/clientes/idade-media/generos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/app'
+    | '/app/clientes/estudantil'
+    | '/app/clientes/idade'
+    | '/app/clientes/pontos'
+    | '/app/clientes/por-filme'
+    | '/app/clientes/ranking'
+    | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
     | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
+    | '/app/clientes/idade-media/filmes'
+    | '/app/clientes/idade-media/generos'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/app/clientes/estudantil'
+    | '/app/clientes/idade'
+    | '/app/clientes/pontos'
+    | '/app/clientes/por-filme'
+    | '/app/clientes/ranking'
+    | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
     | '/app/estatisticas/sessoes'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
+    | '/app/clientes/idade-media/filmes'
+    | '/app/clientes/idade-media/generos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -187,25 +285,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEstatisticasBilheteriaRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/clientes/sem-meia': {
+      id: '/app/clientes/sem-meia'
+      path: '/clientes/sem-meia'
+      fullPath: '/app/clientes/sem-meia'
+      preLoaderRoute: typeof AppClientesSemMeiaRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/ranking': {
+      id: '/app/clientes/ranking'
+      path: '/clientes/ranking'
+      fullPath: '/app/clientes/ranking'
+      preLoaderRoute: typeof AppClientesRankingRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/por-filme': {
+      id: '/app/clientes/por-filme'
+      path: '/clientes/por-filme'
+      fullPath: '/app/clientes/por-filme'
+      preLoaderRoute: typeof AppClientesPorFilmeRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/pontos': {
+      id: '/app/clientes/pontos'
+      path: '/clientes/pontos'
+      fullPath: '/app/clientes/pontos'
+      preLoaderRoute: typeof AppClientesPontosRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/idade': {
+      id: '/app/clientes/idade'
+      path: '/clientes/idade'
+      fullPath: '/app/clientes/idade'
+      preLoaderRoute: typeof AppClientesIdadeRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/estudantil': {
+      id: '/app/clientes/estudantil'
+      path: '/clientes/estudantil'
+      fullPath: '/app/clientes/estudantil'
+      preLoaderRoute: typeof AppClientesEstudantilRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/idade-media/generos': {
+      id: '/app/clientes/idade-media/generos'
+      path: '/clientes/idade-media/generos'
+      fullPath: '/app/clientes/idade-media/generos'
+      preLoaderRoute: typeof AppClientesIdadeMediaGenerosRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/clientes/idade-media/filmes': {
+      id: '/app/clientes/idade-media/filmes'
+      path: '/clientes/idade-media/filmes'
+      fullPath: '/app/clientes/idade-media/filmes'
+      preLoaderRoute: typeof AppClientesIdadeMediaFilmesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
+  AppClientesEstudantilRoute: typeof AppClientesEstudantilRoute
+  AppClientesIdadeRoute: typeof AppClientesIdadeRoute
+  AppClientesPontosRoute: typeof AppClientesPontosRoute
+  AppClientesPorFilmeRoute: typeof AppClientesPorFilmeRoute
+  AppClientesRankingRoute: typeof AppClientesRankingRoute
+  AppClientesSemMeiaRoute: typeof AppClientesSemMeiaRoute
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
   AppEstatisticasSessoesRoute: typeof AppEstatisticasSessoesRoute
   AppSessoesOcupacaoRoute: typeof AppSessoesOcupacaoRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
   AppVendasPorDiaRoute: typeof AppVendasPorDiaRoute
   AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
+  AppClientesIdadeMediaFilmesRoute: typeof AppClientesIdadeMediaFilmesRoute
+  AppClientesIdadeMediaGenerosRoute: typeof AppClientesIdadeMediaGenerosRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppClientesEstudantilRoute: AppClientesEstudantilRoute,
+  AppClientesIdadeRoute: AppClientesIdadeRoute,
+  AppClientesPontosRoute: AppClientesPontosRoute,
+  AppClientesPorFilmeRoute: AppClientesPorFilmeRoute,
+  AppClientesRankingRoute: AppClientesRankingRoute,
+  AppClientesSemMeiaRoute: AppClientesSemMeiaRoute,
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
   AppEstatisticasSessoesRoute: AppEstatisticasSessoesRoute,
   AppSessoesOcupacaoRoute: AppSessoesOcupacaoRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,
   AppVendasPorDiaRoute: AppVendasPorDiaRoute,
   AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
+  AppClientesIdadeMediaFilmesRoute: AppClientesIdadeMediaFilmesRoute,
+  AppClientesIdadeMediaGenerosRoute: AppClientesIdadeMediaGenerosRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
