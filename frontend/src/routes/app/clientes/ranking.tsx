@@ -16,6 +16,8 @@ import {
 } from "recharts";
 import { useQueryRankingClientesPorCompra } from "@/features/clientes/api/useClientesQueries";
 import { cn } from "@/lib/utils";
+import { DarkGlass } from "@/components/DarkGlass";
+import { GlassStat } from "@/components/GlassStat";
 
 const PRIMARY = "#a78bfa";
 
@@ -30,23 +32,6 @@ interface ClienteRanking {
   nome: string;
   cpf: string;
   total_produtos_comprados: number;
-}
-
-function DarkGlass({ children, className }: any) {
-  return (
-    <div
-      className={cn(
-        "backdrop-blur-xl border rounded-2xl shadow-xl p-6",
-        className
-      )}
-      style={{
-        background: "rgba(20, 20, 30, 0.55)",
-        borderColor: "rgba(255, 255, 255, 0.08)",
-      }}
-    >
-      {children}
-    </div>
-  );
 }
 
 function RankingComprasPage() {
@@ -76,13 +61,7 @@ function RankingComprasPage() {
       const aVal = a[sortField];
       const bVal = b[sortField];
 
-      return sortDir === "asc"
-        ? aVal > bVal
-          ? 1
-          : -1
-        : aVal < bVal
-        ? 1
-        : -1;
+      return sortDir === "asc" ? (aVal > bVal ? 1 : -1) : aVal < bVal ? 1 : -1;
     });
   }, [q.data, sortField, sortDir]);
 
@@ -177,16 +156,8 @@ function RankingComprasPage() {
               <BarChart data={sortedData.slice(0, 10)}>
                 <defs>
                   <linearGradient id="barColor" x1="0" y1="0" x2="0" y2="1">
-                    <stop
-                      stopColor={PRIMARY}
-                      offset="0%"
-                      stopOpacity={0.9}
-                    />
-                    <stop
-                      stopColor="#4c1d95"
-                      offset="100%"
-                      stopOpacity={0.9}
-                    />
+                    <stop stopColor={PRIMARY} offset="0%" stopOpacity={0.9} />
+                    <stop stopColor="#4c1d95" offset="100%" stopOpacity={0.9} />
                   </linearGradient>
                 </defs>
 
@@ -264,15 +235,6 @@ function RankingComprasPage() {
   );
 }
 
-function GlassStat({ title, value }: any) {
-  return (
-    <DarkGlass>
-      <p className="text-sm text-zinc-300">{title}</p>
-      <p className="mt-3 text-4xl font-extrabold text-white">{value}</p>
-    </DarkGlass>
-  );
-}
-
 function TableRanking({
   data,
   sortField,
@@ -315,8 +277,7 @@ function TableRanking({
                 onClick={() => handleSort("total_produtos_comprados")}
                 className={cn(
                   "flex items-center justify-end gap-2 hover:text-purple-300 transition",
-                  sortField === "total_produtos_comprados" &&
-                    "text-purple-300"
+                  sortField === "total_produtos_comprados" && "text-purple-300"
                 )}
               >
                 Total
@@ -366,10 +327,7 @@ function exportCSV(rows: any[]) {
   const csv =
     header +
     rows
-      .map(
-        (r) =>
-          `${r.nome},${r.cpf},${r.total_produtos_comprados}`
-      )
+      .map((r) => `${r.nome},${r.cpf},${r.total_produtos_comprados}`)
       .join("\n");
 
   const blob = new Blob([csv], { type: "text/csv" });
@@ -382,4 +340,3 @@ function exportCSV(rows: any[]) {
 }
 
 export default RankingComprasPage;
-

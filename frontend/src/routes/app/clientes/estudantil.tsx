@@ -16,6 +16,8 @@ import {
 } from "recharts";
 import { useQueryPublicoEstudantil } from "@/features/clientes/api/useClientesQueries";
 import { cn } from "@/lib/utils";
+import { DarkGlass } from "@/components/DarkGlass";
+import { GlassStat } from "@/components/GlassStat";
 
 const PRIMARY = "#a78bfa"; // violeta pastel roxinho
 
@@ -29,23 +31,6 @@ type PublicoEstudantilData = {
   total_ingressos: number;
   percentual_meia_entrada: number;
 };
-
-function DarkGlass({ children, className }: any) {
-  return (
-    <div
-      className={cn(
-        "backdrop-blur-xl border rounded-2xl shadow-xl p-6",
-        className
-      )}
-      style={{
-        background: "rgba(20, 20, 30, 0.55)",
-        borderColor: "rgba(255, 255, 255, 0.08)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 function exportCSV(rows: PublicoEstudantilData[]) {
   if (!rows || rows.length === 0) return;
@@ -193,21 +178,13 @@ function TableEstudantil({
   );
 }
 
-function GlassStat({ title, value }: any) {
-  return (
-    <DarkGlass>
-      <p className="text-sm text-zinc-300">{title}</p>
-      <p className="mt-3 text-4xl font-extrabold text-white">{value}</p>
-    </DarkGlass>
-  );
-}
-
 function PublicoEstudantilPage() {
   const [inicio, setInicio] = useState<string>();
   const [fim, setFim] = useState<string>();
 
-  const [sortField, setSortField] =
-    useState<keyof PublicoEstudantilData>("percentual_meia_entrada");
+  const [sortField, setSortField] = useState<keyof PublicoEstudantilData>(
+    "percentual_meia_entrada"
+  );
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const q = useQueryPublicoEstudantil({ inicio, fim });
@@ -272,10 +249,7 @@ function PublicoEstudantilPage() {
           />
           <GlassStat
             title="Total de Meias"
-            value={dataOrdenada.reduce(
-              (s, r) => s + r.total_meia_entrada,
-              0
-            )}
+            value={dataOrdenada.reduce((s, r) => s + r.total_meia_entrada, 0)}
           />
           <GlassStat
             title="Top (Meias)"
@@ -387,4 +361,3 @@ function PublicoEstudantilPage() {
 }
 
 export default PublicoEstudantilPage;
-
