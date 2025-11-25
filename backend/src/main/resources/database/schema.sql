@@ -20,8 +20,8 @@ CREATE TABLE
 -- TABELA: FILME_GENERO
 CREATE TABLE
   filme_genero (
-    id_filme INT NOT NULL REFERENCES filme(id_filme) ON DELETE CASCADE,
-    id_genero INT NOT NULL REFERENCES genero(id_genero) ON DELETE CASCADE,
+    id_filme INT NOT NULL REFERENCES filme (id_filme) ON DELETE CASCADE,
+    id_genero INT NOT NULL REFERENCES genero (id_genero) ON DELETE CASCADE,
     PRIMARY KEY (id_filme, id_genero)
   );
 
@@ -59,34 +59,34 @@ CREATE TABLE
     UNIQUE (id_sala, id_filme, data, horario)
   );
 
-  -- TABELA: DIRETOR
+-- TABELA: DIRETOR
 CREATE TABLE
-  diretor(
+  diretor (
     id_diretor SERIAL PRIMARY KEY,
     nome VARCHAR(25) NOT NULL
   );
 
 -- TABELA: DIRIGE_FILME
 CREATE TABLE
-  dirige_filme(
+  dirige_filme (
     id_diretor INT NOT NULL REFERENCES diretor (id_diretor) ON DELETE CASCADE,
     id_filme INT NOT NULL REFERENCES filme (id_filme) ON DELETE CASCADE,
     PRIMARY KEY (id_filme, id_diretor)
-  )
+  );
 
-  -- TABELA: ATOR
-    CREATE TABLE
-    ator(
-      id_ator SERIAL PRIMARY KEY,
-      nome VARCHAR(25) NOT NULL
-    );
+-- TABELA: ATOR
+CREATE TABLE
+  ator (
+    id_ator SERIAL PRIMARY KEY,
+    nome VARCHAR(25) NOT NULL
+  );
 
 -- TABELA: ATUA_EM (Relacionamento entre ator e filme: um ator pode atuar em vários filmes e um filme pode ter vários atores)
-CREATE TABLE  
-  atua_em(
+CREATE TABLE
+  atua_em (
     id_filme INT REFERENCES filme (id_filme) ON DELETE CASCADE,
     id_ator INT REFERENCES ator (id_ator) ON DELETE CASCADE,
-    PRIMARY KEY(id_filme, id_ator)
+    PRIMARY KEY (id_filme, id_ator)
   );
 
 -- === PRODUTO === ---
@@ -121,21 +121,30 @@ CREATE TABLE
 -- TABELA: INGRESSO (especialização)
 CREATE TABLE
   ingresso (
-    id_produto INT PRIMARY KEY REFERENCES produto (id_produto) ON DELETE CASCADE,
+    id_produto INT REFERENCES produto (id_produto) ON DELETE CASCADE,
     id_sessao INT NOT NULL REFERENCES sessao (id_sessao) ON DELETE CASCADE,
     id_assento INT NOT NULL REFERENCES assento (id_assento) ON DELETE CASCADE,
     tipo VARCHAR(20) CHECK (tipo IN ('INTEIRA', 'MEIA')) NOT NULL,
-    UNIQUE (id_sessao, id_assento)
+    PRIMARY KEY (id_sessao, id_assento)
   );
+
 -- === FIM PRODUTO === ---
+-- TABELA: CLIENTE
+CREATE TABLE
+  cliente (
+    id_cliente SERIAL PRIMARY KEY,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    data_nascimento DATE NOT NULL,
+    pontos_acumulados INT DEFAULT 0 CHECK (pontos_acumulados >= 0)
+  );
 
 -- TABELA: COMPRA (entidade fraca)
--- Depende de cliente (já incluído)
 CREATE TABLE
   compra (
     id_compra SERIAL PRIMARY KEY,
-    id_cliente INT REFERENCES cliente (id_cliente) ON DELETE CASCADE
-    -- id_cliente INT,
+    id_cliente INT REFERENCES cliente (id_cliente) ON DELETE CASCADE,
     data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -154,34 +163,23 @@ CREATE TABLE
     PRIMARY KEY (id_compra, id_produto)
   );
 
--- TABELA: CLIENTE
-CREATE TABLE 
-  cliente (
-  id_cliente SERIAL PRIMARY KEY,
-  cpf VARCHAR(14) UNIQUE NOT NULL,
-  nome VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  data_nascimento DATE NOT NULL,
-  pontos_acumulados INT DEFAULT 0 CHECK (pontos_acumulados >= 0)
-);
-
 -- TABELA: PONTUACAO
-CREATE TABLE 
+CREATE TABLE
   pontuacao (
-  id_pontuacao SERIAL PRIMARY KEY,
-  id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
-  id_compra INT REFERENCES compra (id_compra) ON DELETE SET NULL,
-  tipo VARCHAR(10) CHECK (tipo IN ('GANHO', 'USO')) NOT NULL,
-  valor INT NOT NULL,
-  data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    id_pontuacao SERIAL PRIMARY KEY,
+    id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
+    id_compra INT REFERENCES compra (id_compra) ON DELETE SET NULL,
+    tipo VARCHAR(10) CHECK (tipo IN ('GANHO', 'USO')) NOT NULL,
+    valor INT NOT NULL,
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
 -- TABELA: RESGATE
-CREATE TABLE 
+CREATE TABLE
   resgate (
-  id_resgate SERIAL PRIMARY KEY,
-  id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
-  id_produto INT NOT NULL REFERENCES produto (id_produto) ON DELETE RESTRICT,
-  pontos_utilizados INT NOT NULL CHECK (pontos_utilizados > 0),
-  data_resgate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    id_resgate SERIAL PRIMARY KEY,
+    id_cliente INT NOT NULL REFERENCES cliente (id_cliente) ON DELETE CASCADE,
+    id_produto INT NOT NULL REFERENCES produto (id_produto) ON DELETE RESTRICT,
+    pontos_utilizados INT NOT NULL CHECK (pontos_utilizados > 0),
+    data_resgate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
