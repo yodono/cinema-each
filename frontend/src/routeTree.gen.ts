@@ -33,10 +33,9 @@ import { Route as AppClientesSemMeiaRouteImport } from './routes/app/clientes/se
 import { Route as AppClientesRankingRouteImport } from './routes/app/clientes/ranking'
 import { Route as AppClientesPorFilmeRouteImport } from './routes/app/clientes/por-filme'
 import { Route as AppClientesPontosRouteImport } from './routes/app/clientes/pontos'
-import { Route as AppClientesIdadeRouteImport } from './routes/app/clientes/idade'
 import { Route as AppClientesEstudantilRouteImport } from './routes/app/clientes/estudantil'
-import { Route as AppClientesIdadeMediaGenerosRouteImport } from './routes/app/clientes/idade-media/generos'
-import { Route as AppClientesIdadeMediaFilmesRouteImport } from './routes/app/clientes/idade-media/filmes'
+import { Route as AppClientesIdadeGenerosRouteImport } from './routes/app/clientes/idade/generos'
+import { Route as AppClientesIdadeFilmesRouteImport } from './routes/app/clientes/idade/filmes'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
@@ -165,34 +164,26 @@ const AppClientesPontosRoute = AppClientesPontosRouteImport.update({
   path: '/clientes/pontos',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppClientesIdadeRoute = AppClientesIdadeRouteImport.update({
-  id: '/clientes/idade',
-  path: '/clientes/idade',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppClientesEstudantilRoute = AppClientesEstudantilRouteImport.update({
   id: '/clientes/estudantil',
   path: '/clientes/estudantil',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppClientesIdadeMediaGenerosRoute =
-  AppClientesIdadeMediaGenerosRouteImport.update({
-    id: '/clientes/idade-media/generos',
-    path: '/clientes/idade-media/generos',
-    getParentRoute: () => AppRouteRoute,
-  } as any)
-const AppClientesIdadeMediaFilmesRoute =
-  AppClientesIdadeMediaFilmesRouteImport.update({
-    id: '/clientes/idade-media/filmes',
-    path: '/clientes/idade-media/filmes',
-    getParentRoute: () => AppRouteRoute,
-  } as any)
+const AppClientesIdadeGenerosRoute = AppClientesIdadeGenerosRouteImport.update({
+  id: '/clientes/idade/generos',
+  path: '/clientes/idade/generos',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientesIdadeFilmesRoute = AppClientesIdadeFilmesRouteImport.update({
+  id: '/clientes/idade/filmes',
+  path: '/clientes/idade/filmes',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
-  '/app/clientes/idade': typeof AppClientesIdadeRoute
   '/app/clientes/pontos': typeof AppClientesPontosRoute
   '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
   '/app/clientes/ranking': typeof AppClientesRankingRoute
@@ -215,14 +206,13 @@ export interface FileRoutesByFullPath {
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
   '/app/vendas/snacks': typeof AppVendasSnacksRoute
-  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
-  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
+  '/app/clientes/idade/filmes': typeof AppClientesIdadeFilmesRoute
+  '/app/clientes/idade/generos': typeof AppClientesIdadeGenerosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
-  '/app/clientes/idade': typeof AppClientesIdadeRoute
   '/app/clientes/pontos': typeof AppClientesPontosRoute
   '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
   '/app/clientes/ranking': typeof AppClientesRankingRoute
@@ -245,15 +235,14 @@ export interface FileRoutesByTo {
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
   '/app/vendas/snacks': typeof AppVendasSnacksRoute
-  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
-  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
+  '/app/clientes/idade/filmes': typeof AppClientesIdadeFilmesRoute
+  '/app/clientes/idade/generos': typeof AppClientesIdadeGenerosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/app/clientes/estudantil': typeof AppClientesEstudantilRoute
-  '/app/clientes/idade': typeof AppClientesIdadeRoute
   '/app/clientes/pontos': typeof AppClientesPontosRoute
   '/app/clientes/por-filme': typeof AppClientesPorFilmeRoute
   '/app/clientes/ranking': typeof AppClientesRankingRoute
@@ -276,8 +265,8 @@ export interface FileRoutesById {
   '/app/vendas/por-dia': typeof AppVendasPorDiaRoute
   '/app/vendas/por-sessao': typeof AppVendasPorSessaoRoute
   '/app/vendas/snacks': typeof AppVendasSnacksRoute
-  '/app/clientes/idade-media/filmes': typeof AppClientesIdadeMediaFilmesRoute
-  '/app/clientes/idade-media/generos': typeof AppClientesIdadeMediaGenerosRoute
+  '/app/clientes/idade/filmes': typeof AppClientesIdadeFilmesRoute
+  '/app/clientes/idade/generos': typeof AppClientesIdadeGenerosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -285,7 +274,6 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/clientes/estudantil'
-    | '/app/clientes/idade'
     | '/app/clientes/pontos'
     | '/app/clientes/por-filme'
     | '/app/clientes/ranking'
@@ -308,14 +296,13 @@ export interface FileRouteTypes {
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
     | '/app/vendas/snacks'
-    | '/app/clientes/idade-media/filmes'
-    | '/app/clientes/idade-media/generos'
+    | '/app/clientes/idade/filmes'
+    | '/app/clientes/idade/generos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/app'
     | '/app/clientes/estudantil'
-    | '/app/clientes/idade'
     | '/app/clientes/pontos'
     | '/app/clientes/por-filme'
     | '/app/clientes/ranking'
@@ -338,14 +325,13 @@ export interface FileRouteTypes {
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
     | '/app/vendas/snacks'
-    | '/app/clientes/idade-media/filmes'
-    | '/app/clientes/idade-media/generos'
+    | '/app/clientes/idade/filmes'
+    | '/app/clientes/idade/generos'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/app/clientes/estudantil'
-    | '/app/clientes/idade'
     | '/app/clientes/pontos'
     | '/app/clientes/por-filme'
     | '/app/clientes/ranking'
@@ -368,8 +354,8 @@ export interface FileRouteTypes {
     | '/app/vendas/por-dia'
     | '/app/vendas/por-sessao'
     | '/app/vendas/snacks'
-    | '/app/clientes/idade-media/filmes'
-    | '/app/clientes/idade-media/generos'
+    | '/app/clientes/idade/filmes'
+    | '/app/clientes/idade/generos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -547,13 +533,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppClientesPontosRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/clientes/idade': {
-      id: '/app/clientes/idade'
-      path: '/clientes/idade'
-      fullPath: '/app/clientes/idade'
-      preLoaderRoute: typeof AppClientesIdadeRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/app/clientes/estudantil': {
       id: '/app/clientes/estudantil'
       path: '/clientes/estudantil'
@@ -561,18 +540,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppClientesEstudantilRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/clientes/idade-media/generos': {
-      id: '/app/clientes/idade-media/generos'
-      path: '/clientes/idade-media/generos'
-      fullPath: '/app/clientes/idade-media/generos'
-      preLoaderRoute: typeof AppClientesIdadeMediaGenerosRouteImport
+    '/app/clientes/idade/generos': {
+      id: '/app/clientes/idade/generos'
+      path: '/clientes/idade/generos'
+      fullPath: '/app/clientes/idade/generos'
+      preLoaderRoute: typeof AppClientesIdadeGenerosRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/clientes/idade-media/filmes': {
-      id: '/app/clientes/idade-media/filmes'
-      path: '/clientes/idade-media/filmes'
-      fullPath: '/app/clientes/idade-media/filmes'
-      preLoaderRoute: typeof AppClientesIdadeMediaFilmesRouteImport
+    '/app/clientes/idade/filmes': {
+      id: '/app/clientes/idade/filmes'
+      path: '/clientes/idade/filmes'
+      fullPath: '/app/clientes/idade/filmes'
+      preLoaderRoute: typeof AppClientesIdadeFilmesRouteImport
       parentRoute: typeof AppRouteRoute
     }
   }
@@ -580,7 +559,6 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppClientesEstudantilRoute: typeof AppClientesEstudantilRoute
-  AppClientesIdadeRoute: typeof AppClientesIdadeRoute
   AppClientesPontosRoute: typeof AppClientesPontosRoute
   AppClientesPorFilmeRoute: typeof AppClientesPorFilmeRoute
   AppClientesRankingRoute: typeof AppClientesRankingRoute
@@ -603,13 +581,12 @@ interface AppRouteRouteChildren {
   AppVendasPorDiaRoute: typeof AppVendasPorDiaRoute
   AppVendasPorSessaoRoute: typeof AppVendasPorSessaoRoute
   AppVendasSnacksRoute: typeof AppVendasSnacksRoute
-  AppClientesIdadeMediaFilmesRoute: typeof AppClientesIdadeMediaFilmesRoute
-  AppClientesIdadeMediaGenerosRoute: typeof AppClientesIdadeMediaGenerosRoute
+  AppClientesIdadeFilmesRoute: typeof AppClientesIdadeFilmesRoute
+  AppClientesIdadeGenerosRoute: typeof AppClientesIdadeGenerosRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppClientesEstudantilRoute: AppClientesEstudantilRoute,
-  AppClientesIdadeRoute: AppClientesIdadeRoute,
   AppClientesPontosRoute: AppClientesPontosRoute,
   AppClientesPorFilmeRoute: AppClientesPorFilmeRoute,
   AppClientesRankingRoute: AppClientesRankingRoute,
@@ -635,8 +612,8 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppVendasPorDiaRoute: AppVendasPorDiaRoute,
   AppVendasPorSessaoRoute: AppVendasPorSessaoRoute,
   AppVendasSnacksRoute: AppVendasSnacksRoute,
-  AppClientesIdadeMediaFilmesRoute: AppClientesIdadeMediaFilmesRoute,
-  AppClientesIdadeMediaGenerosRoute: AppClientesIdadeMediaGenerosRoute,
+  AppClientesIdadeFilmesRoute: AppClientesIdadeFilmesRoute,
+  AppClientesIdadeGenerosRoute: AppClientesIdadeGenerosRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

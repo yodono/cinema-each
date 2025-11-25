@@ -82,8 +82,13 @@ export const routeMeta: Record<
     icon: Users,
     group: "Clientes",
   },
-  "/app/clientes/idade": {
-    title: "Perfil e Idade Média",
+  "/app/clientes/idade/filmes": {
+    title: "Idade Média Por Filme",
+    icon: Users,
+    group: "Clientes",
+  },
+  "/app/clientes/idade/generos": {
+    title: "Idade Média Por Gênero",
     icon: Users,
     group: "Clientes",
   },
