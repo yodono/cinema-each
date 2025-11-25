@@ -16,4 +16,6 @@ public class VendaSessaoDTO {
     private Integer total_vendidos;
     private Integer inteiras_vendidas;
     private Integer meias_vendidas;
+    private Integer total_inteiras_geral;
+    private Integer total_meias_geral;
 }

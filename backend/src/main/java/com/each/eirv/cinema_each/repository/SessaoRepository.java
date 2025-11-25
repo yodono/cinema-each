@@ -44,7 +44,11 @@ public class SessaoRepository {
                 f.titulo AS filme,
                 COUNT(i.id_produto) AS total_vendidos,
                 COUNT(*) FILTER (WHERE i.tipo = 'INTEIRA') AS inteiras_vendidas,
-                COUNT(*) FILTER (WHERE i.tipo = 'MEIA') AS meias_vendidas
+                COUNT(*) FILTER (WHERE i.tipo = 'MEIA') AS meias_vendidas,
+                SUM(COUNT(*) FILTER (WHERE i.tipo = 'INTEIRA'))
+                    OVER () AS total_inteiras_geral,
+                SUM(COUNT(*) FILTER (WHERE i.tipo = 'MEIA'))
+                    OVER () AS total_meias_geral
             FROM sessao s
             JOIN filme f ON s.id_filme = f.id_filme
             LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
