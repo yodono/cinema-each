@@ -5,8 +5,10 @@ import com.each.eirv.cinema_each.repository.SessaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor

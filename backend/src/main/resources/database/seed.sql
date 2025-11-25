@@ -34,6 +34,39 @@ VALUES
     (9,7),(9,8),
     (10,1),(10,2),(10,6);
 
+-- DIRETOR
+    INSERT INTO diretor(nome) VALUES
+    ('Hayao Miyazaki'),    -- 1 (Chihiro, Kiki, Totoro)
+    ('Hiromasa Yonebayashi'), -- 2 (Pequeninos)
+    ('Gil Kenan'),         -- 3 (Casa Monstro)
+    ('Wes Anderson'),      -- 4 (Sr. Raposo, Ilha dos Cachorros)
+    ('Richard Ayoade'),    -- 5 (Submarine)
+    ('Nicolas Winding Refn'), -- 6 (Drive)
+    ('Martin Scorsese'),   -- 7 (Taxi Driver)
+    ('Denis Villeneuve'),  -- 8 (Duna 2)
+    ('Julius Avery');      -- 9 (O Exorcista do Papa)
+
+
+-- DIRIGE_FILME
+INSERT INTO dirige_filme(id_diretor, id_filme)
+VALUES
+    (1, 1), (2, 2), (3, 3), (1, 4), (4, 5), (4, 6),
+    (5, 7), (6, 8), (7, 9), (1, 10), (8, 11), (9, 12);
+
+-- ATORES 
+INSERT INTO ator(nome) VALUES
+    ('Ryan Gosling'),      -- 1 (Drive)
+    ('Robert De Niro'),    -- 2 (Taxi Driver)
+    ('Timothée Chalamet'), -- 3 (Duna 2)
+    ('Florence Pugh'),     -- 4 (Duna 2)
+    ('Russell Crowe'),     -- 5 (O Exorcista do Papa)
+    ('Craig Roberts');     -- 6 (Submarine)
+
+-- ATUA_EM 
+INSERT INTO atua_em(id_filme, id_ator)
+VALUES
+    (8, 1), (9, 2), (11, 3), (11, 4), (12, 5), (7, 6);    
+
 -- SALAS
 INSERT INTO sala (numero, capacidade, tipo) VALUES
     (1, 60, 'COMUM'),
