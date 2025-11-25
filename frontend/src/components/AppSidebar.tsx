@@ -34,7 +34,7 @@ interface RouteMeta {
 function buildLibraryItems(meta: Record<string, RouteMeta>) {
   const groups: Record<
     string,
-    { title: string; icon: LucideIcon; items: any[] }
+    { title: string; icon: LucideIcon; items: { title: string; url: string }[] }
   > = {};
 
   for (const [url, info] of Object.entries(meta)) {
