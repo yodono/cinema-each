@@ -4,6 +4,10 @@ import {
   type VendaSessao,
   type BilheteriaFilme,
   type OcupacaoSessao,
+  type VendasDiaSemana,
+  type HorarioPopular,
+  type FilmeMaisSessoes,
+  type BilheteriaPorSala,
 } from "../../../types/sessaoTypes";
 
 // RF01 - Consultar Pré-estreias
@@ -35,4 +39,24 @@ export async function getTaxaOcupacao(): Promise<OcupacaoSessao[]> {
 // RF05 - Sessões de Maior Ocupação
 export async function getSessoesMaisLotadas(): Promise<OcupacaoSessao[]> {
   return await get("/sessoes/mais-lotadas");
+}
+
+// RF13 - Vendas por Dia da Semana
+export async function getVendasPorDiaSemana(): Promise<VendasDiaSemana[]> {
+  return await get("/sessoes/vendas-dia-semana");
+}
+
+// RF16 - Horários Populares
+export async function getHorariosPopulares(): Promise<HorarioPopular[]> {
+  return await get("/sessoes/horarios-populares");
+}
+
+// RF18 - Filmes com Mais Sessões
+export async function getFilmesMaisSessoes(): Promise<FilmeMaisSessoes[]> {
+  return await get("/sessoes/filmes-mais-sessoes");
+}
+
+// RF20 - Comparativo de Bilheteria por Sala
+export async function getBilheteriaPorSala(): Promise<BilheteriaPorSala[]> {
+  return await get("/sessoes/bilheteria-salas");
 }

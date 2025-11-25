@@ -17,17 +17,39 @@ export interface VendaSessao {
 }
 
 export interface BilheteriaFilme {
-  filmeId: number;
-  filmeTitulo: string;
-  totalIngressos: number;
-  totalArrecadado: number;
+  titulo: string;
+  arrecadacao_total: number;
+  ingressos_vendidos: number;
 }
 
 export interface OcupacaoSessao {
-  sessaoId: number;
-  filmeTitulo: string;
-  salaNumero: number;
+  id_sessao: number;
+  titulo: string;
+  sala: number;
   capacidade: number;
-  ingressosVendidos: number;
-  taxaOcupacao: number;
+  ingressos_vendidos: number;
+  taxa_ocupacao_percentual: number;
+}
+
+export interface VendasDiaSemana {
+  dia_semana: string;
+  ingressos_vendidos: number;
+  inteiras: number;
+  meias: number;
+}
+
+export interface HorarioPopular {
+  horario: string;
+  ingressos_vendidos: number;
+}
+
+export interface FilmeMaisSessoes {
+  titulo: string;
+  total_sessoes: number;
+}
+
+export interface BilheteriaPorSala {
+  tipo_sala: string;
+  arrecadacao_total: number;
+  ingressos_vendidos: number;
 }

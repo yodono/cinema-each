@@ -11,15 +11,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
 import {
-  Home,
-  BarChart3,
-  Film,
-  Users,
-  Calendar,
-  DollarSign,
-  Gift,
-} from "lucide-react";
-import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
@@ -31,108 +22,50 @@ import {
   DropdownMenuHighlightItem,
 } from "./animate-ui/primitives/radix/dropdown-menu";
 
-const discoveryItems = [
-  {
-    title: "Início",
-    url: "/app/home",
-    icon: Home,
-  },
-];
+import type { LucideIcon } from "lucide-react";
+import { routeMeta } from "@/lib/routeMeta";
 
-const libraryItems = [
-  {
-    title: "Sessões",
-    icon: Calendar,
-    items: [
-      { title: "Pré-estreias", url: "/app/sessoes/pre-estreias" },
-      { title: "Taxa de Ocupação", url: "/app/sessoes/ocupacao" },
-      { title: "Sessões Populares", url: "/app/sessoes/populares" },
-      { title: "Horários Populares", url: "/app/sessoes/horarios" },
-    ],
-  },
-  {
-    title: "Filmes",
-    icon: Film,
-    items: [
-      { title: "Bilheteria e Arrecadação", url: "/app/filmes/bilheteria" },
-      { title: "Em Cartaz", url: "/app/filmes/em-cartaz" },
-      { title: "Por Diretor", url: "/app/filmes/por-diretor" },
-      { title: "Por Gênero", url: "/app/filmes/por-genero" },
-      { title: "Atores e Popularidade", url: "/app/filmes/atores" },
-    ],
-  },
-  {
-    title: "Clientes",
-    icon: Users,
-    items: [
-      { title: "Ranking de Compras", url: "/app/clientes/ranking" },
-      { title: "Ranking por Pontos", url: "/app/clientes/pontos" },
-      { title: "Clientes por Filme", url: "/app/clientes/por-filme" },
-      { title: "Sem Meia-entrada", url: "/app/clientes/sem-meia" },
-      { title: "Perfil e Idade Média", url: "/app/clientes/idade" },
-    ],
-  },
-  {
-    title: "Vendas e Produtos",
-    icon: DollarSign,
-    items: [
-      { title: "Vendas por Sessão", url: "/app/vendas/por-sessao" },
-      { title: "Por Dia da Semana", url: "/app/vendas/por-dia" },
-      { title: "Snacks", url: "/app/vendas/snacks" },
-      { title: "Colecionáveis", url: "/app/vendas/colecionaveis" },
-      { title: "Formas de Pagamento", url: "/app/vendas/pagamento" },
-    ],
-  },
-  {
-    title: "Estatísticas e Rankings",
-    icon: BarChart3,
-    items: [
-      {
-        title: "Comparativos de Bilheteria",
-        url: "/app/estatisticas/bilheteria",
-      },
-      { title: "Gêneros Mais Assistidos", url: "/app/estatisticas/generos" },
-      { title: "Filmes com Mais Sessões", url: "/app/estatisticas/sessoes" },
-      { title: "Duração Média por Gênero", url: "/app/estatisticas/duracao" },
-    ],
-  },
-  {
-    title: "Programa de Pontos",
-    icon: Gift,
-    items: [
-      { title: "Produtos Resgatados", url: "/app/pontos/produtos" },
-      { title: "Ranking de Resgates", url: "/app/pontos/ranking" },
-    ],
-  },
-];
+interface RouteMeta {
+  title: string;
+  icon: LucideIcon;
+  group: string;
+}
+
+function buildLibraryItems(meta: Record<string, RouteMeta>) {
+  const groups: Record<
+    string,
+    { title: string; icon: LucideIcon; items: { title: string; url: string }[] }
+  > = {};
+
+  for (const [url, info] of Object.entries(meta)) {
+    if (!groups[info.group]) {
+      groups[info.group] = {
+        title: info.group,
+        icon: info.icon,
+        items: [],
+      };
+    }
+
+    groups[info.group].items.push({
+      title: info.title,
+      url,
+    });
+  }
+
+  return Object.values(groups);
+}
+
+const libraryItems = buildLibraryItems(routeMeta);
 
 export function AppSidebar() {
   return (
-    <Sidebar className="glass">
+    <Sidebar collapsible="icon" className="glass">
       <SidebarHeader>
         <SidebarGroupLabel className="font-bold text-lg">
           CineAnima
         </SidebarGroupLabel>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="font-bold">Descubra</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {discoveryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
         <SidebarGroup>
           <SidebarGroupLabel className="font-bold">
             Biblioteca
