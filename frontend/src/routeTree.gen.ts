@@ -23,6 +23,7 @@ import { Route as AppFilmesDiretoresRouteImport } from './routes/app/filmes/dire
 import { Route as AppFilmesCartazRouteImport } from './routes/app/filmes/cartaz'
 import { Route as AppFilmesAtoresRouteImport } from './routes/app/filmes/atores'
 import { Route as AppEstatisticasSessoesRouteImport } from './routes/app/estatisticas/sessoes'
+import { Route as AppEstatisticasGenerosRouteImport } from './routes/app/estatisticas/generos'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 import { Route as AppClientesSemMeiaRouteImport } from './routes/app/clientes/sem-meia'
 import { Route as AppClientesRankingRouteImport } from './routes/app/clientes/ranking'
@@ -102,6 +103,11 @@ const AppEstatisticasSessoesRoute = AppEstatisticasSessoesRouteImport.update({
   path: '/estatisticas/sessoes',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppEstatisticasGenerosRoute = AppEstatisticasGenerosRouteImport.update({
+  id: '/estatisticas/generos',
+  path: '/estatisticas/generos',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppEstatisticasBilheteriaRoute =
   AppEstatisticasBilheteriaRouteImport.update({
     id: '/estatisticas/bilheteria',
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/generos': typeof AppEstatisticasGenerosRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
@@ -177,6 +184,7 @@ export interface FileRoutesByTo {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/generos': typeof AppEstatisticasGenerosRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
+  '/app/estatisticas/generos': typeof AppEstatisticasGenerosRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
   '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/generos'
     | '/app/estatisticas/sessoes'
     | '/app/filmes/atores'
     | '/app/filmes/cartaz'
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/generos'
     | '/app/estatisticas/sessoes'
     | '/app/filmes/atores'
     | '/app/filmes/cartaz'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
+    | '/app/estatisticas/generos'
     | '/app/estatisticas/sessoes'
     | '/app/filmes/atores'
     | '/app/filmes/cartaz'
@@ -397,6 +409,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEstatisticasSessoesRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/estatisticas/generos': {
+      id: '/app/estatisticas/generos'
+      path: '/estatisticas/generos'
+      fullPath: '/app/estatisticas/generos'
+      preLoaderRoute: typeof AppEstatisticasGenerosRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/estatisticas/bilheteria': {
       id: '/app/estatisticas/bilheteria'
       path: '/estatisticas/bilheteria'
@@ -463,6 +482,7 @@ interface AppRouteRouteChildren {
   AppClientesRankingRoute: typeof AppClientesRankingRoute
   AppClientesSemMeiaRoute: typeof AppClientesSemMeiaRoute
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
+  AppEstatisticasGenerosRoute: typeof AppEstatisticasGenerosRoute
   AppEstatisticasSessoesRoute: typeof AppEstatisticasSessoesRoute
   AppFilmesAtoresRoute: typeof AppFilmesAtoresRoute
   AppFilmesCartazRoute: typeof AppFilmesCartazRoute
@@ -486,6 +506,7 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppClientesRankingRoute: AppClientesRankingRoute,
   AppClientesSemMeiaRoute: AppClientesSemMeiaRoute,
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
+  AppEstatisticasGenerosRoute: AppEstatisticasGenerosRoute,
   AppEstatisticasSessoesRoute: AppEstatisticasSessoesRoute,
   AppFilmesAtoresRoute: AppFilmesAtoresRoute,
   AppFilmesCartazRoute: AppFilmesCartazRoute,

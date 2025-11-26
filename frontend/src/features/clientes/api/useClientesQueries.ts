@@ -9,6 +9,8 @@ import {
   getClientesPorFilme,
   getGenerosMaisAssistidos,
 } from "./clientesService";
+import type { QueryOptionsWithoutKey } from "@/features/sessao/api/useSessaoQueries";
+import type { GeneroMensal } from "@/types/clientesTypes";
 
 // RF6
 export function useQueryRankingClientesPorCompra(params?: {
@@ -68,18 +70,22 @@ export function useQueryClientesSemMeia() {
 export function useQueryClientesPorFilme(idFilme?: number) {
   return useQuery({
     queryKey: ["clientes", "por-filme", idFilme],
-    queryFn: () => getClientesPorFilme(idFilme as number), 
+    queryFn: () => getClientesPorFilme(idFilme as number),
     enabled: idFilme != null && idFilme > 0,
   });
 }
 
 // RF 19
-export function useQueryGenerosMaisAssistidos(params?: {
-  inicio?: string;
-  fim?: string;
-}) {
+export function useQueryGenerosMaisAssistidos(
+  params?: {
+    inicio?: string;
+    fim?: string;
+  },
+  options?: QueryOptionsWithoutKey<GeneroMensal[], Error>
+) {
   return useQuery({
     queryKey: ["publico", "generos-mensal", params],
     queryFn: () => getGenerosMaisAssistidos(params),
+    ...options,
   });
 }

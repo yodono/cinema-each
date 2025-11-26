@@ -144,9 +144,4 @@ export const routeMeta: Record<
     icon: Gift,
     group: "Programa de Pontos",
   },
-  "/app/pontos/ranking": {
-    title: "Ranking de Resgates",
-    icon: Gift,
-    group: "Programa de Pontos",
-  },
 } as const;

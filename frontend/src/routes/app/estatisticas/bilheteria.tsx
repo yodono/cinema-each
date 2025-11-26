@@ -244,7 +244,7 @@ function BilheteriaPorDiretor() {
       )}
       {!isLoading && data && (
         <Table>
-          <TableCaption>Bilheteria por filme</TableCaption>
+          <TableCaption>Bilheteria por diretor</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Ranking</TableHead>
