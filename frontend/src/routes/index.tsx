@@ -16,7 +16,7 @@ function Index() {
           Painel administrativo de gestão de cinema
         </p>
         <Link
-          to="/app/home"
+          to="/app/sessoes/pre-estreias"
           viewTransition={{ types: ["slide-in"] }}
           className="px-6 py-2 text-md transition font-bold mt-4 glass border-purple-500/20 bg-purple-500/20 hover:bg-purple-700/20"
         >
