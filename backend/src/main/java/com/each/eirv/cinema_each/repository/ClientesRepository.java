@@ -65,12 +65,12 @@ public class ClientesRepository {
                 CAST(ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))) AS INTEGER) AS idade_media
             FROM cliente c
             JOIN compra co ON c.id_cliente = co.id_cliente
-            JOIN compra_produto cp ON co.id_compra = cp.id_compra
-            JOIN ingresso i ON cp.id_produto = i.id_produto
+            JOIN ingresso i ON co.id_compra = i.id_compra
             JOIN sessao s ON i.id_sessao = s.id_sessao
             JOIN filme f ON s.id_filme = f.id_filme
             GROUP BY f.titulo
             ORDER BY idade_media DESC;
+
         """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(IdadeMediaDTO.class));
     }
@@ -83,14 +83,15 @@ public class ClientesRepository {
                 ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))::NUMERIC, 2) AS idade_media
             FROM cliente c
             JOIN compra co ON c.id_cliente = co.id_cliente
-            JOIN compra_produto cp ON co.id_compra = cp.id_compra
-            JOIN ingresso i ON cp.id_produto = i.id_produto
+            JOIN ingresso i ON co.id_compra = i.id_compra
             JOIN sessao s ON i.id_sessao = s.id_sessao
             JOIN filme f ON s.id_filme = f.id_filme
             JOIN filme_genero fg ON f.id_filme = fg.id_filme
             JOIN genero g ON fg.id_genero = g.id_genero
             GROUP BY g.nome
             ORDER BY idade_media DESC;
+
+
         """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(IdadeMediaDTO.class));
     }
