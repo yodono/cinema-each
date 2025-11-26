@@ -115,8 +115,7 @@ function ClientesTable({
                 onClick={() => handleSort("nome")}
                 className={cn(
                   "flex items-center gap-1 hover:text-purple-700 dark:hover:text-purple-300 transition-colors",
-                  sortField === "nome" &&
-                    "text-purple-700 dark:text-purple-300"
+                  sortField === "nome" && "text-purple-700 dark:text-purple-300"
                 )}
               >
                 Nome
@@ -129,8 +128,7 @@ function ClientesTable({
                 onClick={() => handleSort("cpf")}
                 className={cn(
                   "flex items-center gap-1 hover:text-purple-700 dark:hover:text-purple-300 transition-colors",
-                  sortField === "cpf" &&
-                    "text-purple-700 dark:text-purple-300"
+                  sortField === "cpf" && "text-purple-700 dark:text-purple-300"
                 )}
               >
                 CPF
@@ -198,21 +196,7 @@ function ClientesPorFilmePage() {
   const total = sortedData.length;
 
   return (
-    <div className="p-6 md:p-10 space-y-12">
-      {/* TÍTULO */}
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg backdrop-blur-xl"
-          style={{ background: `${PRIMARY}22` }}
-        >
-          <Users className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-700 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
-          Clientes por Filme
-        </h1>
-      </div>
-
+    <div>
       {/* INPUT + AÇÕES */}
       <Card className="shadow-xl border border-white/20 dark:border-white/10 rounded-2xl backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
         <CardHeader className="p-6 border-b border-white/20 dark:border-white/10">
@@ -240,7 +224,10 @@ function ClientesPorFilmePage() {
             <Button
               onClick={aplicarFiltro}
               className="h-10 px-4 gap-1 text-white rounded-xl shadow-lg hover:scale-105 active:scale-95"
-              style={{ background: PRIMARY, boxShadow: `0 0 12px ${PRIMARY}77` }}
+              style={{
+                background: PRIMARY,
+                boxShadow: `0 0 12px ${PRIMARY}77`,
+              }}
             >
               <Search className="w-4 h-4" />
               Buscar
@@ -267,7 +254,9 @@ function ClientesPorFilmePage() {
       )}
       <Card className="shadow-xl border border-white/20 dark:border-white/10 rounded-2xl backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
         <CardHeader className="flex flex-row items-center justify-between p-6 border-b border-white/20 dark:border-white/10">
-          <CardTitle className="text-2xl font-bold">Lista de Clientes</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Lista de Clientes
+          </CardTitle>
 
           {!q.isLoading && total > 0 && (
             <Button

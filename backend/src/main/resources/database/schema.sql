@@ -89,6 +89,17 @@ CREATE TABLE
     PRIMARY KEY (id_filme, id_ator)
   );
 
+-- TABELA: CLIENTE
+CREATE TABLE
+    cliente (
+                id_cliente SERIAL PRIMARY KEY,
+                cpf VARCHAR(14) UNIQUE NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                data_nascimento DATE NOT NULL,
+                pontos_acumulados INT DEFAULT 0 CHECK (pontos_acumulados >= 0)
+);
+
 -- === PRODUTO === ---
 -- TABELA: PRODUTO (superclasse)
 CREATE TABLE
@@ -99,6 +110,29 @@ CREATE TABLE
     pontos_ganhos INT DEFAULT 0,
     pontos_necessarios INT DEFAULT 0
   );
+
+-- TABELA: COMPRA (entidade fraca)
+CREATE TABLE
+    compra (
+               id_compra SERIAL PRIMARY KEY,
+               id_cliente INT REFERENCES cliente (id_cliente) ON DELETE CASCADE,
+               data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- RELAÇÃO ENTRE COMPRA E PRODUTOS
+-- (Cada compra contém vários produtos)
+CREATE TABLE
+    compra_produto (
+                       id_compra INT REFERENCES compra (id_compra) ON DELETE CASCADE,
+                       id_produto INT REFERENCES produto (id_produto) ON DELETE CASCADE,
+                       quantidade INT NOT NULL CHECK (quantidade > 0),
+                       forma_pagamento VARCHAR(30) CHECK (
+                           forma_pagamento IN ('DÉBITO', 'CRÉDITO', 'PIX', 'FIDELIDADE')
+                           ) NOT NULL,
+                       pontos_utilizados INT DEFAULT 0,
+                       pontos_ganhos INT DEFAULT 0,
+                       PRIMARY KEY (id_compra, id_produto)
+);
 
 -- TABELA: COLECIONÁVEL (especialização)
 CREATE TABLE
@@ -124,44 +158,12 @@ CREATE TABLE
     id_produto INT REFERENCES produto (id_produto) ON DELETE CASCADE,
     id_sessao INT NOT NULL REFERENCES sessao (id_sessao) ON DELETE CASCADE,
     id_assento INT NOT NULL REFERENCES assento (id_assento) ON DELETE CASCADE,
+    id_compra INT NOT NULL REFERENCES compra (id_compra) ON DELETE CASCADE,
     tipo VARCHAR(20) CHECK (tipo IN ('INTEIRA', 'MEIA')) NOT NULL,
     PRIMARY KEY (id_sessao, id_assento)
   );
 
 -- === FIM PRODUTO === ---
--- TABELA: CLIENTE
-CREATE TABLE
-  cliente (
-    id_cliente SERIAL PRIMARY KEY,
-    cpf VARCHAR(14) UNIQUE NOT NULL,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    data_nascimento DATE NOT NULL,
-    pontos_acumulados INT DEFAULT 0 CHECK (pontos_acumulados >= 0)
-  );
-
--- TABELA: COMPRA (entidade fraca)
-CREATE TABLE
-  compra (
-    id_compra SERIAL PRIMARY KEY,
-    id_cliente INT REFERENCES cliente (id_cliente) ON DELETE CASCADE,
-    data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  );
-
--- RELAÇÃO ENTRE COMPRA E PRODUTOS
--- (Cada compra contém vários produtos)
-CREATE TABLE
-  compra_produto (
-    id_compra INT REFERENCES compra (id_compra) ON DELETE CASCADE,
-    id_produto INT REFERENCES produto (id_produto) ON DELETE CASCADE,
-    quantidade INT NOT NULL CHECK (quantidade > 0),
-    forma_pagamento VARCHAR(30) CHECK (
-      forma_pagamento IN ('DÉBITO', 'CRÉDITO', 'PIX', 'FIDELIDADE')
-    ) NOT NULL,
-    pontos_utilizados INT DEFAULT 0,
-    pontos_ganhos INT DEFAULT 0,
-    PRIMARY KEY (id_compra, id_produto)
-  );
 
 -- TABELA: PONTUACAO
 CREATE TABLE

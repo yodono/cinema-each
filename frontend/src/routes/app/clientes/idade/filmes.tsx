@@ -79,7 +79,9 @@ function CompactTable({
   setSortDir,
 }: any) {
   if (!data || data.length === 0)
-    return <p className="p-6 text-muted-foreground">Nenhum dado para exibir.</p>;
+    return (
+      <p className="p-6 text-muted-foreground">Nenhum dado para exibir.</p>
+    );
 
   function handleSort(field: "nome" | "idade_media") {
     if (sortField === field) setSortDir(sortDir === "asc" ? "desc" : "asc");
@@ -134,7 +136,8 @@ function CompactTable({
                     onClick={() => handleSort("nome")}
                     className={cn(
                       "flex items-center gap-2 hover:opacity-75 transition",
-                      sortField === "nome" && "text-purple-700 dark:text-purple-300"
+                      sortField === "nome" &&
+                        "text-purple-700 dark:text-purple-300"
                     )}
                   >
                     Filme
@@ -194,8 +197,9 @@ export const Route = createFileRoute("/app/clientes/idade/filmes")({
 function IdadeMediaFilmePage() {
   const q = useQueryIdadeMediaPorFilme();
 
-  const [sortField, setSortField] =
-    useState<"nome" | "idade_media">("idade_media");
+  const [sortField, setSortField] = useState<"nome" | "idade_media">(
+    "idade_media"
+  );
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const allFilmes = useMemo(
@@ -265,33 +269,12 @@ function IdadeMediaFilmePage() {
 
   function toggleFilme(nome: string) {
     setSelectedFilmes((prev) =>
-      prev.includes(nome)
-        ? prev.filter((f) => f !== nome)
-        : [...prev, nome]
+      prev.includes(nome) ? prev.filter((f) => f !== nome) : [...prev, nome]
     );
   }
 
   return (
-    <div className="p-6 md:p-10 space-y-12">
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg backdrop-blur-xl"
-          style={{ background: `${PRIMARY}22` }}
-        >
-          <Film className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1
-          className="
-          text-4xl font-extrabold tracking-tight 
-          bg-gradient-to-r from-purple-700 via-fuchsia-500 to-pink-500
-          bg-clip-text text-transparent
-        "
-        >
-          Idade Média por Filme
-        </h1>
-      </div>
-
+    <div>
       {allFilmes.length > 0 && (
         <Card
           className="
@@ -364,7 +347,9 @@ function IdadeMediaFilmePage() {
           <MiniStat
             title="Menor Média"
             value={resumo.menor}
-            icon={<TrendingDown className="w-6 h-6" style={{ color: PRIMARY }} />}
+            icon={
+              <TrendingDown className="w-6 h-6" style={{ color: PRIMARY }} />
+            }
           />
 
           <MiniStat
@@ -405,7 +390,13 @@ function IdadeMediaFilmePage() {
                 margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
               >
                 <defs>
-                  <linearGradient id="idadeGradient" x1="0" y1="0" x2="1" y2="0">
+                  <linearGradient
+                    id="idadeGradient"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="0"
+                  >
                     <stop offset="0%" stopColor="#8b5cf6" />
                     <stop offset="100%" stopColor="#c084fc" />
                   </linearGradient>
@@ -442,7 +433,11 @@ function IdadeMediaFilmePage() {
                   itemStyle={{ color: "var(--foreground)" }}
                 />
 
-                <Bar dataKey="idade_media" fill="url(#idadeGradient)" radius={[6, 6, 6, 6]}>
+                <Bar
+                  dataKey="idade_media"
+                  fill="url(#idadeGradient)"
+                  radius={[6, 6, 6, 6]}
+                >
                   <LabelList
                     dataKey="idade_media"
                     position="right"

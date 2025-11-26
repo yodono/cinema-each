@@ -87,6 +87,12 @@ export const routeMeta: Record<
     icon: Users,
     group: "Clientes",
   },
+    "/app/clientes/estudantil": {
+    title: "Público Estudantil",
+    icon: Users,
+    group: "Clientes",
+  },
+  
 
   // ---------------------------
   // Vendas e Produtos

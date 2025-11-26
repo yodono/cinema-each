@@ -271,19 +271,7 @@ function IdadeMediaGeneroPage() {
   }, [filteredData]);
 
   return (
-    <div className="p-6 md:p-10 space-y-12">
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg backdrop-blur-xl"
-          style={{ background: `${PRIMARY}22` }}
-        >
-          <Users className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-700 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
-          Idade Média por Gênero
-        </h1>
-      </div>
+    <div>
       {allGeneros.length > 0 && (
         <Card className="rounded-2xl shadow-xl border border-white/20 dark:border-white/10 backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
           <CardHeader className="border-b border-white/20 dark:border-white/10">

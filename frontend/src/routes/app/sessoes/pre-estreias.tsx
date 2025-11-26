@@ -56,7 +56,7 @@ function RouteComponent() {
               <img
                 src="https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
                 alt="Poster"
-                className="w-48 h-full object-cover"
+                className="w-32 h-full object-cover"
               />
 
               {/* Content */}

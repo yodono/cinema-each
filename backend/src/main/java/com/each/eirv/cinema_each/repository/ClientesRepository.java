@@ -146,8 +146,7 @@ public class ClientesRepository {
                 c.email
             FROM cliente c
             JOIN compra co ON c.id_cliente = co.id_cliente
-            JOIN compra_produto cp ON co.id_compra = cp.id_compra
-            JOIN ingresso i ON cp.id_produto = i.id_produto
+            JOIN ingresso i ON co.id_compra = i.id_compra
             JOIN sessao s ON i.id_sessao = s.id_sessao
             JOIN filme f ON s.id_filme = f.id_filme
             WHERE f.id_filme = ?

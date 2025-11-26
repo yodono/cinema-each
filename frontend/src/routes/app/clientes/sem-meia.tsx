@@ -110,7 +110,7 @@ function ClientesSemMeiaPage() {
   const total = data.length;
 
   return (
-    <div className="p-6 md:p-10 space-y-12">
+    <div>
       <div className="flex items-center gap-4">
         <div
           className="p-4 rounded-2xl shadow-lg backdrop-blur-xl"
@@ -132,7 +132,9 @@ function ClientesSemMeiaPage() {
 
       <Card className="shadow-xl border border-white/20 dark:border-white/10 rounded-2xl backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
         <CardHeader className="flex flex-row items-center justify-between p-6 border-b border-white/20 dark:border-white/10">
-          <CardTitle className="text-2xl font-bold">Lista de Clientes</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Lista de Clientes
+          </CardTitle>
 
           {!q.isLoading && total > 0 && (
             <Button
@@ -155,4 +157,3 @@ function ClientesSemMeiaPage() {
     </div>
   );
 }
-

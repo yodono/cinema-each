@@ -78,23 +78,7 @@ function RankingComprasPage() {
   }, [sortedData]);
 
   return (
-    <div className="p-6 md:p-10 space-y-10">
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg"
-          style={{
-            background: "rgba(167,139,250,0.13)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          <Trophy className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent">
-          Ranking de Clientes por Compra
-        </h1>
-      </div>
-
+    <div>
       <DarkGlass>
         <div className="flex gap-6 items-end flex-wrap">
           <div className="flex flex-col">

@@ -65,7 +65,25 @@ function AppLayout() {
                 </Breadcrumb>
               </div>
             </header>
-            <Outlet />
+
+            <div className="p-6 md:p-10 space-y-12">
+              <div className="flex items-center gap-4">
+                <div
+                  className="p-4 rounded-2xl shadow-lg"
+                  style={{
+                    background: "rgba(167,139,250,0.13)",
+                    backdropFilter: "blur(6px)",
+                  }}
+                >
+                  <Icon className="w-8 h-8 text-accent" />
+                </div>
+
+                <h1 className="text-4xl font-extrabold tracking-tight text-slate-300">
+                  {meta.title}
+                </h1>
+              </div>
+              <Outlet />
+            </div>
           </main>
         </div>
       </SidebarProvider>

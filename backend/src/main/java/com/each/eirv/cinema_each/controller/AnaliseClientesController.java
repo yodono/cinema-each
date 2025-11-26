@@ -21,8 +21,8 @@ public class AnaliseClientesController {
     // /api/publico/clientes/ranking/compras?inicio=YYYY-MM-DD&fim=YYYY-MM-DD
     @GetMapping("/clientes/ranking/compras")
     public ResponseEntity<List<ClientesRankingDTO>> rankingClientesPorCompra(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            @RequestParam(name="inicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam(name="fim", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
         return ResponseEntity.ok(clientesService.getRankingClientesPorCompra(inicio, fim));
     }
     
@@ -49,8 +49,8 @@ public class AnaliseClientesController {
     // /api/publico/estudantil/ranking?inicio=YYYY-MM-DD&fim=YYYY-MM-DD
     @GetMapping("/estudantil/ranking")
     public ResponseEntity<List<PublicoEstudantilDTO>> publicoEstudantilRanking(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            @RequestParam(name = "inicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam(name = "fim", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
         return ResponseEntity.ok(clientesService.getPublicoEstudantilRanking(inicio, fim));
     }
 
@@ -64,7 +64,7 @@ public class AnaliseClientesController {
     // RF10 - Clientes por Filme - busca/filtragem por id
     // /api/publico/clientes/por-filme?idFilme=X
     @GetMapping("/clientes/por-filme")
-    public ResponseEntity<List<ClientesSimplesDTO>> clientesPorFilme(@RequestParam Long idFilme) {
+    public ResponseEntity<List<ClientesSimplesDTO>> clientesPorFilme(@RequestParam("idFilme") Long idFilme) {
         return ResponseEntity.ok(clientesService.getClientesPorFilme(idFilme));
     }
 
@@ -72,8 +72,8 @@ public class AnaliseClientesController {
     // /api/publico/generos/mensal?inicio=YYYY-MM-DD&fim=YYYY-MM-DD
     @GetMapping("/generos/mensal")
     public ResponseEntity<List<GeneroMensalDTO>> generosMaisAssistidosPorMes(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            @RequestParam(name = "inicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam(name = "fim", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
         return ResponseEntity.ok(clientesService.getGenerosMaisAssistidosPorMes(inicio, fim));
     }
 }

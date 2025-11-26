@@ -104,27 +104,7 @@ function RankingResgatePage() {
   }, [sortedData]);
 
   return (
-    <div className="p-6 md:p-10 space-y-10">
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg"
-          style={{
-            background: "rgba(167,139,250,0.13)",
-            border: `1px solid ${GLASS_BORDER}`,
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <Gift className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1
-          className="text-4xl font-extrabold tracking-tight"
-          style={{ color: TEXT_LIGHT }}
-        >
-          Ranking de Clientes por Resgate de Pontos
-        </h1>
-      </div>
-
+    <div>
       {q.isLoading ? (
         <div className="grid md:grid-cols-3 gap-6">
           <Skeleton className="h-24 rounded-xl" />
@@ -366,14 +346,10 @@ function RankingTable({ data }: { data: ClienteResgateRanking[] }) {
   const sorted = useMemo(() => {
     return [...data].sort((a, b) => {
       const aVal =
-        sortField === "nome"
-          ? a.nome.toLowerCase()
-          : a.total_pontos_resgatados;
+        sortField === "nome" ? a.nome.toLowerCase() : a.total_pontos_resgatados;
 
       const bVal =
-        sortField === "nome"
-          ? b.nome.toLowerCase()
-          : b.total_pontos_resgatados;
+        sortField === "nome" ? b.nome.toLowerCase() : b.total_pontos_resgatados;
 
       if (sortDir === "asc") return aVal > bVal ? 1 : -1;
       return aVal < bVal ? 1 : -1;
@@ -445,17 +421,15 @@ function RankingTable({ data }: { data: ClienteResgateRanking[] }) {
                   {rank === 1
                     ? "🥇"
                     : rank === 2
-                    ? "🥈"
-                    : rank === 3
-                    ? "🥉"
-                    : rank}
+                      ? "🥈"
+                      : rank === 3
+                        ? "🥉"
+                        : rank}
                 </td>
 
                 <td className="py-3 px-3">{c.nome}</td>
 
-                <td className="py-3 px-3 text-zinc-300">
-                  {formatCPF(c.cpf)}
-                </td>
+                <td className="py-3 px-3 text-zinc-300">{formatCPF(c.cpf)}</td>
 
                 <td
                   className="py-3 px-3 text-right font-bold"
@@ -483,4 +457,3 @@ function SkeletonList() {
 }
 
 export default RankingResgatePage;
-

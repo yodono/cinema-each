@@ -199,26 +199,7 @@ function PublicoEstudantilPage() {
   const destaque = dataOrdenada[0];
 
   return (
-    <div className="p-6 md:p-10 space-y-12">
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg"
-          style={{
-            background: "rgba(167,139,250,0.13)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          <GraduationCap className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1
-          className="text-4xl font-extrabold tracking-tight 
-          bg-gradient-to-r from-purple-400 via-fuchsia-300 to-pink-300 
-          bg-clip-text text-transparent"
-        >
-          Público Estudantil
-        </h1>
-      </div>
+    <div>
       <DarkGlass>
         <div className="flex gap-6 items-end flex-wrap">
           <DateInput label="Início" value={inicio} setValue={setInicio} />
