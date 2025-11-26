@@ -1,7 +1,7 @@
 // RF08 - FORMAS DE PAGAMENTO
 export interface FormaPagamento {
   forma_pagamento: string;
-  Ingressos_Comprados: number;
+  ingressos_comprados: number;
 }
 
 // RF26 - Vendas de Snacks
