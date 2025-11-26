@@ -57,7 +57,7 @@ function RouteComponent() {
               <img
                 src={`/images/filme-${mapMovieNameId(sessao.filme)}.jpg`}
                 alt={sessao.filme}
-                className="w-full h-48 object-cover"
+                className="w-32 h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.src =
                     "https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg";
