@@ -382,7 +382,6 @@ function GlassStat({ title, value, icon: Icon, color }: any) {
 }
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload || payload.length === 0) return null;
-
   return (
     <div
       className="backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-lg"
