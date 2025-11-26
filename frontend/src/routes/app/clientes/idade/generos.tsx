@@ -271,7 +271,7 @@ function IdadeMediaGeneroPage() {
   }, [filteredData]);
 
   return (
-    <div>
+    <>
       {allGeneros.length > 0 && (
         <Card className="rounded-2xl shadow-xl border border-white/20 dark:border-white/10 backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
           <CardHeader className="border-b border-white/20 dark:border-white/10">
@@ -437,7 +437,7 @@ function IdadeMediaGeneroPage() {
           setSortDir={setSortDir}
         />
       )}
-    </div>
+    </>
   );
 }
 export default IdadeMediaGeneroPage;

@@ -78,7 +78,7 @@ function RankingComprasPage() {
   }, [sortedData]);
 
   return (
-    <div>
+    <>
       <DarkGlass>
         <div className="flex gap-6 items-end flex-wrap">
           <div className="flex flex-col">
@@ -215,7 +215,7 @@ function RankingComprasPage() {
           )}
         </CardContent>
       </DarkGlass>
-    </div>
+    </>
   );
 }
 

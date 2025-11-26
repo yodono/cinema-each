@@ -104,7 +104,7 @@ function RankingResgatePage() {
   }, [sortedData]);
 
   return (
-    <div>
+    <>
       {q.isLoading ? (
         <div className="grid md:grid-cols-3 gap-6">
           <Skeleton className="h-24 rounded-xl" />
@@ -188,7 +188,7 @@ function RankingResgatePage() {
           )}
         </CardContent>
       </DarkGlass>
-    </div>
+    </>
   );
 }
 

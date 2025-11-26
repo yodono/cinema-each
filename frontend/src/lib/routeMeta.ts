@@ -29,11 +29,6 @@ export const routeMeta: Record<
     icon: Calendar,
     group: "Sessões",
   },
-  "/app/sessoes/populares": {
-    title: "Sessões Populares",
-    icon: Calendar,
-    group: "Sessões",
-  },
 
   // ---------------------------
   // Filmes
@@ -87,12 +82,11 @@ export const routeMeta: Record<
     icon: Users,
     group: "Clientes",
   },
-    "/app/clientes/estudantil": {
+  "/app/clientes/estudantil": {
     title: "Público Estudantil",
     icon: Users,
     group: "Clientes",
   },
-  
 
   // ---------------------------
   // Vendas e Produtos

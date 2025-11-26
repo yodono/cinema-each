@@ -199,7 +199,7 @@ function PublicoEstudantilPage() {
   const destaque = dataOrdenada[0];
 
   return (
-    <div>
+    <>
       <DarkGlass>
         <div className="flex gap-6 items-end flex-wrap">
           <DateInput label="Início" value={inicio} setValue={setInicio} />
@@ -337,7 +337,7 @@ function PublicoEstudantilPage() {
           )}
         </CardContent>
       </DarkGlass>
-    </div>
+    </>
   );
 }
 

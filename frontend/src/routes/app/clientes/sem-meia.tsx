@@ -110,20 +110,7 @@ function ClientesSemMeiaPage() {
   const total = data.length;
 
   return (
-    <div>
-      <div className="flex items-center gap-4">
-        <div
-          className="p-4 rounded-2xl shadow-lg backdrop-blur-xl"
-          style={{ background: `${PRIMARY}22` }}
-        >
-          <Users className="w-8 h-8" style={{ color: PRIMARY }} />
-        </div>
-
-        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-700 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
-          Clientes Sem Meia-Entrada
-        </h1>
-      </div>
-
+    <>
       {!q.isLoading && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
           <MiniCard title="Total Encontrado" value={total} />
@@ -154,6 +141,6 @@ function ClientesSemMeiaPage() {
           {q.isLoading ? <SkeletonList /> : <ClientesTable data={data} />}
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 }

@@ -196,7 +196,7 @@ function ClientesPorFilmePage() {
   const total = sortedData.length;
 
   return (
-    <div>
+    <>
       {/* INPUT + AÇÕES */}
       <Card className="shadow-xl border border-white/20 dark:border-white/10 rounded-2xl backdrop-blur-xl bg-white/60 dark:bg-zinc-900/40">
         <CardHeader className="p-6 border-b border-white/20 dark:border-white/10">
@@ -290,6 +290,6 @@ function ClientesPorFilmePage() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 }

@@ -274,7 +274,7 @@ function IdadeMediaFilmePage() {
   }
 
   return (
-    <div>
+    <>
       {allFilmes.length > 0 && (
         <Card
           className="
@@ -463,7 +463,7 @@ function IdadeMediaFilmePage() {
           setSortDir={setSortDir}
         />
       )}
-    </div>
+    </>
   );
 }
 
