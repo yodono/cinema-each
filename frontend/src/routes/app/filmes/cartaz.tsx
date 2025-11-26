@@ -6,6 +6,7 @@ import {
   useQueryAtorFilme,
   useQueryFilmesGenero,
 } from "@/features/filme/api/useFilmeQueries";
+import { mapMovieNameId } from "@/lib/utils";
 import type { FilmeCartazGenero } from "@/types/filmeTypes";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -131,9 +132,13 @@ function RouteComponent() {
                     className="min-w-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-lg bg-zinc-900 text-white border border-zinc-800"
                   >
                     <img
-                      src="https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                      src={`/images/filme-${mapMovieNameId(cartaz.titulo)}.jpg`}
                       alt={cartaz.titulo}
                       className="w-full h-48 object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg";
+                      }}
                     />
                     <div className="p-3 space-y-2">
                       <h3 className="text-lg font-semibold">{cartaz.titulo}</h3>

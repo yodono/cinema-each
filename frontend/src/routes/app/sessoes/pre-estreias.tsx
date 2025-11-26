@@ -5,6 +5,7 @@ import { useQueryPreEstreias } from "@/features/sessao/api/useSessaoQueries";
 import { createFileRoute } from "@tanstack/react-router";
 import type { DateRange } from "react-day-picker";
 import { DateRangePicker } from "@/components/DateRangePicker";
+import { mapMovieNameId } from "@/lib/utils";
 
 export const Route = createFileRoute("/app/sessoes/pre-estreias")({
   component: RouteComponent,
@@ -54,9 +55,13 @@ function RouteComponent() {
               className="flex space-y-2 rounded-2xl overflow-hidden shadow-lg bg-zinc-900 text-white border border-zinc-800"
             >
               <img
-                src="https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-                alt="Poster"
-                className="w-32 h-full object-cover"
+                src={`/images/filme-${mapMovieNameId(sessao.filme)}.jpg`}
+                alt={sessao.filme}
+                className="w-full h-48 object-cover"
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://m.media-amazon.com/images/M/MV5BYmZmMmM4OTYtMDkyNi00ZDI5LThiODItNzhlZGI3ZDJmZDZiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg";
+                }}
               />
 
               {/* Content */}
