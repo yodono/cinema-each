@@ -18,8 +18,8 @@ public class VendaProdutoService {
 
     private final VendaProdutoRepository vendaProdutoRepository;
 
-    public List<FormaPagamentoDTO> consultarFormaPagamentoMaisUtilizada_ingresso() {
-		return vendaProdutoRepository.consultarFormaPagamentoMaisUtilizada_ingresso();
+    public List<FormaPagamentoDTO> consultarFormaPagamentoMaisUtilizada() {
+		return vendaProdutoRepository.consultarFormaPagamentoMaisUtilizada();
 	}
 
     public List<VendasSnacksDTO> consultarVendasSnacks(LocalDate data, LocalDate data2) {

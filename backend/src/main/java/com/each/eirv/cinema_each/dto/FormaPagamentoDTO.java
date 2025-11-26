@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FormaPagamentoDTO {
     private String forma_pagamento;
-    private Integer  Ingressos_Comprados;
+    private Integer ingressos_comprados;
 }

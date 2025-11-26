@@ -28,7 +28,7 @@ public class VendaProdutoController {
 
     @GetMapping("/forma-pagamento")
 	public ResponseEntity<List<FormaPagamentoDTO>> getFormaPagamento() {
-		List<FormaPagamentoDTO> formaPagamento = vendaProdutoService.consultarFormaPagamentoMaisUtilizada_ingresso();
+		List<FormaPagamentoDTO> formaPagamento = vendaProdutoService.consultarFormaPagamentoMaisUtilizada();
 		return ResponseEntity.ok(formaPagamento);
 	}
 

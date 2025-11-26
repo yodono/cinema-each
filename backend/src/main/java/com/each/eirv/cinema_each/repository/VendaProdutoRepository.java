@@ -20,13 +20,13 @@ public class VendaProdutoRepository {
     private final JdbcTemplate jdbcTemplate;
 
     // RF08 - FORMAS DE PAGAMENTO
-    public List<FormaPagamentoDTO> consultarFormaPagamentoMaisUtilizada_ingresso() {
+    public List<FormaPagamentoDTO> consultarFormaPagamentoMaisUtilizada() {
         String sql = """
-            SELECT cp.forma_pagamento, COUNT(*) AS Ingressos_Comprados
-            FROM compra_produto cp JOIN ingresso i
-            ON cp.id_produto = i.id_produto
+            SELECT cp.forma_pagamento, COUNT(DISTINCT cp.id_compra) AS ingressos_comprados
+            FROM compra_produto cp
+            JOIN ingresso i ON cp.id_produto = i.id_produto
             GROUP BY cp.forma_pagamento
-            ORDER BY COUNT(*) DESC;
+            ORDER BY ingressos_comprados DESC;
         """;
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FormaPagamentoDTO.class));
