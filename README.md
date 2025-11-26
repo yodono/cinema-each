@@ -8,20 +8,17 @@ Sistema desenvolvido em Java e React para gerenciamento de cinema.
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 - [Git](https://git-scm.com)
-- [Java JDK 17+](https://www.oracle.com/java/technologies/downloads/)
-- [Node.js](https://nodejs.org/en/)
-
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) - caso prefira rodar pelo docker
+  
 ## Clone este repositório
-Clone o repositório na sua máquina: '''https://github.com/yodono/cinema-each.git
+Clone o repositório na sua máquina: https://github.com/yodono/cinema-each.git
 
-## Acesse a raíz da pasta frontend (por meio de uma IDE, como o VSCode) e crie o arquivo .env com o seguinte conteúdo:
-'''VITE_BACKEND_URL=http://localhost:8080
+<!--## Acesse a raíz da pasta frontend (por meio de uma IDE, como o VSCode) e crie o arquivo .env com o seguinte conteúdo:
+'''VITE_BACKEND_URL=http://localhost:8080-->
+## Execute o projeto:
+1. Abra o terminal na **raiz do projeto** (onde está o arquivo `docker-compose.yml`).
+2. Execute o comando para executar: docker compose up -d
+3. Para parar a aplicação: docker compose down
 
-## Na pasta frontend, abra o terminal e execute o seguinte comando:
-'''npm install
-## Após executar essa instrução, execute o próximo comando:
-'''npm run dev
 
-## O servidor irá inciar em uma porta: 
-Acesse http://localhost:3000 que será exibido no terminal (o número da porta pode mudar).
 
