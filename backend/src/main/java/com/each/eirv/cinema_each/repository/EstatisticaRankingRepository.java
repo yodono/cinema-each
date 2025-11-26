@@ -52,7 +52,7 @@ public class EstatisticaRankingRepository {
 
 
     // RF24 - Bilheteria por Diretor
-    public List<BilheteriaPorDiretorDTO> consultarBilheteriaDiretor(String diretor){
+    public List<BilheteriaPorDiretorDTO> consultarBilheteriaDiretor(){
         String sql = """
                 SELECT d.nome as diretor, SUM(p.preco_base * cp.quantidade) as valor_de_bilheteria
                 FROM diretor d
@@ -62,9 +62,9 @@ public class EstatisticaRankingRepository {
                 JOIN ingresso i ON i.id_sessao = s.id_sessao
                 JOIN produto p ON p.id_produto = i.id_produto
                 JOIN compra_produto cp ON p.id_produto = cp.id_produto
-                WHERE d.nome = ?
+                GROUP BY d.nome
                 """;
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorDiretorDTO.class), diretor);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorDiretorDTO.class));
     }
     
 }

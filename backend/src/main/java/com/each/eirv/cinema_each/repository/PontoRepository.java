@@ -25,7 +25,7 @@ public class PontoRepository {
                 LEFT JOIN colecionavel col ON col.id_produto = p.id_produto
                 LEFT JOIN snack snk ON snk.id_produto = p.id_produto
                 JOIN compra_produto cp ON cp.id_produto = p.id_produto
-                WHERE cp.pontos_utilizados > 0 AND cp.forma_pagamento = 'Fidelidade'
+                WHERE cp.pontos_utilizados > 0 AND cp.forma_pagamento = 'FIDELIDADE'
                 GROUP BY p.id_produto, col.nome, snk.nome
                 ORDER BY total_resgatado DESC
                 LIMIT 10;

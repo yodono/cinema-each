@@ -3,15 +3,10 @@ package com.each.eirv.cinema_each.repository;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.each.eirv.cinema_each.dto.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import com.each.eirv.cinema_each.dto.AtorPorFilmeDTO;
-import com.each.eirv.cinema_each.dto.AtoresPopularesDTO;
-import com.each.eirv.cinema_each.dto.FilmePorDiretorDTO;
-import com.each.eirv.cinema_each.dto.FilmesEmCartazDTO;
-import com.each.eirv.cinema_each.dto.GeneroDiretorDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -86,10 +81,17 @@ public class FilmeRepository {
                 JOIN filme_genero fg ON fg.id_filme = f.id_filme
                 JOIn genero g ON g.id_genero = fg.id_genero
                 WHERE d.nome = ?
-                GROUP BY g.nome 
+                GROUP BY g.nome, d.nome
                 ORDER BY COUNT(*) DESC LIMIT 1;
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(GeneroDiretorDTO.class), diretor);
+    }
+
+    public List<DiretorDTO> getDiretores(){
+        String sql = """
+                SELECT d.nome, d.id_diretor FROM diretor d;
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DiretorDTO.class));
     }
 
 }

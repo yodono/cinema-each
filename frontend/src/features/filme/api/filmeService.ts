@@ -5,6 +5,7 @@ import {
   type Genero_Diretor,
   type AtorFilme,
   type AtorPopular,
+  type Diretor,
 } from "../../../types/filmeTypes";
 
 // RF09 - Filmes em Cartaz por Gênero
@@ -53,4 +54,8 @@ export async function getAtorPorFilme(params?: {
 // RF25 - Ranking de Atores Populares
 export async function getAtoresPopulares(): Promise<AtorPopular[]> {
   return await get("/filmes/atores-populares");
+}
+
+export async function getDiretores(): Promise<Diretor[]> {
+  return await get("/filmes/diretores");
 }

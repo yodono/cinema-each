@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GeneroDiretorDTO {
     private String diretor;
-    private String  genero;
+    private String genero;
 }

@@ -170,12 +170,13 @@ public class SessaoRepository {
         String sql = """
         SELECT
             sa.tipo AS tipo_sala,
-            SUM(p.preco_base) AS arrecadacao_total,
-            COUNT(i.id_produto) AS ingressos_vendidos
+            SUM(p.preco_base * cp.quantidade) AS arrecadacao_total,
+            COUNT(i.id_produto * cp.quantidade)  AS ingressos_vendidos
         FROM sala sa
         JOIN sessao s ON sa.id_sala = s.id_sala
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
         LEFT JOIN produto p ON i.id_produto = p.id_produto
+        JOIN compra_produto cp ON p.id_produto = cp.id_produto
         GROUP BY sa.tipo
         ORDER BY arrecadacao_total DESC;
     """;

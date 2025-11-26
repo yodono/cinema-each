@@ -19,13 +19,10 @@ import { Route as AppVendasColecionaveisRouteImport } from './routes/app/vendas/
 import { Route as AppSessoesPreEstreiasRouteImport } from './routes/app/sessoes/pre-estreias'
 import { Route as AppSessoesOcupacaoRouteImport } from './routes/app/sessoes/ocupacao'
 import { Route as AppPontosProdutosRouteImport } from './routes/app/pontos/produtos'
-import { Route as AppFilmesPorDiretorRouteImport } from './routes/app/filmes/por-diretor'
-import { Route as AppFilmesGeneroPorDiretorRouteImport } from './routes/app/filmes/genero-por-diretor'
+import { Route as AppFilmesDiretoresRouteImport } from './routes/app/filmes/diretores'
 import { Route as AppFilmesCartazRouteImport } from './routes/app/filmes/cartaz'
-import { Route as AppFilmesAtoresPorFilmeRouteImport } from './routes/app/filmes/atores-por-filme'
-import { Route as AppFilmesAtoresPopularesRouteImport } from './routes/app/filmes/atores-populares'
+import { Route as AppFilmesAtoresRouteImport } from './routes/app/filmes/atores'
 import { Route as AppEstatisticasSessoesRouteImport } from './routes/app/estatisticas/sessoes'
-import { Route as AppEstatisticasDuracaoMediaGeneroRouteImport } from './routes/app/estatisticas/duracao-media-genero'
 import { Route as AppEstatisticasBilheteriaRouteImport } from './routes/app/estatisticas/bilheteria'
 import { Route as AppClientesSemMeiaRouteImport } from './routes/app/clientes/sem-meia'
 import { Route as AppClientesRankingRouteImport } from './routes/app/clientes/ranking'
@@ -85,44 +82,26 @@ const AppPontosProdutosRoute = AppPontosProdutosRouteImport.update({
   path: '/pontos/produtos',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppFilmesPorDiretorRoute = AppFilmesPorDiretorRouteImport.update({
-  id: '/filmes/por-diretor',
-  path: '/filmes/por-diretor',
+const AppFilmesDiretoresRoute = AppFilmesDiretoresRouteImport.update({
+  id: '/filmes/diretores',
+  path: '/filmes/diretores',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppFilmesGeneroPorDiretorRoute =
-  AppFilmesGeneroPorDiretorRouteImport.update({
-    id: '/filmes/genero-por-diretor',
-    path: '/filmes/genero-por-diretor',
-    getParentRoute: () => AppRouteRoute,
-  } as any)
 const AppFilmesCartazRoute = AppFilmesCartazRouteImport.update({
   id: '/filmes/cartaz',
   path: '/filmes/cartaz',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppFilmesAtoresPorFilmeRoute = AppFilmesAtoresPorFilmeRouteImport.update({
-  id: '/filmes/atores-por-filme',
-  path: '/filmes/atores-por-filme',
+const AppFilmesAtoresRoute = AppFilmesAtoresRouteImport.update({
+  id: '/filmes/atores',
+  path: '/filmes/atores',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppFilmesAtoresPopularesRoute =
-  AppFilmesAtoresPopularesRouteImport.update({
-    id: '/filmes/atores-populares',
-    path: '/filmes/atores-populares',
-    getParentRoute: () => AppRouteRoute,
-  } as any)
 const AppEstatisticasSessoesRoute = AppEstatisticasSessoesRouteImport.update({
   id: '/estatisticas/sessoes',
   path: '/estatisticas/sessoes',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppEstatisticasDuracaoMediaGeneroRoute =
-  AppEstatisticasDuracaoMediaGeneroRouteImport.update({
-    id: '/estatisticas/duracao-media-genero',
-    path: '/estatisticas/duracao-media-genero',
-    getParentRoute: () => AppRouteRoute,
-  } as any)
 const AppEstatisticasBilheteriaRoute =
   AppEstatisticasBilheteriaRouteImport.update({
     id: '/estatisticas/bilheteria',
@@ -174,13 +153,10 @@ export interface FileRoutesByFullPath {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
-  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
-  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
-  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
-  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
-  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/filmes/diretores': typeof AppFilmesDiretoresRoute
   '/app/pontos/produtos': typeof AppPontosProdutosRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
@@ -201,13 +177,10 @@ export interface FileRoutesByTo {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
-  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
-  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
-  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
-  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
-  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/filmes/diretores': typeof AppFilmesDiretoresRoute
   '/app/pontos/produtos': typeof AppPontosProdutosRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
@@ -229,13 +202,10 @@ export interface FileRoutesById {
   '/app/clientes/ranking': typeof AppClientesRankingRoute
   '/app/clientes/sem-meia': typeof AppClientesSemMeiaRoute
   '/app/estatisticas/bilheteria': typeof AppEstatisticasBilheteriaRoute
-  '/app/estatisticas/duracao-media-genero': typeof AppEstatisticasDuracaoMediaGeneroRoute
   '/app/estatisticas/sessoes': typeof AppEstatisticasSessoesRoute
-  '/app/filmes/atores-populares': typeof AppFilmesAtoresPopularesRoute
-  '/app/filmes/atores-por-filme': typeof AppFilmesAtoresPorFilmeRoute
+  '/app/filmes/atores': typeof AppFilmesAtoresRoute
   '/app/filmes/cartaz': typeof AppFilmesCartazRoute
-  '/app/filmes/genero-por-diretor': typeof AppFilmesGeneroPorDiretorRoute
-  '/app/filmes/por-diretor': typeof AppFilmesPorDiretorRoute
+  '/app/filmes/diretores': typeof AppFilmesDiretoresRoute
   '/app/pontos/produtos': typeof AppPontosProdutosRoute
   '/app/sessoes/ocupacao': typeof AppSessoesOcupacaoRoute
   '/app/sessoes/pre-estreias': typeof AppSessoesPreEstreiasRoute
@@ -258,13 +228,10 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
-    | '/app/estatisticas/duracao-media-genero'
     | '/app/estatisticas/sessoes'
-    | '/app/filmes/atores-populares'
-    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/atores'
     | '/app/filmes/cartaz'
-    | '/app/filmes/genero-por-diretor'
-    | '/app/filmes/por-diretor'
+    | '/app/filmes/diretores'
     | '/app/pontos/produtos'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
@@ -285,13 +252,10 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
-    | '/app/estatisticas/duracao-media-genero'
     | '/app/estatisticas/sessoes'
-    | '/app/filmes/atores-populares'
-    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/atores'
     | '/app/filmes/cartaz'
-    | '/app/filmes/genero-por-diretor'
-    | '/app/filmes/por-diretor'
+    | '/app/filmes/diretores'
     | '/app/pontos/produtos'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
@@ -312,13 +276,10 @@ export interface FileRouteTypes {
     | '/app/clientes/ranking'
     | '/app/clientes/sem-meia'
     | '/app/estatisticas/bilheteria'
-    | '/app/estatisticas/duracao-media-genero'
     | '/app/estatisticas/sessoes'
-    | '/app/filmes/atores-populares'
-    | '/app/filmes/atores-por-filme'
+    | '/app/filmes/atores'
     | '/app/filmes/cartaz'
-    | '/app/filmes/genero-por-diretor'
-    | '/app/filmes/por-diretor'
+    | '/app/filmes/diretores'
     | '/app/pontos/produtos'
     | '/app/sessoes/ocupacao'
     | '/app/sessoes/pre-estreias'
@@ -408,18 +369,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPontosProdutosRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/filmes/por-diretor': {
-      id: '/app/filmes/por-diretor'
-      path: '/filmes/por-diretor'
-      fullPath: '/app/filmes/por-diretor'
-      preLoaderRoute: typeof AppFilmesPorDiretorRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/filmes/genero-por-diretor': {
-      id: '/app/filmes/genero-por-diretor'
-      path: '/filmes/genero-por-diretor'
-      fullPath: '/app/filmes/genero-por-diretor'
-      preLoaderRoute: typeof AppFilmesGeneroPorDiretorRouteImport
+    '/app/filmes/diretores': {
+      id: '/app/filmes/diretores'
+      path: '/filmes/diretores'
+      fullPath: '/app/filmes/diretores'
+      preLoaderRoute: typeof AppFilmesDiretoresRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/filmes/cartaz': {
@@ -429,18 +383,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppFilmesCartazRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/filmes/atores-por-filme': {
-      id: '/app/filmes/atores-por-filme'
-      path: '/filmes/atores-por-filme'
-      fullPath: '/app/filmes/atores-por-filme'
-      preLoaderRoute: typeof AppFilmesAtoresPorFilmeRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/filmes/atores-populares': {
-      id: '/app/filmes/atores-populares'
-      path: '/filmes/atores-populares'
-      fullPath: '/app/filmes/atores-populares'
-      preLoaderRoute: typeof AppFilmesAtoresPopularesRouteImport
+    '/app/filmes/atores': {
+      id: '/app/filmes/atores'
+      path: '/filmes/atores'
+      fullPath: '/app/filmes/atores'
+      preLoaderRoute: typeof AppFilmesAtoresRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/estatisticas/sessoes': {
@@ -448,13 +395,6 @@ declare module '@tanstack/react-router' {
       path: '/estatisticas/sessoes'
       fullPath: '/app/estatisticas/sessoes'
       preLoaderRoute: typeof AppEstatisticasSessoesRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/estatisticas/duracao-media-genero': {
-      id: '/app/estatisticas/duracao-media-genero'
-      path: '/estatisticas/duracao-media-genero'
-      fullPath: '/app/estatisticas/duracao-media-genero'
-      preLoaderRoute: typeof AppEstatisticasDuracaoMediaGeneroRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/estatisticas/bilheteria': {
@@ -523,13 +463,10 @@ interface AppRouteRouteChildren {
   AppClientesRankingRoute: typeof AppClientesRankingRoute
   AppClientesSemMeiaRoute: typeof AppClientesSemMeiaRoute
   AppEstatisticasBilheteriaRoute: typeof AppEstatisticasBilheteriaRoute
-  AppEstatisticasDuracaoMediaGeneroRoute: typeof AppEstatisticasDuracaoMediaGeneroRoute
   AppEstatisticasSessoesRoute: typeof AppEstatisticasSessoesRoute
-  AppFilmesAtoresPopularesRoute: typeof AppFilmesAtoresPopularesRoute
-  AppFilmesAtoresPorFilmeRoute: typeof AppFilmesAtoresPorFilmeRoute
+  AppFilmesAtoresRoute: typeof AppFilmesAtoresRoute
   AppFilmesCartazRoute: typeof AppFilmesCartazRoute
-  AppFilmesGeneroPorDiretorRoute: typeof AppFilmesGeneroPorDiretorRoute
-  AppFilmesPorDiretorRoute: typeof AppFilmesPorDiretorRoute
+  AppFilmesDiretoresRoute: typeof AppFilmesDiretoresRoute
   AppPontosProdutosRoute: typeof AppPontosProdutosRoute
   AppSessoesOcupacaoRoute: typeof AppSessoesOcupacaoRoute
   AppSessoesPreEstreiasRoute: typeof AppSessoesPreEstreiasRoute
@@ -549,14 +486,10 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppClientesRankingRoute: AppClientesRankingRoute,
   AppClientesSemMeiaRoute: AppClientesSemMeiaRoute,
   AppEstatisticasBilheteriaRoute: AppEstatisticasBilheteriaRoute,
-  AppEstatisticasDuracaoMediaGeneroRoute:
-    AppEstatisticasDuracaoMediaGeneroRoute,
   AppEstatisticasSessoesRoute: AppEstatisticasSessoesRoute,
-  AppFilmesAtoresPopularesRoute: AppFilmesAtoresPopularesRoute,
-  AppFilmesAtoresPorFilmeRoute: AppFilmesAtoresPorFilmeRoute,
+  AppFilmesAtoresRoute: AppFilmesAtoresRoute,
   AppFilmesCartazRoute: AppFilmesCartazRoute,
-  AppFilmesGeneroPorDiretorRoute: AppFilmesGeneroPorDiretorRoute,
-  AppFilmesPorDiretorRoute: AppFilmesPorDiretorRoute,
+  AppFilmesDiretoresRoute: AppFilmesDiretoresRoute,
   AppPontosProdutosRoute: AppPontosProdutosRoute,
   AppSessoesOcupacaoRoute: AppSessoesOcupacaoRoute,
   AppSessoesPreEstreiasRoute: AppSessoesPreEstreiasRoute,

@@ -8,39 +8,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQueryFilmesMaisSessoes } from "@/features/sessao/api/useSessaoQueries";
+import { useQueryAtoresPopulares } from "@/features/filme/api/useFilmeQueries";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/estatisticas/sessoes")({
+export const Route = createFileRoute("/app/filmes/atores")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isLoading } = useQueryFilmesMaisSessoes();
+  const { data, isLoading } = useQueryAtoresPopulares();
 
   return (
     <div className="flex gap-6 flex-wrap items-stretch">
-      {isLoading &&
-        Array(10).fill(
-          <Skeleton className="h-[250px] w-[200px] rounded-xl bg-muted-foreground" />
-        )}
+      {isLoading && (
+        <Skeleton className="h-[500px] w-full rounded-xl bg-accent" />
+      )}
 
       {!isLoading && data && (
         <Table>
-          <TableCaption>10 Filmes Com Mais Sessões Realizadas.</TableCaption>
+          <TableCaption>
+            Atores mais populares (ingressos vendidos)
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Ranking</TableHead>
-              <TableHead>Filme</TableHead>
-              <TableHead className="text-right">Sessões</TableHead>
+              <TableHead>Ator</TableHead>
+              <TableHead className="text-right">Ingressos Vendidos</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((d, index) => (
               <TableRow>
                 <TableCell className="font-medium">#{index + 1}</TableCell>
-                <TableCell>{d.titulo}</TableCell>
-                <TableCell className="text-right">{d.total_sessoes}</TableCell>
+                <TableCell>{d.ator}</TableCell>
+                <TableCell className="text-right">
+                  {d.quantidade_ingressos}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

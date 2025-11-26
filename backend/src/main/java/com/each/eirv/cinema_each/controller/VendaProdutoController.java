@@ -19,32 +19,26 @@ import com.each.eirv.cinema_each.service.VendaProdutoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/venda-produto")
+@RequestMapping("/venda")
 @RequiredArgsConstructor
 
 public class VendaProdutoController {
     
     private final VendaProdutoService vendaProdutoService;
 
-    @GetMapping("/forma-pagamento")
+    @GetMapping("/pagamento")
 	public ResponseEntity<List<FormaPagamentoDTO>> getFormaPagamento() {
 		List<FormaPagamentoDTO> formaPagamento = vendaProdutoService.consultarFormaPagamentoMaisUtilizada();
 		return ResponseEntity.ok(formaPagamento);
 	}
 
-    @GetMapping("/vendas-snacks")
-	public ResponseEntity<List<VendasSnacksDTO>> getVendasSnacks(
-			@RequestParam("data")
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data,
-
-			@RequestParam("data2")
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data2
-	) {
-		List<VendasSnacksDTO> vendasSnacks = vendaProdutoService.consultarVendasSnacks(data, data2);
+    @GetMapping("/snacks")
+	public ResponseEntity<List<VendasSnacksDTO>> getVendasSnacks() {
+		List<VendasSnacksDTO> vendasSnacks = vendaProdutoService.consultarVendasSnacks();
 		return ResponseEntity.ok(vendasSnacks);
 	}
 
-    @GetMapping("/receita-colecionaveis")
+    @GetMapping("/colecionaveis")
 	public ResponseEntity<List<ReceitaColecionaveisDTO>> getReceitaColecionaveis() {
 		List<ReceitaColecionaveisDTO> receitaColecionaveis = vendaProdutoService.consultarReceitaColecionaveis();
 		return ResponseEntity.ok(receitaColecionaveis);

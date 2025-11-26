@@ -3,18 +3,13 @@ package com.each.eirv.cinema_each.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.each.eirv.cinema_each.dto.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.each.eirv.cinema_each.dto.AtorPorFilmeDTO;
-import com.each.eirv.cinema_each.dto.AtoresPopularesDTO;
-import com.each.eirv.cinema_each.dto.FilmePorDiretorDTO;
-import com.each.eirv.cinema_each.dto.FilmesEmCartazDTO;
-import com.each.eirv.cinema_each.dto.GeneroDiretorDTO;
 
 import com.each.eirv.cinema_each.service.FilmeService;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +39,13 @@ public class FilmeController {
 	) {
 		List<FilmePorDiretorDTO> filmeDiretor = filmeService.consultarFilmePorDiretor(diretor);
 		return ResponseEntity.ok(filmeDiretor);
+	}
+
+	@GetMapping("/diretores")
+	public ResponseEntity<List<DiretorDTO>> getDiretores(
+	) {
+		List<DiretorDTO> diretores = filmeService.getDiretores();
+		return ResponseEntity.ok(diretores);
 	}
 
     @GetMapping("/diretor-genero")

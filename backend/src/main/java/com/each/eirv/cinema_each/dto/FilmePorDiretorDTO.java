@@ -13,5 +13,5 @@ import lombok.Setter;
 public class FilmePorDiretorDTO {
     private String titulo;
     private String sinopse;
-    private Integer classificacao_etaria; 
+    private String classificacao_etaria;
 } 

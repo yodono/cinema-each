@@ -30,11 +30,8 @@ public class EstatisticaRankingService {
 		return estatisticaRankingRepository.consultarDuracaoPorGenero(dt_hoje);
 	}
 
-    public List<BilheteriaPorDiretorDTO> consultarBilheteriaDiretor(String diretor) {
-		if (diretor == null){
-			throw new IllegalArgumentException("Nome do diretor inválido");
-		}
-		return estatisticaRankingRepository.consultarBilheteriaDiretor(diretor);
+    public List<BilheteriaPorDiretorDTO> consultarBilheteriaDiretor() {
+		return estatisticaRankingRepository.consultarBilheteriaDiretor();
 	}
     
 }

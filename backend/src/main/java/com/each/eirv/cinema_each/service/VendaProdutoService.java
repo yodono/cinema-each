@@ -22,13 +22,8 @@ public class VendaProdutoService {
 		return vendaProdutoRepository.consultarFormaPagamentoMaisUtilizada();
 	}
 
-    public List<VendasSnacksDTO> consultarVendasSnacks(LocalDate data, LocalDate data2) {
-		if (data == null){
-			throw new IllegalArgumentException("Dara inválida");
-		}else if (data2 == null){
-			throw new IllegalArgumentException("Data inválida");
-		}
-		return vendaProdutoRepository.consultarVendasSnacks(data, data2);
+    public List<VendasSnacksDTO> consultarVendasSnacks() {
+		return vendaProdutoRepository.consultarVendasSnacks();
 	}
 
     public List<ReceitaColecionaveisDTO> consultarReceitaColecionaveis() {

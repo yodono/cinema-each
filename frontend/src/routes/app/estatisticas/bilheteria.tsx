@@ -1,4 +1,15 @@
-import { Cell, Label, Pie, PieChart, Sector } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Label,
+  Pie,
+  PieChart,
+  Sector,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   ChartContainer,
@@ -24,18 +35,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DarkGlass } from "@/components/DarkGlass";
+import {
+  useQueryBilheteriaDiretor,
+  useQueryBilheteriaGenero,
+} from "@/features/estatisticaRanking/api/useEstatisticaRankingQueries";
 
 export const Route = createFileRoute("/app/estatisticas/bilheteria")({
   component: RouteComponent,
 });
 
 const COLOR_MAP: Record<string, string> = {
+  // sala
   COMUM: "var(--chart-1)",
   VIP: "var(--chart-2)",
   IMAX: "var(--chart-3)",
+
+  // genero
+  Fantasia: "var(--chart-1)",
+  Animação: "var(--chart-1)",
+  Crime: "var(--chart-2)",
+  Drama: "var(--chart-2)",
+  Comédia: "var(--chart-3)",
+  Família: "var(--chart-3)",
+  Thriller: "var(--chart-4)",
+  Romance: "var(--chart-4)",
+  Aventura: "var(--chart-5)",
+  Ficção: "var(--chart-5)",
 };
 
 const chartConfig = {
+  valor_total: {
+    label: "Total",
+  },
   COMUM: {
     label: "COMUM",
   },
@@ -129,6 +160,43 @@ function BilheteriaPorSala() {
   );
 }
 
+function BilheteriaPorGenero() {
+  const { data, isLoading } = useQueryBilheteriaGenero();
+
+  return (
+    <DarkGlass className="w-full h-full">
+      {isLoading && (
+        <Skeleton className="h-full w-full rounded-xl bg-muted-foreground" />
+      )}
+      {!isLoading && data && (
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={data}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="genero" />
+            <YAxis />
+
+            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <ChartLegend content={<ChartLegendContent />} />
+
+            <Bar
+              dataKey="valor_total"
+              fill="var(--color-chart-1)"
+              radius={[4, 4, 0, 0]}
+            >
+              {data.map((entry) => (
+                <Cell
+                  key={entry.genero}
+                  fill={COLOR_MAP[entry.genero] ?? "var(--chart-4)"}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+      )}
+    </DarkGlass>
+  );
+}
+
 function BilheteriaPorFilme() {
   const { data, isLoading } = useQueryBilheteria();
 
@@ -166,17 +234,61 @@ function BilheteriaPorFilme() {
   );
 }
 
+function BilheteriaPorDiretor() {
+  const { data, isLoading } = useQueryBilheteriaDiretor();
+
+  return (
+    <>
+      {isLoading && (
+        <Skeleton className="h-full w-full rounded-xl bg-muted-foreground" />
+      )}
+      {!isLoading && data && (
+        <Table>
+          <TableCaption>Bilheteria por filme</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Ranking</TableHead>
+              <TableHead>Diretor</TableHead>
+              <TableHead className="text-right">Bilheteria</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((d, index) => (
+              <TableRow>
+                <TableCell className="font-medium">#{index + 1}</TableCell>
+                <TableCell>{d.diretor}</TableCell>
+                <TableCell className="text-right">
+                  {d.valor_de_bilheteria}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
+  );
+}
+
 function RouteComponent() {
   return (
-    <div className="flex gap-6 items-stretch">
-      <div className="w-3/5">
-        <BilheteriaPorFilme />
-      </div>
-      <div className="w-2/5">
-        <BilheteriaPorSala />
+    <div className="grid grid-cols-1 gap-6 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-6">
+        <div className="h-fit grid-">
+          <BilheteriaPorSala />
+        </div>
+
+        <div className="h-fit">
+          <BilheteriaPorGenero />
+        </div>
       </div>
 
-      {/* colocar bilheteria por diretor e por genero */}
+      <div className="h-fit">
+        <BilheteriaPorDiretor />
+      </div>
+
+      <div className="h-fit">
+        <BilheteriaPorFilme />
+      </div>
     </div>
   );
 }

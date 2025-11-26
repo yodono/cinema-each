@@ -7,6 +7,8 @@ export interface FormaPagamento {
 // RF26 - Vendas de Snacks
 export interface VendaSnacks {
   snack: string;
+  dia_semana: string;
+  dow: number;
   quantidade_vendida: number;
 }
 

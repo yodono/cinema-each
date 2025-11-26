@@ -33,17 +33,28 @@ public class VendaProdutoRepository {
     }
 
     // RF26 - Vendas de Snacks
-    public List<VendasSnacksDTO> consultarVendasSnacks(LocalDate data, LocalDate data2){
+    public List<VendasSnacksDTO> consultarVendasSnacks(){
         String sql = """
-                SELECT s.nome as snack, SUM(cp.quantidade) as quantidade_vendida
+                SELECT
+                    s.nome AS snack,
+                    CASE EXTRACT(DOW FROM c.data_compra)
+                      WHEN 0 THEN 'domingo'
+                      WHEN 1 THEN 'segunda-feira'
+                      WHEN 2 THEN 'terça-feira'
+                      WHEN 3 THEN 'quarta-feira'
+                      WHEN 4 THEN 'quinta-feira'
+                      WHEN 5 THEN 'sexta-feira'
+                      WHEN 6 THEN 'sábado'
+                    END AS dia_semana,
+                    EXTRACT(DOW FROM c.data_compra) AS dow,
+                    SUM(cp.quantidade) AS quantidade_vendida
                 FROM snack s
                 JOIN compra_produto cp ON cp.id_produto = s.id_produto
                 JOIN compra c ON cp.id_compra = c.id_compra
-                WHERE c.data_compra BETWEEN (? - INTERVAL '7 days') AND ?
-                GROUP BY s.id_produto
-                ORDER BY quantidade_vendida DESC;
+                GROUP BY s.nome, dia_semana, dow
+                ORDER BY dow, s.nome;
                 """;
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VendasSnacksDTO.class), data, data2);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VendasSnacksDTO.class));
     }
 
     // RF27 - Receita de Colecionáveis
@@ -53,7 +64,7 @@ public class VendaProdutoRepository {
                 FROM colecionavel c
                 JOIN filme f ON c.id_filme = f.id_filme
                 JOIN produto p ON p.id_produto = c.id_produto
-                JOIN compra_produto ON cp.id_produto = c.id_produto
+                JOIN compra_produto cp ON cp.id_produto = c.id_produto
                 GROUP BY f.id_filme
                 ORDER BY valor_de_receita DESC;
                 """;

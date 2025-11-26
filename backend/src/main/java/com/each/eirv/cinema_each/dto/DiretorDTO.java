@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VendasSnacksDTO {
-    private String snack;
-    private String dia_semana;
-    private Integer dow;
-    private Integer quantidade_vendida;
+public class DiretorDTO {
+    private String nome;
+    private Long id_diretor;
 }

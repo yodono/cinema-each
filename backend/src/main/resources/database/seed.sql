@@ -44,7 +44,7 @@ VALUES ('Animação'),
 -- ===========================
 
 INSERT INTO filme (titulo, sinopse, duracao, classificacao_etaria, data_estreia, data_fim_cartaz)
-VALUES ('Ainda Estou Aqui','Drama contemporâneo sobre reinvenção pessoal.',110,'14','2025-09-20','2025-11-20'),
+VALUES ('Ainda Estou Aqui','Rio de Janeiro, 1971. Eunice Paiva é forçada a se reinventar quando sua família sofre um ato violento do estado brasileiro.',110,'14','2025-09-20','2025-11-20'),
        ('Kill Bill Vol 1','Noiva busca vingança contra antigos companheiros.',111,'18','2025-08-01','2025-10-01'),
        ('Laranja Mecânica','Distopia violenta sobre livre-arbítrio e controle social.',136,'18','2025-07-10','2025-09-01'),
        ('Saneamento Básico (o filme)','Comédia dramática sobre um pequeno povoado e suas soluções criativas.',98,'12','2025-10-05','2025-12-05'),
@@ -363,63 +363,54 @@ VALUES (20, (SELECT id_ator FROM ator WHERE nome='Noriko Hidaka')),
        (20, (SELECT id_ator FROM ator WHERE nome='Chika Sakamoto'));
 
 -- ===========================
--- SALAS (15) com capacidades somente 60, 80 ou 100
+-- SALAS (7) com capacidades somente 60, 80 ou 100
 -- ===========================
 
 INSERT INTO sala (numero, capacidade, tipo)
-VALUES (1,60,'COMUM'),
-       (2,60,'COMUM'),
-       (3,60,'COMUM'),
-       (4,80,'COMUM'),
-       (5,80,'COMUM'),
-       (6,80,'COMUM'),
-       (7,100,'IMAX'),
-       (8,100,'IMAX'),
-       (9,100,'IMAX'),
-       (10,60,'VIP'),
-       (11,60,'VIP'),
-       (12,80,'VIP'),
-       (13,80,'COMUM'),
-       (14,100,'COMUM'),
-       (15,60,'COMUM');
+VALUES (1,80,'COMUM'),
+       (2,80,'COMUM'),
+       (3,80,'COMUM'),
+       (4,100,'IMAX'),
+       (5,100,'IMAX'),
+       (6,60,'VIP'),
+       (7,60,'VIP');
 
--- ===========================
--- ASSENTOS (gera assentos por sala proporcional)
--- ===========================
-DO $$
-    DECLARE
-        r RECORD;
-        per_row int;
-        fila int;
-        i int;
-    BEGIN
-        FOR r IN SELECT id_sala, capacidade FROM sala LOOP
-                per_row := CASE WHEN r.capacidade <= 60 THEN 10 ELSE 10 END; -- 10 seats per row as default
-                fila := 1;
-                FOR i IN 1..r.capacidade LOOP
-                        IF ((i-1) % per_row) = 0 AND i > 1 THEN
-                            fila := fila + 1;
-                        END IF;
-                        INSERT INTO assento (id_sala, fileira, numero) VALUES (r.id_sala, chr(64 + fila), ((i-1) % per_row) + 1);
-                    END LOOP;
-            END LOOP;
-    END$$;
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 1, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 79) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 2, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 79) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 3, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 79) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 4, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 99) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 5, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 99) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 6, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 59) s(i);
+INSERT INTO assento (id_sala, fileira, numero)
+SELECT 7, chr(65 + i/10), (i % 10) + 1 FROM generate_series(0, 59) s(i);
 
 -- ===========================
 -- PRODUTOS (INGRESSOS, SNACKS, COLECIONAVEIS)
 -- ===========================
--- Ingressos
+-- Ingressos (2 tipos)
 
 INSERT INTO produto (sku, preco_base, pontos_ganhos, pontos_necessarios)
-VALUES ('ING_REG', 30.00, 3, 0),
+VALUES ('ING_REG', 30.00, 3, 5),
        ('ING_HALF', 15.00, 1, 0);
 
--- Snacks (3)
-
+-- Snacks (4)
 INSERT INTO produto (sku, preco_base, pontos_ganhos)
-VALUES ('SNK_POPC', 12.00, 1),
+VALUES ('SNK_POPCS', 12.00, 1),
+       ('SNK_POPCM', 12.00, 1),
        ('SNK_REF', 8.00, 0),
        ('SNK_NACHO', 16.00, 2);
+
+INSERT INTO snack(id_produto, nome, tamanho) VALUES (1, 'Pipoca P', 'PEQUENO'),
+                                                    (2, 'Pipoca M', 'MÉDIO'),
+                                                    (3, 'Refrigerante', 'MÉDIO'),
+                                                    (4, 'Nacho', 'UNITÁRIO');
+
 
 -- Colecionáveis (10)
 
@@ -459,7 +450,7 @@ INSERT INTO cliente (cpf, nome, email, data_nascimento, pontos_acumulados)
 SELECT lpad((10000000000 + g)::text, 11, '0') || '-00' AS cpf,
        'Cliente ' || g AS nome,
        'cliente' || g || '@exemplo.com' AS email,
-       (date '1945-01-01' + ((random() * 25000)::int))::date AS data_nascimento, -- idade wide range
+       (date '1945-01-01' + ((random() * 25000)::int))::date AS data_nascimento,
        (random()*2000)::int AS pontos_acumulados
 FROM generate_series(1, 300) g;
 
@@ -469,16 +460,15 @@ FROM generate_series(1, 300) g;
 -- - cria pré-estreias (algumas datas < data_estreia do filme)
 -- ===========================
 
-INSERT INTO sessao (id_sala, id_filme, DATA, horario, tipo_exibicao, tipo_audio)
-SELECT ((g-1) % 15) + 1 AS id_sala,
+INSERT INTO sessao (id_sala, id_filme, data, horario, tipo_exibicao, tipo_audio)
+SELECT ((g-1) % 7) + 1 AS id_sala,
        ((g-1) % 20) + 1 AS id_filme,
        CASE
-           WHEN (g % 50) = 0 THEN (date '2025-01-01' + ((g-1) % 365)) - interval '3 days' -- pré-estreia algumas vezes
-
-           ELSE (date '2025-01-01' + ((g-1) % 365))
+           WHEN (g % 50) = 0 THEN (date '2025-10-04' + ((g-1) % 88)) - interval '3 days' -- pré-estreia algumas vezes
+           ELSE (date '2025-10-04' + ((g-1) % 88))
            END::date AS DATA,
-       (array['10:00',
-           '12:30',
+       (array['13:00',
+           '14:30',
            '15:00',
            '17:30',
            '19:30',
@@ -488,7 +478,7 @@ SELECT ((g-1) % 15) + 1 AS id_sala,
            WHEN
                (SELECT tipo
                 FROM sala
-                WHERE id_sala = ((g-1) % 15) + 1) = 'IMAX' THEN 'IMAX'
+                WHERE id_sala = ((g-1) % 7) + 1) = 'IMAX' THEN 'IMAX'
            ELSE CASE
                     WHEN random() < 0.12 THEN '3D'
                     ELSE 'NORMAL'
@@ -504,33 +494,20 @@ FROM generate_series(1, 1000) g;
 -- Marcar sessões: 10 FULL, 30 EMPTY (não sobrepor)
 -- ===========================
 
-CREATE TEMP TABLE tmp_session_flags (id_sessao int PRIMARY KEY,
-                                     flag text);
-
+CREATE TEMP TABLE tmp_session_flags (id_sessao int PRIMARY KEY, flag text);
 
 INSERT INTO tmp_session_flags (id_sessao, flag)
-SELECT id_sessao,
-       'EMPTY'
-FROM sessao
-ORDER BY random()
-LIMIT 30;
-
+SELECT id_sessao,'EMPTY' FROM sessao ORDER BY random() LIMIT 30;
 
 INSERT INTO tmp_session_flags (id_sessao, flag)
-SELECT id_sessao,
-       'FULL'
-FROM sessao
-WHERE id_sessao NOT IN
-      (SELECT id_sessao
-       FROM tmp_session_flags)
-ORDER BY random()
-LIMIT 10;
+SELECT id_sessao,'FULL' FROM sessao
+WHERE id_sessao NOT IN (SELECT id_sessao FROM tmp_session_flags) ORDER BY random() LIMIT 10;
 
 -- ===========================
--- GERAÇÃO de INGRESSOS + COMPRAS (1:1) até TARGET = 2000
+-- GERAÇÃO de INGRESSOS + COMPRAS (1:1) até 2000
 -- regras:
 --  - para SESSÕES FULL: preencher todos os assentos (respeitando limite global)
---  - para SESSÕES NORMAL: inserir número aleatório de ingressos por sessão (1..cap*0.6 typical)
+--  - para SESSÕES NORMAL: inserir número aleatório de ingressos por sessão (1..cap*0.6 distribuicao mais provavel)
 --  - para SESSÕES EMPTY: deixar sem ingressos
 --  - filmes 11 e 18 -> ~50% MEIA
 -- ===========================
@@ -549,7 +526,7 @@ DO $$
         sold_for_session INT;
     BEGIN
         FOR rec IN
-            SELECT s.id_sessao, s.id_filme, s.id_sala, (SELECT capacidade FROM sala WHERE id_sala = s.id_sala) AS cap
+            SELECT s.id_sessao, s.id_filme, s.id_sala, s.data, (SELECT capacidade FROM sala WHERE id_sala = s.id_sala) AS cap
             FROM sessao s JOIN tmp_session_flags f ON f.id_sessao = s.id_sessao
             WHERE f.flag = 'FULL'
             ORDER BY random()
@@ -566,7 +543,7 @@ DO $$
 
                         -- compra
                         cliente_id := ((random()*299)::int) + 1;
-                        INSERT INTO compra (id_cliente, data_compra) VALUES (cliente_id, now()) RETURNING id_compra INTO purchase_id;
+                        INSERT INTO compra (id_cliente, data_compra) VALUES (cliente_id, CAST(rec.data AS timestamp)) RETURNING id_compra INTO purchase_id;
 
                         -- ingresso (PK (id_sessao,id_assento) garante unicidade)
                         INSERT INTO ingresso (id_produto, id_sessao, id_assento, tipo)
@@ -585,7 +562,7 @@ DO $$
             END LOOP;
 
         FOR rec IN
-            SELECT s.id_sessao, s.id_filme, s.id_sala, (SELECT capacidade FROM sala WHERE id_sala = s.id_sala) AS cap
+            SELECT s.id_sessao, s.id_filme, s.id_sala, s.data, (SELECT capacidade FROM sala WHERE id_sala = s.id_sala) AS cap
             FROM sessao s
             WHERE s.id_sessao NOT IN (SELECT id_sessao FROM tmp_session_flags WHERE flag IN ('EMPTY','FULL'))
             ORDER BY random()
@@ -610,7 +587,7 @@ DO $$
                         END IF;
 
                         cliente_id := ((random()*299)::int) + 1;
-                        INSERT INTO compra (id_cliente, data_compra) VALUES (cliente_id, now()) RETURNING id_compra INTO purchase_id;
+                        INSERT INTO compra (id_cliente, data_compra) VALUES (cliente_id, CAST(rec.data AS timestamp)) RETURNING id_compra INTO purchase_id;
 
                         INSERT INTO ingresso (id_produto, id_sessao, id_assento, tipo)
                         VALUES (CASE WHEN tipo_ticket='MEIA' THEN prod_half ELSE prod_reg END, rec.id_sessao, a.id_assento, tipo_ticket);
@@ -653,48 +630,44 @@ WHERE id_compra NOT IN
 -- adicionar snacks a compras existentes
 
 INSERT INTO compra_produto (id_compra, id_produto, quantidade, forma_pagamento, pontos_utilizados, pontos_ganhos)
-SELECT c.id_compra,
-       (SELECT id_produto
-        FROM produto
-        WHERE sku LIKE 'SNK_%'
-        ORDER BY random()
-        LIMIT 1), 1 + (random()*2)::int, (ARRAY['CRÉDITO',
-    'DÉBITO',
-    'PIX'])[(ceil(random()*3))], 0,
-       0
-FROM compra c
-ORDER BY random()
-LIMIT 600;
+SELECT
+    g AS id_compra,                        -- INCREMENTAL (1..600)
+
+    3 + ((g - 1) % 4) AS id_produto,       -- ciclo: 3,4,5,6
+
+    1 + ((g - 1) % 3) AS quantidade,       -- ciclo: 1,2,3
+
+    (ARRAY['CRÉDITO','DÉBITO','PIX'])[((g - 1) % 3) + 1] AS forma_pagamento,
+
+    0 AS pontos_utilizados,
+    0 AS pontos_ganhos
+FROM generate_series(1, 600) g
+ON CONFLICT DO NOTHING;
 
 -- vendas de colecionáveis (algumas por pontos / fidelidade)
 
 INSERT INTO compra_produto (id_compra, id_produto, quantidade, forma_pagamento, pontos_utilizados, pontos_ganhos)
-SELECT c.id_compra,
-       (SELECT id_produto
-        FROM produto
-        WHERE sku LIKE 'COL_%'
-        ORDER BY random()
-        LIMIT 1), 1,
-       CASE
-           WHEN random() < 0.18 THEN 'FIDELIDADE'
-           ELSE (ARRAY['CRÉDITO',
-               'PIX'])[(ceil(random()*2))]
-           END,
-       CASE
-           WHEN random() < 0.18 THEN (100 + (random()*600)::int)
-           ELSE 0
-           END,
-       (SELECT pontos_ganhos
-        FROM produto
-        WHERE id_produto =
-              (SELECT id_produto
-               FROM produto
-               WHERE sku LIKE 'COL_%'
-               ORDER BY random()
-               LIMIT 1))
-FROM compra c
+SELECT
+    g AS id_compra,                         -- INCREMENTAL: 1,2,3,...200
+
+    7 + ((g - 1) % 10) AS id_produto,       -- ciclo 7–16
+
+    1 AS quantidade,
+
+    CASE
+        WHEN (g % 5) = 0 THEN 'FIDELIDADE'
+        ELSE (ARRAY['CRÉDITO','PIX'])[((g - 1) % 2) + 1]
+        END,
+
+    CASE
+        WHEN (g % 5) = 0 THEN 100 + ((g - 1) % 600)
+        ELSE 0
+        END,
+
+    (SELECT pontos_ganhos FROM produto WHERE id_produto = 7 + ((g - 1) % 10))
+FROM generate_series(1, 200) g
 ORDER BY random()
-LIMIT 200;
+ON CONFLICT DO NOTHING;
 
 -- ===========================
 -- PONTUAÇÃO (eventos)

@@ -1,6 +1,11 @@
 import { DatePicker } from "@/components/DatePicker";
 import { Button } from "@/components/ui/button";
-import { useQueryFilmesGenero } from "@/features/filme/api/useFilmeQueries";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQueryDuracaoGenero } from "@/features/estatisticaRanking/api/useEstatisticaRankingQueries";
+import {
+  useQueryAtorFilme,
+  useQueryFilmesGenero,
+} from "@/features/filme/api/useFilmeQueries";
 import type { FilmeCartazGenero } from "@/types/filmeTypes";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -17,15 +22,47 @@ function groupByGenero(filmes: FilmeCartazGenero[]) {
   }, {});
 }
 
+function formatDuration(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = Math.round(minutes % 60);
+  return `${h}h ${m}m`;
+}
+
+function AtoresList({ filme }: { filme: string }) {
+  const { data, isLoading } = useQueryAtorFilme({ filme });
+
+  return (
+    <div className="flex gap-4">
+      {isLoading &&
+        Array.from({ length: Math.floor(Math.random() * 3) + 1 }).map(
+          (_, i) => <Skeleton key={i} className="w-10 h-2 rounded-md" />
+        )}
+      {!isLoading &&
+        data?.map?.((ator) => <span className="text-sm">{ator.ator}</span>)}
+    </div>
+  );
+}
+
 function RouteComponent() {
   const [date, setDate] = useState<Date | undefined>(new Date(Date.now()));
   const [genero] = useState<string | undefined>();
+
+  const ISODateString = date?.toISOString().split("T")[0];
+
   const { data, isLoading } = useQueryFilmesGenero(
     {
-      dt_hoje: date?.toISOString().split("T")[0],
+      dt_hoje: ISODateString,
       genero_filme: genero,
     },
     { enabled: !!date }
+  );
+
+  const { data: duracoesGenero } = useQueryDuracaoGenero({
+    dt_hoje: ISODateString,
+  });
+
+  const duracaoGeneroMap = new Map(
+    duracoesGenero?.map?.((item) => [item.genero, item.duracao_media])
   );
 
   const clear = () => {
@@ -80,7 +117,12 @@ function RouteComponent() {
         <div className="flex flex-col gap-6">
           {Object.entries(groupByGenero(data || [])).map(([genero, filmes]) => (
             <div key={genero} className="flex flex-col gap-4 w-full">
-              <h2 className="text-2xl font-bold text-white">{genero}</h2>
+              <div className="flex gap-4 items-baseline">
+                <h2 className="text-2xl font-bold text-white">{genero}</h2>
+                <span className="text-md text-white">
+                  ~{formatDuration(duracaoGeneroMap.get(genero)!)}
+                </span>
+              </div>
 
               <div className="flex gap-4 overflow-x-auto pb-2 w-full">
                 {filmes.map((cartaz) => (
@@ -96,9 +138,14 @@ function RouteComponent() {
                     <div className="p-3 space-y-2">
                       <h3 className="text-lg font-semibold">{cartaz.titulo}</h3>
                       <p className="text-sm text-zinc-300">{cartaz.sinopse}</p>
-                      <span className="bg-zinc-800 border border-zinc-700 text-zinc-200 px-2 py-1 rounded-full text-xs">
-                        {cartaz.classificacao_etaria}
-                      </span>
+
+                      <div className="flex gap-4 items-baseline">
+                        <span className="bg-zinc-800 border border-zinc-700 text-zinc-200 px-2 py-1 rounded-full text-xs">
+                          {cartaz.classificacao_etaria}
+                        </span>
+
+                        <AtoresList filme={cartaz.titulo} />
+                      </div>
                     </div>
                   </div>
                 ))}

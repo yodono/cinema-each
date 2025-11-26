@@ -1,10 +1,6 @@
 package com.each.eirv.cinema_each.service;
 
-import com.each.eirv.cinema_each.dto.AtorPorFilmeDTO;
-import com.each.eirv.cinema_each.dto.AtoresPopularesDTO;
-import com.each.eirv.cinema_each.dto.FilmePorDiretorDTO;
-import com.each.eirv.cinema_each.dto.FilmesEmCartazDTO;
-import com.each.eirv.cinema_each.dto.GeneroDiretorDTO;
+import com.each.eirv.cinema_each.dto.*;
 
 
 import com.each.eirv.cinema_each.repository.FilmeRepository;
@@ -55,5 +51,8 @@ public class FilmeService {
     public List<AtoresPopularesDTO> consultarAtoresPopulares() {
 		return filmeRepository.consultarAtoresPopulares();
 	}
-    
+
+	public List<DiretorDTO> getDiretores() {
+		return filmeRepository.getDiretores();
+	}
 }

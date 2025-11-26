@@ -135,11 +135,6 @@ export const routeMeta: Record<
     icon: BarChart3,
     group: "Estatísticas e Rankings",
   },
-  "/app/estatisticas/duracao": {
-    title: "Duração Média por Gênero",
-    icon: BarChart3,
-    group: "Estatísticas e Rankings",
-  },
 
   // ---------------------------
   // Programa de Pontos

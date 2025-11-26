@@ -8,23 +8,23 @@ import {
 // RF08 - FORMAS DE PAGAMENTO
 export function useQueryFormaPagamento() {
   return useQuery({
-    queryKey: ["venda-produto", "pagamento"],
+    queryKey: ["venda", "pagamento"],
     queryFn: getFormaPagamento,
   });
 }
 
 // RF26 - Vendas de Snacks
-export function useQueryVendaSnacks(params?: { data?: string; dat2?: string }) {
+export function useQueryVendaSnacks() {
   return useQuery({
-    queryKey: ["venda-produto", "vendas-snacks", params],
-    queryFn: () => getVendasSnacks(params),
+    queryKey: ["venda", "snacks"],
+    queryFn: () => getVendasSnacks(),
   });
 }
 
 // RF27 - Receita de Colecionáveis
-export function useQueryRceitaColecionaveis() {
+export function useQueryReceitaColecionaveis() {
   return useQuery({
-    queryKey: ["venda-produto", "receita-colecionaveis"],
+    queryKey: ["venda", "colecionaveis"],
     queryFn: getReceitaColecionaveis,
   });
 }

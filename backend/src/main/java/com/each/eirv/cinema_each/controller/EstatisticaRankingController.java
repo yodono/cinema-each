@@ -42,10 +42,8 @@ public class EstatisticaRankingController {
 	}
 
     @GetMapping("/bilheteria-diretor")
-	public ResponseEntity<List<BilheteriaPorDiretorDTO>> getBilheteriaDiretor(
-		@RequestParam("diretor") String diretor
-	) {
-		List<BilheteriaPorDiretorDTO> bilheteriaDiretor = estatisticaRankingService.consultarBilheteriaDiretor(diretor);
+	public ResponseEntity<List<BilheteriaPorDiretorDTO>> getBilheteriaDiretor() {
+		List<BilheteriaPorDiretorDTO> bilheteriaDiretor = estatisticaRankingService.consultarBilheteriaDiretor();
 		return ResponseEntity.ok(bilheteriaDiretor);
 	}
 }
