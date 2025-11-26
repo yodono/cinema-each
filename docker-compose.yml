@@ -51,12 +51,8 @@ services:
     container_name: frontend
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     environment:
       VITE_BACKEND_URL: http://localhost:8080
-      CHOKIDAR_USEPOLLING: true
 
 networks:
   pgnetwork:
