@@ -30,8 +30,7 @@ public class FilmeController {
 
     @GetMapping("/filmes-cartaz")
 	public ResponseEntity<List<FilmesEmCartazDTO>> getFilmesEmCartaz(
-		@RequestParam("genero_filme") String genero_filme,
-
+		@RequestParam(value="genero_filme", required = false) String genero_filme,
 		@RequestParam("dt_hoje")
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt_hoje
 	) {

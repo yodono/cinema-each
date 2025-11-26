@@ -24,15 +24,17 @@ public class FilmeRepository {
     // RF09 - Filmes em Cartaz por Gênero
     public List<FilmesEmCartazDTO> consultarFilmesEmCartaz(String genero_filme, LocalDate dt_hoje) {
         String sql = """
-            SELECT f.titulo, f.sinopse, f.classificacao_etaria
-            FROM filme f 
+            SELECT f.titulo, f.sinopse, f.classificacao_etaria, g.nome as genero
+            FROM filme f
             JOIN filme_genero fg ON f.id_filme = fg.id_filme
             JOIN genero g ON fg.id_genero = g.id_genero
-            WHERE g.nome = ?
+            WHERE (? = TRUE OR g.nome = ?)
             AND ? BETWEEN f.data_estreia AND f.data_fim_cartaz;
         """;
 
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FilmesEmCartazDTO.class), genero_filme, dt_hoje);
+        boolean allGenres = genero_filme == null || genero_filme.isEmpty();
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FilmesEmCartazDTO.class), allGenres, genero_filme, dt_hoje);
     }
 
     // RF21 - Filmes por Diretor

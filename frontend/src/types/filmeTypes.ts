@@ -1,6 +1,7 @@
 // RF09 - Filmes em Cartaz por Gênero
 export interface FilmeCartazGenero {
   titulo: string;
+  genero: string;
   sinopse: string;
   classificacao_etaria: number;
 }

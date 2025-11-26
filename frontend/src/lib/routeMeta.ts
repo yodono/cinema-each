@@ -38,18 +38,13 @@ export const routeMeta: Record<
   // ---------------------------
   // Filmes
   // ---------------------------
-  "/app/filmes/em-cartaz": {
+  "/app/filmes/cartaz": {
     title: "Em Cartaz",
     icon: Film,
     group: "Filmes",
   },
-  "/app/filmes/por-diretor": {
-    title: "Por Diretor",
-    icon: Film,
-    group: "Filmes",
-  },
-  "/app/filmes/por-genero": {
-    title: "Por Gênero",
+  "/app/filmes/diretores": {
+    title: "Diretores",
     icon: Film,
     group: "Filmes",
   },

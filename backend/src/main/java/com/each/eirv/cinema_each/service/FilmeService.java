@@ -25,9 +25,7 @@ public class FilmeService {
     private final FilmeRepository filmeRepository;
 
     public List<FilmesEmCartazDTO> consultarFilmesEmCartaz(String genero_filme, LocalDate dt_hoje) {
-		if (genero_filme == null){
-			throw new IllegalArgumentException("Gênero inválido");
-		}else if (dt_hoje == null){
+		if (dt_hoje == null){
 			throw new IllegalArgumentException("Data de hoje inválida");
 		}
 		return filmeRepository.consultarFilmesEmCartaz(genero_filme, dt_hoje);

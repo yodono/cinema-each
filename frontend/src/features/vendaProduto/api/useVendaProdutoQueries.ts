@@ -5,20 +5,16 @@ import {
   getReceitaColecionaveis,
 } from "./vendaProdutoService";
 
-
 // RF08 - FORMAS DE PAGAMENTO
 export function useQueryFormaPagamento() {
   return useQuery({
-    queryKey: ["venda-produto", "forma-pagamento"],
+    queryKey: ["venda-produto", "pagamento"],
     queryFn: getFormaPagamento,
   });
 }
 
 // RF26 - Vendas de Snacks
-export function useQueryVendaSnacks(params?: {
-  data?: string;
-  dat2?: string;
-}) {
+export function useQueryVendaSnacks(params?: { data?: string; dat2?: string }) {
   return useQuery({
     queryKey: ["venda-produto", "vendas-snacks", params],
     queryFn: () => getVendasSnacks(params),

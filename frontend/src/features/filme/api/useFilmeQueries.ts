@@ -6,23 +6,26 @@ import {
   getAtorPorFilme,
   getAtoresPopulares,
 } from "./filmeService";
-
+import type { QueryOptionsWithoutKey } from "@/features/sessao/api/useSessaoQueries";
+import type { FilmeCartazGenero } from "@/types/filmeTypes";
 
 // RF09 - Filmes em Cartaz por Gênero
-export function useQueryFilmesGenero(params?: {
-  genero_filme?: string;
-  dt_hoje?: string;
-}) {
+export function useQueryFilmesGenero(
+  params?: {
+    genero_filme?: string;
+    dt_hoje?: string;
+  },
+  options?: QueryOptionsWithoutKey<FilmeCartazGenero[], Error>
+) {
   return useQuery({
-    queryKey: ["filmes", "/filmes-cartaz", params],
+    queryKey: ["filmes", "filmes-cartaz", params],
     queryFn: () => getFilmesEmCartaz(params),
+    ...options,
   });
 }
 
 // RF21 - Filmes por Diretor
-export function useQueryFilmesDiretor(params?: {
-  diretor?: string;
-}) {
+export function useQueryFilmesDiretor(params?: { diretor?: string }) {
   return useQuery({
     queryKey: ["filmes", "/filme-diretor", params],
     queryFn: () => getFilmePorDiretor(params),
@@ -30,9 +33,7 @@ export function useQueryFilmesDiretor(params?: {
 }
 
 // RF23 - Gênero Mais Comum por Diretor
-export function useQueryGeneroDiretor(params?: {
-  diretor?: string;
-}) {
+export function useQueryGeneroDiretor(params?: { diretor?: string }) {
   return useQuery({
     queryKey: ["filmes", "/diretor-genero", params],
     queryFn: () => getDiretorGenero(params),
@@ -40,9 +41,7 @@ export function useQueryGeneroDiretor(params?: {
 }
 
 // RF22 - Atores por Filme
-export function useQueryAtorFilme(params?: {
-  filme?: string;
-}) {
+export function useQueryAtorFilme(params?: { filme?: string }) {
   return useQuery({
     queryKey: ["filmes", "/ator-filme", params],
     queryFn: () => getAtorPorFilme(params),

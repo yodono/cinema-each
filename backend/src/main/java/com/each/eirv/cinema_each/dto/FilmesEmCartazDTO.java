@@ -12,5 +12,6 @@ import lombok.Setter;
 public class FilmesEmCartazDTO {
     private String titulo;
     private String sinopse;
+    private String genero;
     private String classificacao_etaria;
 }

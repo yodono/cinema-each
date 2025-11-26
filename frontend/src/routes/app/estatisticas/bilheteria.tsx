@@ -175,6 +175,8 @@ function RouteComponent() {
       <div className="w-2/5">
         <BilheteriaPorSala />
       </div>
+
+      {/* colocar bilheteria por diretor e por genero */}
     </div>
   );
 }

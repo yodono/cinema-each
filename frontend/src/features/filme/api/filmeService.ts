@@ -13,7 +13,15 @@ export async function getFilmesEmCartaz(params?: {
   dt_hoje?: string;
 }): Promise<FilmeCartazGenero[]> {
   const query = params
-    ? `?genero_filme=${params.genero_filme ?? ""}&dt_hoje=${params.dt_hoje ??""}`
+    ? "?" +
+      [
+        params.genero_filme !== undefined
+          ? `genero_filme=${params.genero_filme}`
+          : null,
+        params.dt_hoje ? `dt_hoje=${params.dt_hoje}` : null,
+      ]
+        .filter(Boolean)
+        .join("&")
     : "";
   return await get(`/filmes/filmes-cartaz${query}`);
 }
@@ -22,9 +30,7 @@ export async function getFilmesEmCartaz(params?: {
 export async function getFilmePorDiretor(params?: {
   diretor?: string;
 }): Promise<Filme_Diretor[]> {
-  const query = params
-    ? `?diretor=${params.diretor ?? ""}`
-    : "";
+  const query = params ? `?diretor=${params.diretor ?? ""}` : "";
   return await get(`/filmes/filme-diretor${query}`);
 }
 
@@ -32,9 +38,7 @@ export async function getFilmePorDiretor(params?: {
 export async function getDiretorGenero(params?: {
   diretor?: string;
 }): Promise<Genero_Diretor[]> {
-  const query = params
-    ? `?diretor=${params.diretor ?? ""}`
-    : "";
+  const query = params ? `?diretor=${params.diretor ?? ""}` : "";
   return await get(`/filmes/diretor-genero${query}`);
 }
 
@@ -42,9 +46,7 @@ export async function getDiretorGenero(params?: {
 export async function getAtorPorFilme(params?: {
   filme?: string;
 }): Promise<AtorFilme[]> {
-  const query = params
-    ? `?filme=${params.filme ?? ""}`
-    : "";
+  const query = params ? `?filme=${params.filme ?? ""}` : "";
   return await get(`/filmes/ator-filme${query}`);
 }
 
