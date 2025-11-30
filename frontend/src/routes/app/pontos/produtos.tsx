@@ -30,7 +30,7 @@ function RouteComponent() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Ranking</TableHead>
-              <TableHead>Filme</TableHead>
+              <TableHead>Produto</TableHead>
               <TableHead className="text-right">Total Resgatado</TableHead>
             </TableRow>
           </TableHeader>
