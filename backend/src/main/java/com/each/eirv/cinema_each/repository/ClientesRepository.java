@@ -80,7 +80,7 @@ public class ClientesRepository {
         String sql = """
             SELECT
                 g.nome AS nome,
-                ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))::NUMERIC, 2) AS idade_media
+                CAST(ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))) AS INTEGER) AS idade_media
             FROM ingresso i
             JOIN compra_produto cp ON cp.id_produto = i.id_produto
             JOIN compra co ON cp.id_compra = co.id_compra
