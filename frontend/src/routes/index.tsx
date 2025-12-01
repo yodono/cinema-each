@@ -69,7 +69,7 @@ function Index() {
           transition={{ duration: 0.9, delay: 0.35 }}
         >
           <Link
-            to="/app/sessoes/pre-estreias"
+            to="/app/filmes/cartaz"
             viewTransition={{ types: ["slide-in"] }}
             className="mt-8 px-8 py-3 text-lg font-semibold rounded-2xl
                        bg-purple-600/20 backdrop-blur-md border border-purple-500/30
