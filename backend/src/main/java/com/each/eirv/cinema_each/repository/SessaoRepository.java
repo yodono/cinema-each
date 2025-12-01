@@ -69,13 +69,14 @@ public class SessaoRepository {
                 COUNT(i.id_produto) AS ingressos_vendidos
             FROM filme f
             JOIN sessao s ON f.id_filme = s.id_filme
-            JOIN ingresso i ON s.id_sessao = i.id_sessao
-            JOIN produto p ON i.id_produto = p.id_produto
+            LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+            LEFT JOIN compra_produto cp ON i.id_compra = cp.id_compra
+		    LEFT JOIN produto p ON cp.id_produto = p.id_produto
             GROUP BY f.titulo
             ORDER BY arrecadacao_total DESC;
         """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaDTO.class));
-    }
+    }        
 
     // RF04 – Taxa de Ocupação por Sessão
     // RF05 – Sessões de Maior Ocupação por Sala
@@ -170,16 +171,16 @@ public class SessaoRepository {
         String sql = """
         SELECT
             sa.tipo AS tipo_sala,
-            SUM(p.preco_base * cp.quantidade) AS arrecadacao_total,
-            COUNT(i.id_produto * cp.quantidade)  AS ingressos_vendidos
+            SUM(p.preco_base) AS arrecadacao_total,
+            COUNT(i.id_produto) AS ingressos_vendidos
         FROM sala sa
         JOIN sessao s ON sa.id_sala = s.id_sala
         LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
-        LEFT JOIN produto p ON i.id_produto = p.id_produto
-        JOIN compra_produto cp ON p.id_produto = cp.id_produto
+        LEFT JOIN compra_produto cp ON i.id_compra = cp.id_compra
+		LEFT JOIN produto p ON cp.id_produto = p.id_produto
         GROUP BY sa.tipo
         ORDER BY arrecadacao_total DESC;
-    """;
+        """;
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorSalaDTO.class));
     }

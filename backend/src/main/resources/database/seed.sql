@@ -439,7 +439,7 @@ VALUES ((SELECT id_produto FROM produto WHERE sku='COL_01'),1,'Ainda Estou Aqui 
        ((SELECT id_produto FROM produto WHERE sku='COL_10'),10,'Taxi NY - Plaquinha Comemorativa');
 
 -- ===========================
--- CLIENTES (300) - variedade demográfica
+-- CLIENTES (2000) - variedade demográfica
 -- ===========================
 
 INSERT INTO cliente (cpf, nome, email, data_nascimento, pontos_acumulados)
@@ -447,9 +447,31 @@ SELECT
     lpad((10000000000 + g)::text, 11, '0') || '-00' AS cpf,
     'Cliente ' || g AS nome,
     'cliente' || g || '@exemplo.com' AS email,
-    (date '1974-01-01' + ((random() * (date '2009-12-31' - date '1974-01-01'))::int))::date AS data_nascimento,
+    -- O CASE usa limiares cumulativos: 0.10, 0.30, 0.70, 0.95, 1.00
+    -- 10% → crianças, 20% → teens, 40% → 18–30, 25% → 31–50, 5% → 50+
+    CASE
+        WHEN random() < 0.10 THEN
+            -- 0–12 anos
+            (date '2012-01-01' + (random() * 3650)::int)
+
+        WHEN random() < 0.30 THEN
+            -- 13–17 anos
+            (date '2007-01-01' + (random() * (date '2011-12-31' - date '2007-01-01'))::int)
+
+        WHEN random() < 0.70 THEN
+            -- 18–30 anos
+            (date '1994-01-01' + (random() * (date '2006-12-31' - date '1994-01-01'))::int)
+
+        WHEN random() < 0.95 THEN
+            -- 31–50 anos
+            (date '1974-01-01' + (random() * (date '1993-12-31' - date '1974-01-01'))::int)
+
+        ELSE
+            -- 50+ anos
+            (date '1930-01-01' + (random() * (date '1973-12-31' - date '1930-01-01'))::int)
+    END AS data_nascimento,
     (random()*2000)::int AS pontos_acumulados
-FROM generate_series(1, 300) g;
+FROM generate_series(1, 2000) g;
 
 -- ===========================
 -- SESSOES (50, media 2-3 sessoes por filme) geração procedural
@@ -522,6 +544,10 @@ DO $$
 
         seats_to_sell     INT;
 
+        categoria_filme   TEXT;
+        faixa_min         INT;
+        faixa_max         INT;
+
     BEGIN
         -- ITERAR SESSÕES EM ORDEM ALEATÓRIA
         FOR rec IN
@@ -566,8 +592,40 @@ DO $$
                             tipo_ticket := CASE WHEN random() < 0.4 THEN 'MEIA' ELSE 'INTEIRA' END;
                         END IF;
 
-                        -- CLIENTE ALEATÓRIO
-                        cliente_id := (random() * 299)::int + 1;
+                        -- CLIENTE ALEATÓRIO DE ACORDO COM FAIXA ETARIA
+                        -- descobrir categoria do filme
+                        SELECT 
+                            CASE
+                                WHEN f.titulo IN ('Toy Story 1','Shrek','Gato de Botas 2','Meu Amigo Totoro')
+                                    THEN 'infantil'
+                                WHEN f.titulo IN ('Click','Submarine')
+                                    THEN 'teen'
+                                WHEN f.titulo IN ('Taxi Driver','Laranja Mecânica','Kill Bill Vol 1')
+                                    THEN 'adulto_18'
+                                ELSE 'adulto'
+                            END AS categoria
+                        INTO categoria_filme
+                        FROM filme f
+                        WHERE f.id_filme = rec.id_filme;
+
+                        -- definir faixa etária conforme categoria
+                        IF categoria_filme = 'infantil' THEN
+                            faixa_min := 6; faixa_max := 12;
+                        ELSIF categoria_filme = 'teen' THEN
+                            faixa_min := 13; faixa_max := 17;
+                        ELSIF categoria_filme = 'adulto_18' THEN
+                            faixa_min := 25; faixa_max := 55;
+                        ELSE
+                            faixa_min := 18; faixa_max := 40;
+                        END IF;
+
+                        -- sortear cliente na faixa
+                        SELECT c.id_cliente
+                        INTO cliente_id
+                        FROM cliente c
+                        WHERE date_part('year', age(current_date, c.data_nascimento)) BETWEEN faixa_min AND faixa_max
+                        ORDER BY random()
+                        LIMIT 1;
 
                         -- CRIA COMPRA
                         INSERT INTO compra (id_cliente, data_compra)
@@ -664,7 +722,7 @@ ON CONFLICT DO NOTHING;
 -- ===========================
 
 INSERT INTO pontuacao (id_cliente, id_compra, tipo, valor, data_registro)
-SELECT ((random()*299)::int)+1,
+SELECT ((random()*1999)::int)+1,
        (SELECT id_compra
         FROM compra
         ORDER BY random()
@@ -681,7 +739,7 @@ FROM generate_series(1, 400) g;
 -- ===========================
 
 INSERT INTO resgate (id_cliente, id_produto, pontos_utilizados, data_resgate)
-SELECT ((random()*299)::int)+1,
+SELECT ((random()*1999)::int)+1,
        (SELECT id_produto
         FROM produto
         WHERE sku LIKE 'COL_%'

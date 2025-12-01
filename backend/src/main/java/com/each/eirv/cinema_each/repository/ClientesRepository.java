@@ -32,7 +32,7 @@ public class ClientesRepository {
             FROM cliente c
             JOIN compra co ON c.id_cliente = co.id_cliente
             JOIN compra_produto cp ON co.id_compra = cp.id_compra
-            JOIN ingresso i ON cp.id_produto = i.id_produto
+            JOIN ingresso i ON cp.id_compra = i.id_compra
             WHERE co.data_compra >= COALESCE(?, '1900-01-01'::timestamp) 
             AND co.data_compra <= COALESCE(?, '2999-12-31'::timestamp) 
             GROUP BY c.id_cliente, c.nome, c.cpf
@@ -58,22 +58,22 @@ public class ClientesRepository {
     }
 
     // RF17 - Idade Média por Filme
-        public List<IdadeMediaDTO> consultarIdadeMediaPorFilme() {
-            String sql = """
-                SELECT
-                    f.titulo AS nome,
-                    CAST(ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))) AS INTEGER) AS idade_media
-                FROM ingresso i
-                JOIN compra_produto cp ON cp.id_produto = i.id_produto
-                JOIN compra co ON cp.id_compra = co.id_compra
-                JOIN cliente c ON c.id_cliente = co.id_cliente
-                JOIN sessao s ON i.id_sessao = s.id_sessao
-                JOIN filme f ON s.id_filme = f.id_filme
-                GROUP BY f.titulo
-                ORDER BY idade_media DESC;
-            """;
-            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(IdadeMediaDTO.class));
-        }
+    public List<IdadeMediaDTO> consultarIdadeMediaPorFilme() {
+        String sql = """
+            SELECT
+                f.titulo AS nome,
+                CAST(ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))) AS INTEGER) AS idade_media
+            FROM cliente c
+            JOIN compra co ON c.id_cliente = co.id_cliente
+            JOIN compra_produto cp ON co.id_compra = cp.id_compra
+            JOIN ingresso i ON cp.id_compra = i.id_compra
+            JOIN sessao s ON i.id_sessao = s.id_sessao
+            JOIN filme f ON s.id_filme = f.id_filme
+            GROUP BY f.titulo
+            ORDER BY idade_media DESC;
+        """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(IdadeMediaDTO.class));
+    }
     
     // RF07 - Idade Média por Gênero de Filme
     public List<IdadeMediaDTO> consultarIdadeMediaPorGenero() {
@@ -81,10 +81,10 @@ public class ClientesRepository {
             SELECT
                 g.nome AS nome,
                 CAST(ROUND(AVG(EXTRACT(YEAR FROM AGE(c.data_nascimento)))) AS INTEGER) AS idade_media
-            FROM ingresso i
-            JOIN compra_produto cp ON cp.id_produto = i.id_produto
-            JOIN compra co ON cp.id_compra = co.id_compra
-            JOIN cliente c ON c.id_cliente = co.id_cliente
+            FROM cliente c
+            JOIN compra co ON c.id_cliente = co.id_cliente
+            JOIN compra_produto cp ON co.id_compra = cp.id_compra
+            JOIN ingresso i ON cp.id_compra = i.id_compra
             JOIN sessao s ON i.id_sessao = s.id_sessao
             JOIN filme f ON s.id_filme = f.id_filme
             JOIN filme_genero fg ON f.id_filme = fg.id_filme
@@ -128,7 +128,7 @@ public class ClientesRepository {
                 SELECT DISTINCT co.id_cliente
                 FROM compra co
                 JOIN compra_produto cp ON co.id_compra = cp.id_compra
-                JOIN ingresso i ON cp.id_produto = i.id_produto
+                JOIN ingresso i ON cp.id_compra = i.id_compra
                 WHERE i.tipo = 'MEIA'
             )
             ORDER BY c.nome;

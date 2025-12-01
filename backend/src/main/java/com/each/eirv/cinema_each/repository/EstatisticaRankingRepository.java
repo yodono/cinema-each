@@ -24,15 +24,15 @@ public class EstatisticaRankingRepository {
      // RF12 - Comparativo de Bilheteria por Gênero
     public List<BilheteriaPorGeneroDTO> consultarBilheteriaPorGenero(){
         String sql = """
-                SELECT g.nome as genero, SUM(p.preco_base * cp.quantidade) as valor_Total
+                SELECT g.nome as genero, SUM(p.preco_base) as valor_Total
                 FROM ingresso i 
-                JOIN produto p ON i.id_produto = p.id_produto
-                JOIN compra_produto cp ON cp.id_produto = p.id_produto
+                JOIN compra_produto cp ON cp.id_compra = i.id_compra
+                JOIN produto p ON cp.id_produto = p.id_produto
                 JOIN sessao s ON s.id_sessao = i.id_sessao
                 JOIN filme_genero fg ON s.id_filme = fg.id_filme
                 JOIN genero g ON g.id_genero = fg.id_genero
                 GROUP BY g.nome
-                ORDER BY SUM(p.preco_base * cp.quantidade) DESC;
+                ORDER BY valor_Total DESC;
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorGeneroDTO.class));
     }
@@ -54,15 +54,17 @@ public class EstatisticaRankingRepository {
     // RF24 - Bilheteria por Diretor
     public List<BilheteriaPorDiretorDTO> consultarBilheteriaDiretor(){
         String sql = """
-                SELECT d.nome as diretor, SUM(p.preco_base * cp.quantidade) as valor_de_bilheteria
+                SELECT d.nome as diretor, SUM(p.preco_base) as valor_de_bilheteria,
+                COUNT(i.id_produto) AS ingressos_vendidos
                 FROM diretor d
                 JOIN dirige_filme df ON d.id_diretor = df.id_diretor
                 JOIN filme f ON f.id_filme = df.id_filme
                 JOIN sessao s ON f.id_filme = s.id_filme
-                JOIN ingresso i ON i.id_sessao = s.id_sessao
-                JOIN produto p ON p.id_produto = i.id_produto
-                JOIN compra_produto cp ON p.id_produto = cp.id_produto
+                LEFT JOIN ingresso i ON s.id_sessao = i.id_sessao
+                LEFT JOIN compra_produto cp ON i.id_compra = cp.id_compra
+		        LEFT JOIN produto p ON cp.id_produto = p.id_produto
                 GROUP BY d.nome
+                ORDER BY valor_de_bilheteria DESC;
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BilheteriaPorDiretorDTO.class));
     }

@@ -64,7 +64,7 @@ public class FilmeRepository {
                 JOIN atua_em ae ON a.id_ator = ae.id_ator
                 JOIN sessao s ON s.id_filme = ae.id_filme
                 JOIN ingresso i ON i.id_sessao = s.id_sessao
-                JOIN compra_produto cp ON cp.id_produto = i.id_produto
+                JOIN compra_produto cp ON cp.id_compra = i.id_compra
                 GROUP BY a.id_ator
                 ORDER BY SUM(cp.quantidade) DESC LIMIT 10;
                 """;

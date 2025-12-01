@@ -24,7 +24,7 @@ public class VendaProdutoRepository {
         String sql = """
             SELECT cp.forma_pagamento, COUNT(DISTINCT cp.id_compra) AS ingressos_comprados
             FROM compra_produto cp
-            JOIN ingresso i ON cp.id_produto = i.id_produto
+            JOIN ingresso i ON cp.id_compra = i.id_compra
             GROUP BY cp.forma_pagamento
             ORDER BY ingressos_comprados DESC;
         """;
